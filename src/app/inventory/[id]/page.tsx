@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import {
     ChevronLeft, Share, Heart, CheckCircle2, Star,
     ArrowLeft, ArrowRight, Download,
-    ChevronDown, Repeat, Printer, Check
+    ChevronDown, Repeat, Printer, Check, Loader2
 } from 'lucide-react';
 import { Car as CarIcon } from 'lucide-react';
 import Link from 'next/link';
