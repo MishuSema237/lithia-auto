@@ -95,7 +95,7 @@ export function Testimonials({
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className={`text-4xl md:text-5xl font-black mb-4 ${bgVariant === 'navy' ? 'text-white' : 'text-navy-900'}`}>
-                        {title.split(' ').map((word, i) => (
+                        {title.split(' ').map((word: string, i: number) => (
                             word.toLowerCase() === 'clients' ? <span key={i} className="text-gold-500">{word}</span> : word + ' '
                         ))}
                     </h2>
@@ -113,7 +113,7 @@ export function Testimonials({
                         >
                             <div>
                                 <div className="flex text-gold-500 gap-1 mb-6">
-                                    {[...Array(t.rating)].map((_, i) => <Star key={i} className="w-5 h-5 fill-current" />)}
+                                    {[...Array(t.rating)].map((_: any, i: number) => <Star key={i} className="w-5 h-5 fill-current" />)}
                                 </div>
                                 <p className={`italic leading-relaxed mb-8 ${bgVariant === 'navy' ? 'text-navy-100' : 'text-navy-600'}`}>
                                     {t.text}

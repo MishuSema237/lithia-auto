@@ -143,8 +143,8 @@ export default function Home() {
   };
 
   // Dynamic Brands Logic
-  const brandsWithStock = Array.from(new Set(CARS_DATA.map(c => c.make))).map(make => {
-    const count = CARS_DATA.filter(c => c.make === make).length;
+  const brandsWithStock = Array.from(new Set(CARS_DATA.map((c: any) => c.make))).map((make: string) => {
+    const count = CARS_DATA.filter((c: any) => c.make === make).length;
     const brandLogos: Record<string, string> = {
       'BMW': 'https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg',
       'Audi': 'https://upload.wikimedia.org/wikipedia/commons/9/92/Audi_logo_detail.svg',
@@ -155,8 +155,8 @@ export default function Home() {
   });
 
   // Dynamic Body Types Logic
-  const bodyTypesWithStock = Array.from(new Set(CARS_DATA.map(c => c.type))).map(type => {
-    const count = CARS_DATA.filter(c => c.type === type).length;
+  const bodyTypesWithStock = Array.from(new Set(CARS_DATA.map((c: any) => c.type))).map((type: string) => {
+    const count = CARS_DATA.filter((c: any) => c.type === type).length;
     const icons: Record<string, string> = { 'SUV': '🚙', 'Sedan': '🚗', 'Hatchback': '🚗', 'Coupe': '🏎️' };
     return { name: type, count, icon: icons[type] || '🚗' };
   });
@@ -169,7 +169,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative w-full h-[750px] md:h-[800px] overflow-hidden">
         {/* Background Images */}
-        {activeFeatured.map((car, index) => (
+        {activeFeatured.map((car: any, index: number) => (
           <div
             key={car.id}
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
@@ -196,7 +196,7 @@ export default function Home() {
                 { icon: <svg className="w-8 h-8 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>, label: 'Engine', value: currentCar.specs.engine },
                 { icon: <svg className="w-8 h-8 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>, label: 'Max Power', value: currentCar.specs.power },
                 { icon: <svg className="w-8 h-8 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>, label: 'Max Torque', value: currentCar.specs.torque },
-              ].map((item, idx) => (
+              ].map((item: any, idx: number) => (
                 <div key={idx} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 transition-transform hover:-translate-y-1">
                   {item.icon}
                   <div className="text-white/60 text-[11px] font-bold uppercase tracking-wider mb-0.5">{item.label}</div>

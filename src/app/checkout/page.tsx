@@ -216,7 +216,7 @@ export default function CheckoutPage() {
                                         { id: 'bank_transfer', label: 'Bank Transfer', desc: 'Secure Wire Transfer' },
                                         { id: 'crypto', label: 'Cryptocurrency', desc: 'BTC, ETH, USDT' },
                                         { id: 'financing', label: 'Financing', desc: 'Request luxury car loan' }
-                                    ].map((method) => (
+                                    ].map((method: any) => (
                                         <label
                                             key={method.id}
                                             className={`relative flex items-center p-4 rounded-2xl border-2 cursor-pointer transition-all ${formData.paymentMethod === method.id
@@ -279,7 +279,7 @@ export default function CheckoutPage() {
                             <h2 className="text-xl font-bold text-navy-900 mb-6 tracking-tight">Order Summary</h2>
 
                             <div className="space-y-4 mb-6">
-                                {cart.map(item => (
+                                {cart.map((item: any) => (
                                     <div key={item.id} className="flex gap-4 items-center">
                                         <div className="w-16 h-12 rounded-lg overflow-hidden flex-shrink-0 bg-light-50">
                                             <img src={item.image} alt={item.title} className="w-full h-full object-cover" />

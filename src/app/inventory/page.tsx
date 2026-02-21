@@ -217,7 +217,7 @@ export default function InventoryPage() {
                                     'Phone connectivity', 'In-car Wi-Fi', 'Chrome-plated grill',
                                     'Smart headlight cluster', 'Premium wheels', 'Body character lines',
                                     'High-quality paint'
-                                ].map((feature, idx) => {
+                                ].map((feature: string, idx: number) => {
                                     const isSelected = filters.features.includes(feature);
                                     return (
                                         <label key={idx} className="flex items-center space-x-3 cursor-pointer group">
@@ -281,7 +281,7 @@ export default function InventoryPage() {
 
                     {/* Cars Content */}
                     <div className={viewType === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "flex flex-col gap-6"}>
-                        {filteredCars.map((car) => (
+                        {filteredCars.map((car: any) => (
                             <div key={car.id} className={`border border-light-300 rounded-2xl overflow-hidden hover:border-gold-500 transition-all duration-300 bg-white flex ${viewType === 'list' ? 'flex-row h-64' : 'flex-col'}`}>
                                 <div className={`relative overflow-hidden ${viewType === 'list' ? 'w-1/3' : 'h-56'}`}>
                                     <div className="absolute top-4 left-4 z-10 flex gap-2">

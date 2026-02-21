@@ -51,7 +51,7 @@ export default function AdminInventory() {
         }
     };
 
-    const filteredCars = cars.filter(car =>
+    const filteredCars = cars.filter((car: any) =>
         car.make.toLowerCase().includes(searchQuery.toLowerCase()) ||
         car.carModel.toLowerCase().includes(searchQuery.toLowerCase()) ||
         car.vin.toLowerCase().includes(searchQuery.toLowerCase())
@@ -122,7 +122,7 @@ export default function AdminInventory() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-light-200">
-                                    {filteredCars.map((car) => (
+                                    {filteredCars.map((car: any) => (
                                         <tr key={car._id} className="hover:bg-light-50 transition-colors group">
                                             <td className="p-4">
                                                 <div className="flex items-center gap-4">
@@ -175,7 +175,7 @@ export default function AdminInventory() {
 
                         {/* Mobile Tile View */}
                         <div className="md:hidden divide-y divide-light-200">
-                            {filteredCars.map((car) => (
+                            {filteredCars.map((car: any) => (
                                 <div key={car._id} className="p-4 space-y-4">
                                     <div className="flex gap-4">
                                         <div className="w-24 h-20 bg-light-200 shrink-0 border border-light-300 rounded-lg overflow-hidden">

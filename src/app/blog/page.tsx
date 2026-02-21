@@ -97,7 +97,7 @@ export default function BlogListingPage() {
                                     <div className="flex flex-wrap items-center justify-between gap-6 pt-10 border-t border-light-100">
                                         <div className="flex items-center gap-3">
                                             <span className="text-xs font-bold text-navy-900 uppercase tracking-widest">Tags:</span>
-                                            {post.tags.map(tag => (
+                                            {post.tags.map((tag: string) => (
                                                 <span key={tag} className="px-3 py-1 bg-light-50 border border-light-200 rounded-lg text-[10px] font-black text-navy-500 hover:border-gold-500 hover:text-gold-600 transition-all cursor-pointer">{tag}</span>
                                             ))}
                                         </div>
@@ -138,7 +138,7 @@ export default function BlogListingPage() {
                         <div className="bg-white rounded-3xl border border-light-200 p-8 shadow-sm">
                             <h3 className="text-xl font-black text-navy-900 mb-6">Categories</h3>
                             <ul className="space-y-4">
-                                {categories.map((cat) => (
+                                {categories.map((cat: any) => (
                                     <li key={cat.name} className="flex justify-between items-center group cursor-pointer">
                                         <span className="text-navy-700 font-bold group-hover:text-gold-600 transition-colors">{cat.name}</span>
                                         <span className="text-navy-400 font-bold">({cat.count})</span>
@@ -151,7 +151,7 @@ export default function BlogListingPage() {
                         <div className="bg-white rounded-3xl border border-light-200 p-8 shadow-sm">
                             <h3 className="text-xl font-black text-navy-900 mb-6">Featured listings</h3>
                             <div className="space-y-6">
-                                {featuredListings.map((post) => (
+                                {featuredListings.map((post: any) => (
                                     <Link key={post.id} href={`/blog/${post.id}`} className="flex gap-4 group">
                                         <div className="shrink-0 w-24 h-20 rounded-xl overflow-hidden shadow-md">
                                             <img src={post.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform" alt={post.title} />
@@ -187,7 +187,7 @@ export default function BlogListingPage() {
                         <div className="bg-white rounded-3xl border border-light-200 p-8 shadow-sm">
                             <h3 className="text-xl font-black text-navy-900 mb-6">Popular tags</h3>
                             <div className="flex flex-wrap gap-2">
-                                {tags.map(tag => (
+                                {tags.map((tag: string) => (
                                     <span key={tag} className="px-5 py-2.5 bg-white border border-light-200 rounded-xl text-xs font-bold text-navy-500 hover:border-gold-500 hover:text-gold-600 transition-all cursor-pointer">{tag}</span>
                                 ))}
                             </div>
