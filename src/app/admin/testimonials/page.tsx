@@ -140,7 +140,7 @@ export default function AdminTestimonials() {
                     <div className="py-20 flex justify-center"><Loader2 className="animate-spin h-8 w-8 text-navy-400" /></div>
                 ) : (
                     <div className="divide-y divide-light-200">
-                        {filtered.map((t) => (
+                        {filtered.map((t: any) => (
                             <div key={t._id} className="p-6 hover:bg-light-50 transition-colors flex flex-col md:flex-row gap-6">
                                 <div className="w-full md:w-3/4 space-y-3">
                                     <div className="flex items-center gap-3">
@@ -152,7 +152,7 @@ export default function AdminTestimonials() {
                                             <span className="text-[10px] text-navy-400 uppercase font-bold mt-1 inline-block">{t.location} • {new Date(t.createdAt).toLocaleDateString()}</span>
                                         </div>
                                         <div className="ml-4 flex items-center text-gold-500">
-                                            {Array.from({ length: t.rating }).map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
+                                            {Array.from({ length: t.rating }).map((_: any, i: number) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
                                         </div>
                                     </div>
                                     <div>

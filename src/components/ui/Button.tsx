@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'; // We'll create a simple tailwind merge utilit
 import { motion } from 'framer-motion';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+    variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger' | 'navy' | 'gold';
     size?: 'sm' | 'md' | 'lg';
     isLoading?: boolean;
 }
@@ -21,6 +21,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             outline: "bg-transparent text-navy-600 border border-navy-600 hover:bg-navy-50 focus:ring-navy-600",
             ghost: "bg-transparent text-navy-600 hover:bg-light-200 focus:ring-navy-600 border border-transparent",
             danger: "bg-darkred-600 text-light-50 hover:bg-darkred-700 focus:ring-darkred-600 border border-darkred-700",
+            navy: "bg-navy-900 text-gold-400 hover:bg-navy-800 focus:ring-navy-900 border border-navy-900",
+            gold: "bg-gold-500 text-navy-900 hover:bg-gold-600 focus:ring-gold-500 border border-gold-600",
         };
 
         const sizes = {

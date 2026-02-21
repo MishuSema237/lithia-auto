@@ -136,7 +136,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
         const files = e.target.files;
         if (!files) return;
 
-        const newImages = Array.from(files).map(file => ({
+        const newImages = Array.from(files).map((file: File) => ({
             url: URL.createObjectURL(file),
             file,
             status: 'new'
@@ -157,7 +157,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
         if (img.status === 'new' && img.file) {
             URL.revokeObjectURL(img.url);
         }
-        setImages(prev => prev.filter((_, i) => i !== index));
+        setImages(prev => prev.filter((_: any, i: number) => i !== index));
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -167,7 +167,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
         try {
             // 1. Upload new files if any
             const processedImages = [...images];
-            const newFiles = processedImages.filter(img => img.status === 'new' && img.file);
+            const newFiles = processedImages.filter((img: any) => img.status === 'new' && img.file);
 
             if (newFiles.length > 0) {
                 const signRes = await fetch('/api/admin/cloudinary-sign', { method: 'POST' });
@@ -199,7 +199,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                 price: parseFloat(formData.price),
                 mileage: parseInt(formData.mileage),
                 year: parseInt(formData.year),
-                images: processedImages.map(img => img.url),
+                images: processedImages.map((img: any) => img.url),
                 features,
                 sellerInfo: {
                     name: 'Lithia Auto Advantage',
@@ -330,7 +330,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                     </div>
 
                     <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
-                        {images.map((img, idx) => (
+                        {images.map((img: any, idx: number) => (
                             <div key={idx} className="relative aspect-square rounded-lg border border-light-200 overflow-hidden group">
                                 <img src={img.url} className="w-full h-full object-cover" alt="prev" />
                                 <button type="button" onClick={() => removeImage(idx)} className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
@@ -356,7 +356,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {(Object.keys(features) as Array<keyof typeof features>).map(cat => (
+                        {(Object.keys(features) as Array<keyof typeof features>).map((cat: string) => (
                             <div key={cat}>
                                 <h4 className="font-bold text-[10px] uppercase text-navy-400 mb-3 border-b border-light-200 pb-1">{cat}</h4>
                                 <div className="space-y-2">
@@ -364,13 +364,12 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                                         cat === 'entertainment' ? ['Premium Audio', 'Apple CarPlay', 'Android Auto', 'Bluetooth'] :
                                             cat === 'safety' ? ['Backup Camera', 'Blind Spot Monitor', 'Lane Assist', 'Emergency Braking'] :
                                                 cat === 'exterior' ? ['LED Lights', 'Panoramic Sunroof', 'Roof Rack', 'Tow Package'] :
-                                                    cat === 'seating' ? ['Leather Seats', 'Memory Seats', 'Ventilated Seats'] :
-                                                        ['Spare Tire', 'Cargo Mat', 'First Aid Kit']).map(f => (
-                                                            <label key={f} className="flex items-center gap-2 cursor-pointer group">
-                                                                <input type="checkbox" checked={features[cat].includes(f)} onChange={() => handleFeatureChange(cat, f)} className="rounded text-gold-500" />
-                                                                <span className="text-xs text-navy-700 group-hover:text-gold-600">{f}</span>
-                                                            </label>
-                                                        ))}
+                                                    ['Spare Tire', 'Cargo Mat', 'First Aid Kit']).map((f: string) => (
+                                                        <label key={f} className="flex items-center gap-2 cursor-pointer group">
+                                                            <input type="checkbox" checked={features[cat as keyof typeof features].includes(f)} onChange={() => handleFeatureChange(cat as keyof typeof features, f)} className="rounded text-gold-500" />
+                                                            <span className="text-xs text-navy-700 group-hover:text-gold-600">{f}</span>
+                                                        </label>
+                                                    ))}
                                 </div>
                             </div>
                         ))}

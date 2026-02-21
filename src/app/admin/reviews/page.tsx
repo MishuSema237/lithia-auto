@@ -107,7 +107,7 @@ export default function AdminReviewsPage() {
         }
     };
 
-    const filtered = reviews.filter(r =>
+    const filtered = reviews.filter((r: any) =>
         r.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
         r.carName.toLowerCase().includes(searchQuery.toLowerCase()) ||
         r.body.toLowerCase().includes(searchQuery.toLowerCase())
@@ -146,7 +146,7 @@ export default function AdminReviewsPage() {
                     <div className="divide-y divide-light-200">
                         {filtered.length === 0 ? (
                             <div className="py-20 text-center text-navy-400 italic">No reviews found.</div>
-                        ) : filtered.map((r) => (
+                        ) : filtered.map((r: any) => (
                             <div key={r._id} className="p-6 hover:bg-light-50 transition-colors flex flex-col md:flex-row gap-6">
                                 <div className="flex-1 space-y-3">
                                     <div className="flex justify-between items-start">
@@ -157,7 +157,7 @@ export default function AdminReviewsPage() {
                                             <h3 className="font-bold text-navy-900">{r.title || 'Review by ' + r.author}</h3>
                                             <div className="flex items-center gap-2 mt-1">
                                                 <div className="flex text-gold-500">
-                                                    {Array.from({ length: r.rating }).map((_, i) => <Star key={i} className="w-3 h-3 fill-current" />)}
+                                                    {Array.from({ length: r.rating }).map((_: any, i: number) => <Star key={i} className="w-3 h-3 fill-current" />)}
                                                 </div>
                                                 <span className="text-[10px] text-navy-400 font-bold uppercase">{r.author} • {new Date(r.date).toLocaleDateString()}</span>
                                             </div>
@@ -194,7 +194,7 @@ export default function AdminReviewsPage() {
                                     <label className="text-xs font-bold text-navy-600 uppercase">Select Vehicle *</label>
                                     <select className="w-full bg-light-50 border border-light-300 p-2 text-sm rounded outline-none" value={form.carId} onChange={e => setForm({ ...form, carId: e.target.value })} required>
                                         <option value="">-- Choose Car --</option>
-                                        {cars.map(c => (
+                                        {cars.map((c: any) => (
                                             <option key={c._id} value={c._id}>{c.year} {c.make} {c.carModel}</option>
                                         ))}
                                     </select>
@@ -208,7 +208,7 @@ export default function AdminReviewsPage() {
                                 <div className="space-y-1">
                                     <label className="text-xs font-bold text-navy-600 uppercase">Rating (1-5)</label>
                                     <select className="w-full bg-light-50 border border-light-300 p-2 text-sm rounded outline-none" value={form.rating} onChange={e => setForm({ ...form, rating: parseInt(e.target.value) })}>
-                                        {[5, 4, 3, 2, 1].map(n => <option key={n} value={n}>{n} Stars</option>)}
+                                        {[5, 4, 3, 2, 1].map((n: number) => <option key={n} value={n}>{n} Stars</option>)}
                                     </select>
                                 </div>
                             </div>

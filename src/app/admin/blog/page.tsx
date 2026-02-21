@@ -141,7 +141,7 @@ export default function AdminBlogPage() {
                     <div className="py-20 flex justify-center"><Loader2 className="animate-spin h-8 w-8 text-navy-400" /></div>
                 ) : (
                     <div className="divide-y divide-light-200">
-                        {filtered.map((post) => (
+                        {filtered.map((post: any) => (
                             <div key={post._id} className="p-6 hover:bg-light-50 transition-colors flex flex-col md:flex-row gap-6">
                                 <div className="h-24 w-40 rounded-xl overflow-hidden shrink-0 border border-light-200">
                                     <img src={post.image} className="w-full h-full object-cover" alt={post.title} />
