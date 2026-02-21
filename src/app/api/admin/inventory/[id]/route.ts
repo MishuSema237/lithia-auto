@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import connectToDatabase from '@/lib/db';
 import Car from '@/models/Car';
 import { cloudinary } from '@/lib/cloudinary';
@@ -14,13 +14,13 @@ function extractPublicId(url: string) {
 }
 
 export async function PUT(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         await connectToDatabase();
+        const { id } = await params;
         const data = await request.json();
-        const { id } = params;
 
         const oldCar = await Car.findById(id);
         if (!oldCar) return NextResponse.json({ error: 'Car not found' }, { status: 404 });
@@ -57,12 +57,12 @@ export async function PUT(
 }
 
 export async function DELETE(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
     try {
         await connectToDatabase();
-        const { id } = params;
+        const { id } = await params;
 
         const car = await Car.findById(id);
         if (!car) return NextResponse.json({ error: 'Car not found' }, { status: 404 });
