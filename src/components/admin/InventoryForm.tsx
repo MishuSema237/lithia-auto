@@ -30,6 +30,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
         stockNumber: '',
         make: '',
         carModel: '',
+        bodyType: 'Sedan',
         year: new Date().getFullYear().toString(),
         price: '',
         mileage: '',
@@ -58,7 +59,8 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                 stockNumber: initialData.stockNumber || '',
                 make: initialData.make || '',
                 carModel: initialData.carModel || '',
-                year: (initialData.year || '').toString(),
+                bodyType: initialData.bodyType || 'Sedan',
+                year: (initialData.year || new Date().getFullYear()).toString(),
                 price: (initialData.price || '').toString(),
                 mileage: (initialData.mileage || '').toString(),
                 dealRating: initialData.dealRating || 'None',
@@ -259,9 +261,9 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                 </div>
                 <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-navy-800">VIN *</label>
+                        <label className="text-sm font-semibold text-navy-800">VIN</label>
                         <div className="flex gap-2">
-                            <input type="text" name="vin" value={formData.vin} onChange={handleChange} className="flex-1 bg-light-50 border border-light-300 p-2 text-sm uppercase" required />
+                            <input type="text" name="vin" value={formData.vin} onChange={handleChange} className="flex-1 bg-light-50 border border-light-300 p-2 text-sm uppercase" />
                             <Button type="button" variant="outline" size="sm" onClick={handleVinDecode} disabled={isDecoding}>
                                 {isDecoding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4 mr-1" />}
                                 Decode
@@ -279,6 +281,19 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-navy-800">Model *</label>
                         <input type="text" name="carModel" value={formData.carModel} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" required />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Body Type *</label>
+                        <select name="bodyType" value={formData.bodyType} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" required>
+                            <option value="Sedan">Sedan</option>
+                            <option value="SUV">SUV</option>
+                            <option value="Hatchback">Hatchback</option>
+                            <option value="Pickup Truck">Pickup Truck</option>
+                            <option value="Minivan">Minivan</option>
+                            <option value="Crossover">Crossover</option>
+                            <option value="MVP">MVP</option>
+                            <option value="Coupe">Coupe</option>
+                        </select>
                     </div>
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-navy-800">Year *</label>

@@ -3,6 +3,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 export interface ICar extends Omit<Document, 'model'> {
     make: string;
     carModel: string;
+    bodyType: string;
     year: number;
     vin: string;
     stockNumber?: string;
@@ -43,8 +44,9 @@ export interface ICar extends Omit<Document, 'model'> {
 const CarSchema: Schema = new Schema({
     make: { type: String, required: true },
     carModel: { type: String, required: true },
+    bodyType: { type: String, required: true },
     year: { type: Number, required: true },
-    vin: { type: String, required: true, unique: true },
+    vin: { type: String },
     stockNumber: { type: String },
     price: { type: Number, required: true },
     mileage: { type: Number, required: true },

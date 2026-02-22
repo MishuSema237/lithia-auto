@@ -6,7 +6,6 @@ import { Search, ArrowRight, Cog, Banknote, ShieldCheck, User, ChevronLeft, Chev
 import { Car as CarIcon } from 'lucide-react';
 import { CARS_DATA } from '@/data/cars';
 import { BLOGS } from '@/data/blogs';
-import { getAllMakes } from '@/lib/vpic';
 import { Testimonials } from '@/components/ui/Testimonials';
 import { Partners } from '@/components/ui/Partners';
 import benz from '../../public/images/benz.png';
@@ -56,7 +55,23 @@ const FEATURED_CARS = [
 
 export default function Home() {
   const [dbFeatured, setDbFeatured] = useState<any[]>([]);
+  const [allCars, setAllCars] = useState<any[]>([]);
   const [isFeaturedLoading, setIsFeaturedLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchInventory = async () => {
+      try {
+        const res = await fetch('/api/inventory');
+        if (res.ok) {
+          const data = await res.json();
+          setAllCars(data);
+        }
+      } catch (e) {
+        console.error('Failed to fetch inventory');
+      }
+    };
+    fetchInventory();
+  }, []);
 
   useEffect(() => {
     const fetchFeatured = async () => {
@@ -122,34 +137,26 @@ export default function Home() {
   const [isLoadingMakes, setIsLoadingMakes] = useState(false);
 
   useEffect(() => {
-    const fetchMakes = async () => {
-      setIsLoadingMakes(true);
-      try {
-        const data = await getAllMakes();
-        const commonMakes = ['BMW', 'Audi', 'Mercedes-Benz', 'Toyota', 'Honda', 'Ford', 'Tesla', 'Nissan', 'Kia', 'Jeep'];
-        const sortedMakes = [...new Set([...commonMakes, ...data.map((m: any) => m.Make_Name)])].sort();
-        setMakes(sortedMakes);
-      } catch (error) {
-        console.error('Error fetching makes:', error);
-      } finally {
-        setIsLoadingMakes(false);
-      }
-    };
-    fetchMakes();
-  }, []);
+    // Derived from Stock (Database + Static fallback)
+    const combinedCars = allCars.length > 0 ? allCars : CARS_DATA;
+    const stockMakes = [...new Set(combinedCars.map((c: any) => c.make))].sort();
+    setMakes(stockMakes);
+  }, [allCars]);
 
   const prevLatestPick = () => {
     setCurrentLatestPick((prev: number) => (prev - 1 + latestCars.length) % latestCars.length);
   };
 
   // Dynamic Brands Logic
-  const brandsWithStock = Array.from(new Set(CARS_DATA.map((c: any) => c.make))).map((make: string) => {
-    const count = CARS_DATA.filter((c: any) => c.make === make).length;
+  const brandsWithStock = Array.from(new Set([...(allCars.length > 0 ? allCars : CARS_DATA)].map((c: any) => c.make))).map((make: string) => {
+    const sourceData = allCars.length > 0 ? allCars : CARS_DATA;
+    const count = sourceData.filter((c: any) => c.make === make).length;
     const brandLogos: Record<string, string> = {
       'BMW': 'https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg',
       'Audi': 'https://upload.wikimedia.org/wikipedia/commons/9/92/Audi_logo_detail.svg',
       'Mercedes Benz': 'https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Benz_Logo_2010.svg',
-      'Land Rover': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Land_Rover_logo_2023.svg/1200px-Land_Rover_logo_2023.svg.png'
+      'Land Rover': 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Land_Rover_logo_2023.svg/1200px-Land_Rover_logo_2023.svg.png',
+      'Mercedes-Benz': 'https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Benz_Logo_2010.svg'
     };
     return { name: make, count, img: brandLogos[make] || 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Ford_Motor_Company_Logo.svg' };
   });

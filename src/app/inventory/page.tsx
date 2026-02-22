@@ -6,12 +6,13 @@ import { Car as CarIcon } from 'lucide-react';
 import Link from 'next/link';
 
 import { CARS_DATA } from '@/data/cars';
-import { getAllMakes, getModelsForMake } from '@/lib/vpic';
 import { useToast } from '@/components/ui/Toast';
 import { Partners } from '@/components/ui/Partners';
 
 export default function InventoryPage() {
     const [viewType, setViewType] = useState<'grid' | 'list'>('grid');
+    const [allCars, setAllCars] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [filters, setFilters] = useState({
         make: '',
         model: '',
@@ -24,60 +25,74 @@ export default function InventoryPage() {
 
     const [makes, setMakes] = useState<string[]>([]);
     const [models, setModels] = useState<string[]>([]);
-    const [isLoadingMakes, setIsLoadingMakes] = useState(false);
-    const [isLoadingModels, setIsLoadingModels] = useState(false);
     const { showToast } = useToast();
 
+    // 1. Fetch all cars from DB
     React.useEffect(() => {
-        const fetchMakes = async () => {
-            setIsLoadingMakes(true);
+        const fetchInventory = async () => {
             try {
-                const data = await getAllMakes();
-                // Filter and sort for common brands or just take a top slice for demo purposes
-                // Realistically we want common ones first
-                const commonMakes = ['BMW', 'Audi', 'Mercedes-Benz', 'Toyota', 'Honda', 'Ford', 'Tesla', 'Nissan', 'Kia', 'Jeep'];
-                const sortedMakes = [...new Set([...commonMakes, ...data.map((m: any) => m.Make_Name)])].sort();
-                setMakes(sortedMakes);
-            } catch (error) {
-                console.error('Error fetching makes:', error);
-                showToast('Failed to fetch vehicle makes.', 'error');
+                const res = await fetch('/api/inventory');
+                if (res.ok) {
+                    const data = await res.json();
+                    setAllCars(data);
+                }
+            } catch (e) {
+                console.error('Failed to load DB inventory- falling back to static');
+                setAllCars(CARS_DATA as any); // Fallback
             } finally {
-                setIsLoadingMakes(false);
+                setIsLoading(false);
             }
         };
-        fetchMakes();
+        fetchInventory();
     }, []);
 
+    // 2. Derive Makes from Inventory
     React.useEffect(() => {
-        const fetchModels = async () => {
-            if (!filters.make) {
-                setModels([]);
-                return;
-            }
-            setIsLoadingModels(true);
-            try {
-                const data = await getModelsForMake(filters.make);
-                setModels(data.map((m: any) => m.Model_Name).sort());
-            } catch (error) {
-                console.error('Error fetching models:', error);
-                showToast('Failed to fetch models for this make.', 'error');
-            } finally {
-                setIsLoadingModels(false);
-            }
-        };
-        fetchModels();
-    }, [filters.make]);
+        const stockMakes = [...new Set(allCars.map((c: any) => c.make))].sort();
+        setMakes(stockMakes);
+    }, [allCars]);
+
+    // 3. Derive Models from Inventory (filtered by make)
+    React.useEffect(() => {
+        if (!filters.make) {
+            setModels([]);
+            return;
+        }
+        const stockModels = [...new Set(
+            allCars
+                .filter((c: any) => c.make === filters.make)
+                .map((c: any) => c.carModel)
+        )].sort();
+        setModels(stockModels);
+    }, [filters.make, allCars]);
 
     const filteredCars = useMemo(() => {
-        return CARS_DATA.filter(car => {
+        const sourceData = allCars.length > 0 ? allCars : CARS_DATA;
+        return sourceData.filter(car => {
             if (filters.make && car.make !== filters.make) return false;
-            if (filters.body && car.type !== filters.body) return false;
-            if (car.price < filters.priceRange[0] || car.price > filters.priceRange[1]) return false;
-            if (car.year < filters.yearRange[0] || car.year > filters.yearRange[1]) return false;
-            if (car.miles < filters.kmRange[0] || car.miles > filters.kmRange[1]) return false;
+            if (filters.model && (car.carModel || '').toLowerCase() !== filters.model.toLowerCase()) {
+                // Check if it's in the title as fallback for static
+                if (car.title && !car.title.toLowerCase().includes(filters.model.toLowerCase())) return false;
+                if (!car.title && car.carModel !== filters.model) return false;
+            }
+            if (filters.body && (car.type === filters.body || car.bodyType === filters.body)) {
+                // matches
+            } else if (filters.body) {
+                return false;
+            }
+
+            const carPrice = car.price || 0;
+            if (carPrice < filters.priceRange[0] || carPrice > filters.priceRange[1]) return false;
+
+            const carYear = car.year || 0;
+            if (carYear < filters.yearRange[0] || carYear > filters.yearRange[1]) return false;
+
+            const carMiles = car.mileage || car.miles || 0;
+            if (carMiles < filters.kmRange[0] || carMiles > filters.kmRange[1]) return false;
+
             return true;
         });
-    }, [filters]);
+    }, [filters, allCars]);
 
     const clearFilters = () => {
         setFilters({

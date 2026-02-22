@@ -12,8 +12,24 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Lithia Auto | Premium Car Sales",
-  description: "Find your dream luxury and professional vehicle at Lithia Auto.",
+  title: "Lithia Auto | Exotic & Performance Cars in [City, State]",
+  description:
+    "Discover high-performance and exotic vehicles at Lithia Auto. Shop sports cars, supercars, and premium performance models in [City, State].",
+  openGraph: {
+    title: "Exotic & Performance Cars | Lithia Auto",
+    description:
+      "Supercars. Sports cars. Pure performance. Find yours at Lithia Auto.",
+    url: "https://lithia-auto.vercel.app",
+    siteName: "Lithia Auto",
+    images: [
+      {
+        url: "/og-performance.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Exotic performance car at Lithia Auto",
+      },
+    ],
+  },
 };
 
 import { CartProvider } from "@/context/CartContext";
