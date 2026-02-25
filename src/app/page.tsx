@@ -473,11 +473,10 @@ export default function Home() {
                       <span className="flex items-center"><svg className="w-4 h-4 mr-1.5 text-navy-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18M5 21V7l8-4v18M13 3v18M19 21V11l-6-4M9 7v6M9 17v-2" /></svg> {car.fuelType || car.fuel}</span>
                       <span className="flex items-center"><Cog className="w-4 h-4 mr-1.5 text-navy-300" /> {car.transmission || car.trans}</span>
                     </div>
-                    <div className="text-[22px] font-extrabold text-navy-900 mb-5">${car.price.toLocaleString()}</div>
-
-                    <div className="flex items-center justify-end mt-auto">
-                      <Link href={`/inventory/${car._id || car.id}`} className="text-sm font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full px-5 py-2 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-colors shadow-none">
-                        View car
+                    <div className="flex items-center justify-between mt-auto pt-5 border-t border-light-200">
+                      <div className="text-[22px] font-extrabold text-navy-900">${car.price.toLocaleString()}</div>
+                      <Link href={`/inventory/${car._id || car.id}`} className="text-sm font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full px-5 py-2.5 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-none active:scale-95">
+                        View details
                       </Link>
                     </div>
                   </div>
@@ -593,11 +592,10 @@ export default function Home() {
                   <span className="flex items-center"><svg className="w-4 h-4 mr-1.5 text-navy-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18M5 21V7l8-4v18M13 3v18M19 21V11l-6-4M9 7v6M9 17v-2" /></svg> {car.fuelType || car.fuel || 'Petrol'}</span>
                   <span className="flex items-center"><Cog className="w-4 h-4 mr-1.5 text-navy-300" /> {car.transmission || car.trans || 'Automatic'}</span>
                 </div>
-                <div className="text-[22px] font-extrabold text-navy-900 mb-5">${(car.price || 0).toLocaleString()}</div>
-
-                <div className="flex items-center justify-end mt-auto">
-                  <Link href={`/inventory/${car._id || car.id}`} className="text-sm font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full px-5 py-2 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-colors shadow-none">
-                    View car
+                <div className="flex items-center justify-between mt-auto pt-5 border-t border-light-200">
+                  <div className="text-[22px] font-extrabold text-navy-900">${(car.price || 0).toLocaleString()}</div>
+                  <Link href={`/inventory/${car._id || car.id}`} className="text-sm font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full px-5 py-2.5 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-none active:scale-95">
+                    View details
                   </Link>
                 </div>
               </div>
