@@ -25,6 +25,7 @@ export function Footer() {
                         <ul className="space-y-4 text-[15px]">
                             {[
                                 { name: 'About us', href: '/about' },
+                                { name: 'Blog', href: '/blog' },
                                 { name: 'Terms & Conditions', href: '/terms' },
                                 { name: 'Privacy Policy', href: '/privacy' },
                                 { name: 'Corporate Policies', href: '/corporate-policies' },
@@ -88,7 +89,6 @@ export function Footer() {
                 {/* Bottom Row */}
                 <div className="pt-8 border-t border-navy-800 flex flex-col lg:flex-row justify-between items-center gap-6 relative">
                     <Link href="/" className="flex items-center gap-2">
-                        <div className="bg-gold-500 p-1.5 rounded-full"><Car className="h-6 w-6 text-navy-900" /></div>
                         <span className="font-extrabold text-2xl tracking-tight text-white">
                             LithiaAuto
                         </span>

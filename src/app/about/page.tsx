@@ -1,13 +1,33 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ChevronRight, Star, Phone, CheckCircle2, Award, Users, ShieldCheck, Zap } from 'lucide-react';
+import { ChevronRight, Star, Phone, CheckCircle2, Award, Users, ShieldCheck, Zap, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Testimonials } from '@/components/ui/Testimonials';
 import { Partners } from '@/components/ui/Partners';
 
 export default function AboutPage() {
+    const [recommendedCars, setRecommendedCars] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchCars = async () => {
+            try {
+                const res = await fetch('/api/inventory');
+                if (res.ok) {
+                    const data = await res.json();
+                    setRecommendedCars(data.slice(0, 4));
+                }
+            } catch (error) {
+                console.error("Error fetching cars:", error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        fetchCars();
+    }, []);
+
     const stats = [
         { label: 'Proven Expertise', value: '15+ Years' },
         { label: 'Visits Per Day', value: '1 Million+' },
@@ -158,36 +178,39 @@ export default function AboutPage() {
                         </Link>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {[
-                            { title: '2018 BMW X1 xDrive 20d xline', price: '$74,896', miles: '89,298 kms', fuel: 'Diesel', trans: 'Manual', image: 'https://images.unsplash.com/photo-1554744512-d6c5bb5d2b1f?auto=format&fit=crop&q=80&w=800' },
-                            { title: '2017 Audi Q3 Premium', price: '$59,443', miles: '78,262 kms', fuel: 'Petrol', trans: 'Automatic', image: 'https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&q=80&w=800' },
-                            { title: '2017 BMW X1 xDrive 20d xline', price: '$95,854', miles: '64,737 kms', fuel: 'Diesel', trans: 'Manual', image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800' },
-                            { title: '2019 BMW X1 xDrive 20d xline', price: '$69,533', miles: '98,830 kms', fuel: 'Diesel', trans: 'Automatic', image: 'https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&q=80&w=800' }
-                        ].map((car, i) => (
-                            <div key={i} className="bg-white rounded-3xl border border-light-200 overflow-hidden hover:shadow-xl transition-all group">
-                                <div className="relative h-56 overflow-hidden">
-                                    <img src={car.image} alt={car.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                                    <div className="absolute top-4 left-4 bg-gold-500 text-navy-900 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Featured</div>
-                                </div>
-                                <div className="p-6">
-                                    <p className="text-gold-600 text-[10px] font-black uppercase tracking-widest mb-2">Premium Series</p>
-                                    <h3 className="text-navy-900 font-bold text-lg mb-4 line-clamp-1">{car.title}</h3>
-                                    <div className="flex justify-between items-center text-navy-400 text-xs mb-6">
-                                        <span>{car.miles}</span>
-                                        <span>{car.fuel}</span>
-                                        <span>{car.trans}</span>
+                    {isLoading ? (
+                        <div className="py-20 flex justify-center"><Loader2 className="animate-spin h-12 w-12 text-gold-500" /></div>
+                    ) : recommendedCars.length > 0 ? (
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                            {recommendedCars.map((car: any, i: number) => (
+                                <div key={car._id || car.id || i} className="bg-white rounded-3xl border border-light-200 overflow-hidden hover:shadow-xl transition-all group">
+                                    <div className="relative h-56 overflow-hidden">
+                                        <img src={car.images?.[0] || 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=800'} alt={car.title || 'Car'} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                                        {(car.isFeatured || car.featured) && (
+                                            <div className="absolute top-4 left-4 bg-gold-500 text-navy-900 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-full shadow-lg">Featured</div>
+                                        )}
                                     </div>
-                                    <div className="flex justify-between items-center pt-6 border-t border-light-100">
-                                        <span className="text-2xl font-black text-navy-900">{car.price}</span>
-                                        <Link href="/inventory" className="bg-navy-900 text-white px-6 py-2.5 rounded-full text-xs font-bold hover:bg-gold-500 hover:text-navy-900 transition-colors">
-                                            View car
-                                        </Link>
+                                    <div className="p-6 flex flex-col h-[280px]">
+                                        <p className="text-gold-600 text-[10px] font-black uppercase tracking-widest mb-2">{car.type || car.bodyType || 'Premium Series'}</p>
+                                        <h3 className="text-navy-900 font-bold text-lg mb-4 line-clamp-2">{car.title || `${car.year} ${car.make} ${car.carModel}`}</h3>
+                                        <div className="flex justify-between items-center text-navy-400 text-xs mb-6 mt-auto">
+                                            <span>{(car.mileage || car.miles || 0).toLocaleString()} kms</span>
+                                            <span>{car.fuelType || car.fuel || 'Petrol'}</span>
+                                            <span>{car.transmission || car.trans || 'Auto'}</span>
+                                        </div>
+                                        <div className="flex justify-between items-center pt-6 border-t border-light-100">
+                                            <span className="text-2xl font-black text-navy-900">${(car.price || 0).toLocaleString()}</span>
+                                            <Link href={`/inventory/${car._id || car.id}`} className="bg-navy-900 text-white px-6 py-2.5 rounded-full text-xs font-bold hover:bg-gold-500 hover:text-navy-900 transition-colors shrink-0">
+                                                View car
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
+                            ))}
+                        </div>
+                    ) : (
+                        <div className="text-center py-20 text-navy-500 font-bold">No recommended vehicles available.</div>
+                    )}
                 </div>
             </section>
         </div>

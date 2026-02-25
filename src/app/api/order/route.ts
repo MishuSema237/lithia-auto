@@ -1,13 +1,29 @@
 import { NextResponse } from 'next/server';
 import { sendEmail } from '@/lib/mailer';
+import dbConnect from '@/lib/db';
+import Order from '@/models/Order';
 
 export async function POST(request: Request) {
     try {
-        const { firstName, lastName, email, phone, address, city, paymentMethod, cart, total, orderId } = await request.json();
+        await dbConnect();
+        const body = await request.json();
+        const { firstName, lastName, email, phone, address, city, state, zipCode, country, paymentMethod, cart, total, orderId } = body;
 
         if (!email || !cart || cart.length === 0) {
             return NextResponse.json({ error: 'Email and cart items are required' }, { status: 400 });
         }
+
+        // Save order to database
+        const now = new Date();
+        const expectedProcessingDate = new Date(now.getTime() + 1 * 24 * 60 * 60 * 1000);
+        const expectedShippedDate = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000);
+
+        const newOrder = await Order.create({
+            ...body,
+            trackingDetails: {
+                destination: `${city}, ${state}`
+            }
+        });
 
         const cartHtml = cart.map((item: any) => `
             <tr>
@@ -48,7 +64,8 @@ export async function POST(request: Request) {
 
                 <h3>Shipping Info</h3>
                 <p style="margin: 0;">${address}</p>
-                <p style="margin: 5px 0 0 0;">${city}</p>
+                <p style="margin: 5px 0 0 0;">${city}, ${state} ${zipCode}</p>
+                <p style="margin: 5px 0 0 0;">${country}</p>
                 <p style="margin: 5px 0 0 0;">Phone: ${phone}</p>
 
                 <h3>Payment Method</h3>
@@ -62,7 +79,7 @@ export async function POST(request: Request) {
                     </div>
                 ` : ''}
 
-                <p style="margin-top: 30px; font-size: 12px; color: #777; text-align: center;">&copy; 2024 Lithia Auto. All rights reserved.</p>
+                <p style="margin-top: 30px; font-size: 12px; color: #777; text-align: center;">&copy; ${new Date().getFullYear()} Lithia Auto. All rights reserved.</p>
             </div>
         `;
 
@@ -76,7 +93,7 @@ export async function POST(request: Request) {
             `<h2>New Order from ${firstName} ${lastName}</h2><p>Amount: $${total.toLocaleString()}</p><p>Check admin dashboard for details.</p>`
         );
 
-        return NextResponse.json({ message: 'Order processed and emails sent' });
+        return NextResponse.json({ message: 'Order processed and emails sent', order: newOrder });
     } catch (error) {
         console.error('Error in order API:', error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

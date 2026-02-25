@@ -13,7 +13,15 @@ export interface ICar extends Omit<Document, 'model'> {
     drivetrain: string;
     transmission: string;
     condition?: string;
+    cylinders?: string;
+    doors?: number;
+    color?: string;
+    seats?: number;
+    cityMPG?: number;
+    highwayMPG?: number;
+    engineSize?: string;
     description?: string;
+    comfortDescription?: string;
     dealRating?: string;
     sellerInfo: {
         name: string;
@@ -25,13 +33,18 @@ export interface ICar extends Omit<Document, 'model'> {
         entertainment: string[];
         exterior: string[];
         safety: string[];
+        interior: string[];
         seating: string[];
         other: string[];
     };
     images: string[];
     isFeatured: boolean;
+    homepageHero: boolean;
+    recommended: boolean;
+    latestPicks: boolean;
     reviews: {
         author: string;
+        avatar?: string;
         rating: number;
         title: string;
         body: string;
@@ -54,7 +67,15 @@ const CarSchema: Schema = new Schema({
     drivetrain: { type: String, required: true },
     transmission: { type: String, required: true },
     condition: { type: String, default: 'Clean title, No accidents reported' },
+    cylinders: { type: String },
+    doors: { type: Number },
+    color: { type: String },
+    seats: { type: Number },
+    cityMPG: { type: Number },
+    highwayMPG: { type: Number },
+    engineSize: { type: String },
     description: { type: String },
+    comfortDescription: { type: String },
     dealRating: { type: String, enum: ['Great Deal', 'Good Deal', 'Fair Deal', 'High Price', 'None'], default: 'None' },
     sellerInfo: {
         name: { type: String, required: true },
@@ -66,13 +87,18 @@ const CarSchema: Schema = new Schema({
         entertainment: [{ type: String }],
         exterior: [{ type: String }],
         safety: [{ type: String }],
+        interior: [{ type: String }],
         seating: [{ type: String }],
         other: [{ type: String }]
     },
     images: [{ type: String }],
     isFeatured: { type: Boolean, default: false },
+    homepageHero: { type: Boolean, default: false },
+    recommended: { type: Boolean, default: false },
+    latestPicks: { type: Boolean, default: false },
     reviews: [{
         author: { type: String },
+        avatar: { type: String },
         rating: { type: Number, min: 1, max: 5 },
         title: { type: String },
         body: { type: String },

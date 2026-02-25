@@ -9,6 +9,12 @@ export interface IBlogPost extends Document {
     image: string;
     date: string;
     commentsCount: number;
+    tags: string[];
+    quoteText?: string;
+    quoteAuthor?: string;
+    additionalImages?: string[];
+    additionalContent?: string;
+    isFeatured: boolean;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -20,12 +26,20 @@ const BlogPostSchema: Schema = new Schema({
     category: { type: String, required: true },
     author: { type: String, required: true, default: 'Lithia Auto' },
     image: { type: String, required: true },
-    date: { type: String, required: true }, // Store as string for display convenience in this specific project
-    commentsCount: { type: Number, default: 0 }
+    date: { type: String, required: true },
+    commentsCount: { type: Number, default: 0 },
+    tags: [{ type: String }],
+    quoteText: { type: String },
+    quoteAuthor: { type: String },
+    additionalImages: [{ type: String }],
+    additionalContent: { type: String },
+    isFeatured: { type: Boolean, default: false }
 }, {
     timestamps: true
 });
 
-const BlogPost: Model<IBlogPost> = mongoose.models.BlogPost || mongoose.model<IBlogPost>('BlogPost', BlogPostSchema);
+delete mongoose.models.BlogPost;
+const BlogPost: Model<IBlogPost> = mongoose.model<IBlogPost>('BlogPost', BlogPostSchema);
 
 export default BlogPost;
+

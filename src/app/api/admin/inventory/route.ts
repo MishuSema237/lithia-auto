@@ -21,8 +21,8 @@ export async function POST(request: Request) {
         // Map frontend fields specifically if they differ from model
         const carData = {
             ...data,
-            carModel: data.model, // Car model uses carModel instead of model
-            fuelType: data.fuel,
+            carModel: data.carModel || data.model, // Handle both for safety
+            fuelType: data.fuelType || data.fuel,
             sellerInfo: {
                 name: data.sellerName || 'Advantage Chevrolet of Bridgeview',
                 phone: data.sellerPhone || '(708) 419-2546',
@@ -33,6 +33,7 @@ export async function POST(request: Request) {
                 entertainment: [],
                 exterior: [],
                 safety: [],
+                interior: [],
                 seating: [],
                 other: []
             }

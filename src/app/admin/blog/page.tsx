@@ -23,7 +23,13 @@ export default function AdminBlogPage() {
         category: 'Industry News',
         author: 'Lithia Auto',
         image: '',
-        date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+        date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+        tags: '',
+        quoteText: '',
+        quoteAuthor: '',
+        additionalImages: '',
+        additionalContent: '',
+        isFeatured: false
     });
 
     useEffect(() => {
@@ -46,13 +52,19 @@ export default function AdminBlogPage() {
         if (p) {
             setEditingPost(p);
             setForm({
-                title: p.title,
-                excerpt: p.excerpt,
-                content: p.content,
-                category: p.category,
-                author: p.author,
-                image: p.image,
-                date: p.date
+                title: p.title || '',
+                excerpt: p.excerpt || '',
+                content: p.content || '',
+                category: p.category || 'Industry News',
+                author: p.author || 'Lithia Auto',
+                image: p.image || '',
+                date: p.date || new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                tags: Array.isArray(p.tags) ? p.tags.join(', ') : '',
+                quoteText: p.quoteText || '',
+                quoteAuthor: p.quoteAuthor || '',
+                additionalImages: Array.isArray(p.additionalImages) ? p.additionalImages.join(', ') : '',
+                additionalContent: p.additionalContent || '',
+                isFeatured: p.isFeatured || false
             });
         } else {
             setEditingPost(null);
@@ -63,7 +75,13 @@ export default function AdminBlogPage() {
                 category: 'Industry News',
                 author: 'Lithia Auto',
                 image: '',
-                date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+                date: new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
+                tags: '',
+                quoteText: '',
+                quoteAuthor: '',
+                additionalImages: '',
+                additionalContent: '',
+                isFeatured: false
             });
         }
         setShowModal(true);
@@ -86,12 +104,17 @@ export default function AdminBlogPage() {
         e.preventDefault();
         setIsSubmitting(true);
         try {
+            const payload = {
+                ...form,
+                tags: form.tags ? form.tags.split(',').map(t => t.trim()).filter(Boolean) : [],
+                additionalImages: form.additionalImages ? form.additionalImages.split(',').map(i => i.trim()).filter(Boolean) : []
+            };
             const url = editingPost ? `/api/admin/blog/${editingPost._id}` : '/api/admin/blog';
             const method = editingPost ? 'PUT' : 'POST';
             const res = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(form)
+                body: JSON.stringify(payload)
             });
             if (res.ok) {
                 showToast(editingPost ? 'Article updated' : 'Article published', 'success');
@@ -147,7 +170,10 @@ export default function AdminBlogPage() {
                                     <img src={post.image} className="w-full h-full object-cover" alt={post.title} />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <div className="text-gold-600 text-[10px] font-black uppercase tracking-widest mb-1">{post.category}</div>
+                                    <div className="flex items-center gap-2 mb-1">
+                                        <div className="text-gold-600 text-[10px] font-black uppercase tracking-widest">{post.category}</div>
+                                        {post.isFeatured && <span className="px-2 py-0.5 bg-navy-900 text-gold-500 text-[10px] font-bold rounded-full">Featured</span>}
+                                    </div>
                                     <h3 className="font-bold text-navy-900 text-lg mb-2 truncate">{post.title}</h3>
                                     <div className="flex items-center gap-4 text-navy-400 text-xs">
                                         <span className="flex items-center gap-1.5"><Calendar className="h-3.5 w-3.5" /> {post.date}</span>
@@ -171,12 +197,12 @@ export default function AdminBlogPage() {
             {/* Modal */}
             {showModal && (
                 <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-                    <Card className="w-full max-w-2xl shadow-2xl animate-in zoom-in-95">
-                        <div className="px-6 py-4 border-b border-light-200 flex justify-between items-center">
+                    <Card className="w-full max-w-2xl shadow-2xl animate-in zoom-in-95 max-h-[90vh] flex flex-col">
+                        <div className="px-6 py-4 border-b border-light-200 flex justify-between items-center shrink-0">
                             <h2 className="text-lg font-bold text-navy-900">{editingPost ? 'Edit' : 'Create'} Article</h2>
                             <button onClick={() => setShowModal(false)}><X className="h-5 w-5 text-navy-400" /></button>
                         </div>
-                        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                        <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto">
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-navy-600 uppercase">Title</label>
                                 <input type="text" className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg focus:border-gold-500 outline-none" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
@@ -196,13 +222,55 @@ export default function AdminBlogPage() {
                                     <input type="text" className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" value={form.image} onChange={e => setForm({ ...form, image: e.target.value })} placeholder="https://..." required />
                                 </div>
                             </div>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-navy-600 uppercase">Tags (comma separated)</label>
+                                    <input type="text" className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" value={form.tags} onChange={e => setForm({ ...form, tags: e.target.value })} placeholder="AutoDecar, BMW, Design" />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-navy-600 uppercase">Date Posted</label>
+                                    <input type="date" className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" value={form.date} onChange={e => setForm({ ...form, date: e.target.value })} required />
+                                </div>
+                            </div>
                             <div className="space-y-1">
                                 <label className="text-xs font-bold text-navy-600 uppercase">Excerpt</label>
                                 <textarea className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" rows={2} value={form.excerpt} onChange={e => setForm({ ...form, excerpt: e.target.value })} required />
                             </div>
                             <div className="space-y-1">
-                                <label className="text-xs font-bold text-navy-600 uppercase">Full Content (Markdown supported)</label>
+                                <label className="text-xs font-bold text-navy-600 uppercase">Section 1 Content (Markdown supported)</label>
                                 <textarea className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" rows={6} value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} required />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4 border-t border-light-200 pt-4 mt-4">
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-navy-600 uppercase text-gold-600">Highlight Quote Text</label>
+                                    <textarea className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" rows={3} value={form.quoteText} onChange={e => setForm({ ...form, quoteText: e.target.value })} placeholder="Lorem ipsum dolor..." />
+                                </div>
+                                <div className="space-y-1">
+                                    <label className="text-xs font-bold text-navy-600 uppercase text-gold-600">Highlight Quote Author</label>
+                                    <input type="text" className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" value={form.quoteAuthor} onChange={e => setForm({ ...form, quoteAuthor: e.target.value })} placeholder="said Mike Fratantoni..." />
+                                </div>
+                            </div>
+
+                            <div className="space-y-1 border-t border-light-200 pt-4 mt-4">
+                                <label className="text-xs font-bold text-navy-600 uppercase">Additional Content Gallery (comma separated URLs)</label>
+                                <input type="text" className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" value={form.additionalImages} onChange={e => setForm({ ...form, additionalImages: e.target.value })} placeholder="https://image1.jpg, https://image2.jpg" />
+                            </div>
+
+                            <div className="space-y-1">
+                                <label className="text-xs font-bold text-navy-600 uppercase">Section 2 Content (Below Gallery)</label>
+                                <textarea className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" rows={6} value={form.additionalContent} onChange={e => setForm({ ...form, additionalContent: e.target.value })} />
+                            </div>
+
+                            <div className="flex items-center gap-2 pt-2">
+                                <input
+                                    type="checkbox"
+                                    id="isFeatured"
+                                    checked={form.isFeatured}
+                                    onChange={e => setForm({ ...form, isFeatured: e.target.checked })}
+                                    className="w-4 h-4 accent-gold-500"
+                                />
+                                <label htmlFor="isFeatured" className="text-sm font-bold text-navy-900 cursor-pointer">Featured Article (Show in sidebar)</label>
                             </div>
                             <div className="pt-4 flex gap-3">
                                 <Button type="button" variant="outline" className="flex-1" onClick={() => setShowModal(false)}>Cancel</Button>

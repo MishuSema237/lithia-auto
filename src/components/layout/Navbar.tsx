@@ -22,9 +22,6 @@ export function Navbar() {
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center">
                         <Link href="/" className="flex items-center gap-2">
-                            <div className="bg-gold-500 p-1.5 rounded-full flex items-center justify-center">
-                                <Car className="h-6 w-6 text-navy-900" />
-                            </div>
                             <span className="font-extrabold text-[26px] tracking-tight text-navy-900">
                                 LithiaAuto
                             </span>
@@ -33,7 +30,7 @@ export function Navbar() {
 
                     {/* Desktop Navigation */}
                     <nav className="hidden md:flex space-x-8 lg:space-x-10">
-                        {['Home', 'Inventory', 'About', 'FAQ'].map((item) => (
+                        {['Home', 'Inventory', 'About', 'Blog'].map((item) => (
                             <Link href={item === 'Home' ? '/' : `/${item.toLowerCase()}`} key={item} className="flex items-center text-navy-700 font-bold text-[15px] cursor-pointer hover:text-gold-500 transition-colors">
                                 <span>{item}</span>
                             </Link>
@@ -89,8 +86,8 @@ export function Navbar() {
                     <Link href="/about" className="block px-3 py-2 text-base font-medium text-navy-600 hover:text-gold-500">
                         About
                     </Link>
-                    <Link href="/faq" className="block px-3 py-2 text-base font-medium text-navy-600 hover:text-gold-500">
-                        FAQ
+                    <Link href="/blog" className="block px-3 py-2 text-base font-medium text-navy-600 hover:text-gold-500">
+                        Blog
                     </Link>
                     <Link href="/contact" className="block px-3 py-2 text-base font-medium text-navy-600 hover:text-gold-500">
                         Contact

@@ -23,12 +23,27 @@ export default function CheckoutPage() {
         phone: '',
         address: '',
         city: '',
-        paymentMethod: 'bank_transfer'
+        state: '',
+        zipCode: '',
+        country: 'United States',
+        paymentMethod: ''
     });
+
+    const [paymentMethods, setPaymentMethods] = useState<any[]>([]);
 
     React.useEffect(() => {
         if (cart.length === 0) {
             router.push('/cart');
+        } else {
+            fetch('/api/payment-methods')
+                .then(res => res.json())
+                .then(data => {
+                    if (Array.isArray(data) && data.length > 0) {
+                        setPaymentMethods(data);
+                        setFormData(prev => ({ ...prev, paymentMethod: data[0]._id }));
+                    }
+                })
+                .catch(console.error);
         }
     }, [cart, router]);
 
@@ -63,7 +78,7 @@ export default function CheckoutPage() {
                 // In a real app, we'd save to DB here
                 clearCart();
                 setIsProcessing(false);
-                router.push(`/checkout/success?orderId=${orderId}`);
+                router.push(`/order-receipt/${orderId}`);
             } else {
                 console.error('Failed to process order email');
                 // We still proceed to success page in this demo if the API fails but simulate a DB success
@@ -194,13 +209,46 @@ export default function CheckoutPage() {
                                             />
                                         </div>
                                         <div className="space-y-2">
-                                            <label className="text-[13px] font-bold text-navy-700 ml-1">State / Zip</label>
+                                            <label className="text-[13px] font-bold text-navy-700 ml-1">State / Province</label>
                                             <input
                                                 required
                                                 type="text"
-                                                placeholder="CA 90210"
+                                                name="state"
+                                                value={formData.state}
+                                                onChange={handleInputChange}
+                                                placeholder="California"
                                                 className="w-full bg-light-50 border border-light-300 rounded-2xl py-3.5 px-4 text-navy-900 font-medium focus:outline-none focus:ring-1 focus:ring-gold-500"
                                             />
+                                        </div>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-6 mt-6">
+                                        <div className="space-y-2">
+                                            <label className="text-[13px] font-bold text-navy-700 ml-1">Zip / Postal Code</label>
+                                            <input
+                                                required
+                                                type="text"
+                                                name="zipCode"
+                                                value={formData.zipCode}
+                                                onChange={handleInputChange}
+                                                placeholder="90210"
+                                                className="w-full bg-light-50 border border-light-300 rounded-2xl py-3.5 px-4 text-navy-900 font-medium focus:outline-none focus:ring-1 focus:ring-gold-500"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[13px] font-bold text-navy-700 ml-1">Country</label>
+                                            <select
+                                                required
+                                                name="country"
+                                                value={formData.country}
+                                                onChange={handleInputChange}
+                                                className="w-full bg-light-50 border border-light-300 rounded-2xl py-3.5 px-4 text-navy-900 font-medium focus:outline-none focus:ring-1 focus:ring-gold-500"
+                                            >
+                                                <option value="United States">United States</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="United Kingdom">United Kingdom</option>
+                                                <option value="Australia">Australia</option>
+                                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -212,40 +260,40 @@ export default function CheckoutPage() {
                                     <CreditCard className="w-5 h-5 mr-3 text-gold-500" /> Payment Method
                                 </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {[
-                                        { id: 'bank_transfer', label: 'Bank Transfer', desc: 'Secure Wire Transfer' },
-                                        { id: 'crypto', label: 'Cryptocurrency', desc: 'BTC, ETH, USDT' },
-                                        { id: 'financing', label: 'Financing', desc: 'Request luxury car loan' }
-                                    ].map((method: any) => (
+                                    {paymentMethods.length > 0 ? paymentMethods.map((method: any) => (
                                         <label
-                                            key={method.id}
-                                            className={`relative flex items-center p-4 rounded-2xl border-2 cursor-pointer transition-all ${formData.paymentMethod === method.id
-                                                ? 'border-gold-500 bg-gold-50'
-                                                : 'border-light-200 bg-white hover:border-navy-100'
+                                            key={method._id}
+                                            className={`relative flex items-center p-4 rounded-2xl border-2 cursor-pointer transition-all ${formData.paymentMethod === method._id
+                                                ? 'border-gold-500 bg-gold-50/10'
+                                                : 'border-light-200 hover:border-gold-300 bg-white'
                                                 }`}
                                         >
                                             <input
                                                 type="radio"
                                                 name="paymentMethod"
-                                                value={method.id}
-                                                checked={formData.paymentMethod === method.id}
+                                                value={method.identifier}
+                                                checked={formData.paymentMethod === method.identifier}
                                                 onChange={handleInputChange}
                                                 className="hidden"
                                             />
                                             <div className="flex-1">
                                                 <div className="font-bold text-navy-900">{method.label}</div>
-                                                <div className="text-[12px] text-navy-500">{method.desc}</div>
+                                                <div className="text-[12px] text-navy-500">{method.description}</div>
                                             </div>
-                                            {formData.paymentMethod === method.id && (
+                                            {formData.paymentMethod === method._id && (
                                                 <CheckCircle2 className="w-5 h-5 text-gold-600" />
                                             )}
                                         </label>
-                                    ))}
+                                    )) : (
+                                        <div className="text-sm text-navy-500 py-4 col-span-2 text-center border overflow-hidden border-dashed border-light-300 rounded-lg">
+                                            Loading available payment options...
+                                        </div>
+                                    )}
                                 </div>
-                                <div className="mt-6 p-4 bg-navy-50 rounded-2xl border border-navy-100 italic text-[13px] text-navy-600">
-                                    {formData.paymentMethod === 'bank_transfer' && "Details for wire transfer will be provided in your confirmation email."}
-                                    {formData.paymentMethod === 'crypto' && "A QR code for payment will be shown after order placement."}
-                                    {formData.paymentMethod === 'financing' && "Our representative will contact you to finalize the loan application."}
+
+                                {/* Instructions Box for selected method */}
+                                <div className="mt-6 bg-light-50 border border-light-200 rounded-2xl p-6 text-[15px] text-navy-600 leading-relaxed font-medium">
+                                    {paymentMethods.find(m => m._id === formData.paymentMethod)?.instructions || "Select a payment method above to proceed."}
                                 </div>
                             </div>
 

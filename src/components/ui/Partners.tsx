@@ -25,7 +25,7 @@ export function Partners() {
                 </div>
             </div>
 
-            <div className="relative flex">
+            <div className="relative flex overflow-hidden group">
                 <div className="flex animate-marquee whitespace-nowrap gap-16 items-center py-4">
                     {[...PARTNERS, ...PARTNERS].map((partner, i) => (
                         <div key={i} className="flex items-center justify-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer px-8">
@@ -38,8 +38,7 @@ export function Partners() {
                     ))}
                 </div>
 
-                {/* Second set for seamless loop */}
-                <div className="absolute top-0 flex animate-marquee2 whitespace-nowrap gap-16 items-center py-4">
+                <div className="flex absolute top-0 animate-marquee2 whitespace-nowrap gap-16 items-center py-4">
                     {[...PARTNERS, ...PARTNERS].map((partner, i) => (
                         <div key={i} className="flex items-center justify-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer px-8">
                             <img
@@ -54,18 +53,21 @@ export function Partners() {
 
             <style jsx>{`
                 .animate-marquee {
-                    animation: marquee 40s linear infinite;
+                    animation: marquee 25s linear infinite;
                 }
                 .animate-marquee2 {
-                    animation: marquee2 40s linear infinite;
+                    animation: marquee2 25s linear infinite;
+                }
+                .group:hover .animate-marquee, .group:hover .animate-marquee2 {
+                    animation-play-state: paused;
                 }
                 @keyframes marquee {
-                    0% { transform: translateX(0); }
-                    100% { transform: translateX(-50%); }
+                    0% { transform: translateX(0%); }
+                    100% { transform: translateX(-100%); }
                 }
                 @keyframes marquee2 {
-                    0% { transform: translateX(50%); }
-                    100% { transform: translateX(0); }
+                    0% { transform: translateX(100%); }
+                    100% { transform: translateX(0%); }
                 }
             `}</style>
         </section>

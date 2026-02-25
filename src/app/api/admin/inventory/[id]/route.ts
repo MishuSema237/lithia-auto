@@ -4,13 +4,38 @@ import Car from '@/models/Car';
 import { cloudinary } from '@/lib/cloudinary';
 
 // Utility to extract public ID from Cloudinary URL
-function extractPublicId(url: string) {
-    if (!url.includes('cloudinary.com')) return null;
+function extractPublicId(url: any) {
+    if (!url || typeof url !== 'string' || !url.includes('cloudinary.com')) return null;
+
     const parts = url.split('/');
-    const lastPart = parts[parts.length - 1];
-    const publicId = lastPart.split('.')[0];
-    // If it's in a folder, we might need more parts, but for simple uploads it's the last part
-    return publicId;
+    const uploadIndex = parts.indexOf('upload');
+    if (uploadIndex === -1 || uploadIndex + 2 >= parts.length) return null;
+
+    // The public ID starts after the version segment (e.g., v123456)
+    // URL: .../upload/v123456/folder/name.jpg
+    const segments = parts.slice(uploadIndex + 2);
+    const lastSegment = segments[segments.length - 1];
+
+    // Remove extension
+    segments[segments.length - 1] = lastSegment.split('.')[0];
+
+    return segments.join('/');
+}
+
+export async function GET(
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
+) {
+    try {
+        await connectToDatabase();
+        const { id } = await params;
+        const car = await Car.findById(id);
+        if (!car) return NextResponse.json({ error: 'Car not found' }, { status: 404 });
+        return NextResponse.json(car);
+    } catch (error) {
+        console.error('Error fetching car:', error);
+        return NextResponse.json({ error: 'Failed to fetch inventory item' }, { status: 500 });
+    }
 }
 
 export async function PUT(
@@ -43,8 +68,8 @@ export async function PUT(
             id,
             {
                 ...data,
-                carModel: data.model || oldCar.carModel,
-                fuelType: data.fuel || oldCar.fuelType,
+                carModel: data.carModel || data.model || oldCar.carModel,
+                fuelType: data.fuelType || data.fuel || oldCar.fuelType,
             },
             { new: true }
         );

@@ -1,15 +1,16 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, Suspense } from 'react';
 import { ChevronDown, X, Grid, List as ListIcon, Check, Cog } from 'lucide-react';
 import { Car as CarIcon } from 'lucide-react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-import { CARS_DATA } from '@/data/cars';
 import { useToast } from '@/components/ui/Toast';
 import { Partners } from '@/components/ui/Partners';
+import { Loader2 } from 'lucide-react';
 
-export default function InventoryPage() {
+function InventoryContent() {
     const [viewType, setViewType] = useState<'grid' | 'list'>('grid');
     const [allCars, setAllCars] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -18,14 +19,24 @@ export default function InventoryPage() {
         model: '',
         body: '',
         priceRange: [0, 150000],
-        yearRange: [2010, 2025],
+        yearRange: [1990, new Date().getFullYear() + 1],
         kmRange: [0, 200000],
         features: [] as string[]
     });
+    const [sortBy, setSortBy] = useState('Default');
 
     const [makes, setMakes] = useState<string[]>([]);
     const [models, setModels] = useState<string[]>([]);
     const { showToast } = useToast();
+    const searchParams = useSearchParams();
+
+    // Handle initial make from URL
+    React.useEffect(() => {
+        const makeFromUrl = searchParams.get('make');
+        if (makeFromUrl) {
+            setFilters(prev => ({ ...prev, make: makeFromUrl }));
+        }
+    }, [searchParams]);
 
     // 1. Fetch all cars from DB
     React.useEffect(() => {
@@ -37,8 +48,7 @@ export default function InventoryPage() {
                     setAllCars(data);
                 }
             } catch (e) {
-                console.error('Failed to load DB inventory- falling back to static');
-                setAllCars(CARS_DATA as any); // Fallback
+                console.error('Failed to load DB inventory');
             } finally {
                 setIsLoading(false);
             }
@@ -48,9 +58,17 @@ export default function InventoryPage() {
 
     // 2. Derive Makes from Inventory
     React.useEffect(() => {
-        const stockMakes = [...new Set(allCars.map((c: any) => c.make))].sort();
+        const stockMakes = [...new Set(allCars.map((c: any) => c.make))].filter(Boolean).sort();
         setMakes(stockMakes);
-    }, [allCars]);
+
+        // Sync filters.make with canonical case from stockMakes
+        if (filters.make && stockMakes.length > 0) {
+            const canonical = stockMakes.find(m => m.toLowerCase() === filters.make.toLowerCase());
+            if (canonical && canonical !== filters.make) {
+                setFilters(prev => ({ ...prev, make: canonical }));
+            }
+        }
+    }, [allCars, filters.make]);
 
     // 3. Derive Models from Inventory (filtered by make)
     React.useEffect(() => {
@@ -67,11 +85,9 @@ export default function InventoryPage() {
     }, [filters.make, allCars]);
 
     const filteredCars = useMemo(() => {
-        const sourceData = allCars.length > 0 ? allCars : CARS_DATA;
-        return sourceData.filter(car => {
-            if (filters.make && car.make !== filters.make) return false;
+        let result = allCars.filter(car => {
+            if (filters.make && (car.make || '').toString().toLowerCase() !== filters.make.toLowerCase()) return false;
             if (filters.model && (car.carModel || '').toLowerCase() !== filters.model.toLowerCase()) {
-                // Check if it's in the title as fallback for static
                 if (car.title && !car.title.toLowerCase().includes(filters.model.toLowerCase())) return false;
                 if (!car.title && car.carModel !== filters.model) return false;
             }
@@ -90,9 +106,42 @@ export default function InventoryPage() {
             const carMiles = car.mileage || car.miles || 0;
             if (carMiles < filters.kmRange[0] || carMiles > filters.kmRange[1]) return false;
 
+            // Feature Filtering
+            if (filters.features.length > 0) {
+                // Special check for 'Featured'
+                if (filters.features.includes('Featured') && !car.isFeatured) return false;
+
+                const carFeatures = car.features ? [
+                    ...(car.features.convenience || []),
+                    ...(car.features.entertainment || []),
+                    ...(car.features.exterior || []),
+                    ...(car.features.safety || []),
+                    ...(car.features.interior || []),
+                    ...(car.features.seating || []),
+                    ...(car.features.other || [])
+                ] : [];
+
+                // Must have all other selected features
+                const otherRequestedFeatures = filters.features.filter((f: string) => f !== 'Featured');
+                const hasAllOtherFeatures = otherRequestedFeatures.every((f: string) => carFeatures.includes(f));
+                if (!hasAllOtherFeatures) return false;
+            }
+
             return true;
         });
-    }, [filters, allCars]);
+
+        // Sorting
+        if (sortBy === 'Lowest Price') {
+            result.sort((a, b) => (a.price || 0) - (b.price || 0));
+        } else if (sortBy === 'Highest Price') {
+            result.sort((a, b) => (b.price || 0) - (a.price || 0));
+        } else {
+            // Default: by date (id or createdAt)
+            result.sort((a, b) => new Date(b.createdAt || 0).getTime() - new Date(a.createdAt || 0).getTime());
+        }
+
+        return result;
+    }, [filters, allCars, sortBy]);
 
     const clearFilters = () => {
         setFilters({
@@ -100,11 +149,20 @@ export default function InventoryPage() {
             model: '',
             body: '',
             priceRange: [0, 150000],
-            yearRange: [2010, 2025],
+            yearRange: [1990, new Date().getFullYear() + 1],
             kmRange: [0, 200000],
             features: []
         });
+        setSortBy('Default');
     };
+
+    if (isLoading) {
+        return (
+            <div className="bg-light-100 min-h-screen py-20 flex items-center justify-center">
+                <Loader2 className="w-12 h-12 animate-spin text-gold-500" />
+            </div>
+        );
+    }
 
     return (
         <div className="bg-light-100 min-h-screen py-10 font-sans">
@@ -129,9 +187,9 @@ export default function InventoryPage() {
                                 value={filters.make}
                                 onChange={(e) => setFilters(prev => ({ ...prev, make: e.target.value, model: '' }))}
                                 className="w-full appearance-none bg-white border border-light-300 text-navy-900 font-medium py-3.5 px-4 pr-10 rounded-xl focus:outline-none focus:ring-1 focus:ring-gold-500 cursor-pointer disabled:opacity-50"
-                                disabled={isLoadingMakes}
+                                disabled={isLoading}
                             >
-                                <option value="">{isLoadingMakes ? 'Loading Makes...' : 'Any Make'}</option>
+                                <option value="">{isLoading ? 'Loading Makes...' : 'Any Make'}</option>
                                 {makes.map(make => (
                                     <option key={make} value={make}>{make}</option>
                                 ))}
@@ -145,9 +203,9 @@ export default function InventoryPage() {
                                 value={filters.model}
                                 onChange={(e) => setFilters(prev => ({ ...prev, model: e.target.value }))}
                                 className="w-full appearance-none bg-white border border-light-300 text-navy-900 font-medium py-3.5 px-4 pr-10 rounded-xl focus:outline-none focus:ring-1 focus:ring-gold-500 cursor-pointer disabled:opacity-50"
-                                disabled={!filters.make || isLoadingModels}
+                                disabled={!filters.make || isLoading}
                             >
-                                <option value="">{isLoadingModels ? 'Loading Models...' : filters.make ? 'Any Model' : 'Select Make First'}</option>
+                                <option value="">{isLoading ? 'Loading Models...' : filters.make ? 'Any Model' : 'Select Make First'}</option>
                                 {models.map(model => (
                                     <option key={model} value={model}>{model}</option>
                                 ))}
@@ -198,8 +256,8 @@ export default function InventoryPage() {
                             </div>
                             <input
                                 type="range"
-                                min="2010"
-                                max="2025"
+                                min="1990"
+                                max={new Date().getFullYear() + 1}
                                 value={filters.yearRange[1]}
                                 onChange={(e) => setFilters(prev => ({ ...prev, yearRange: [prev.yearRange[0], parseInt(e.target.value)] }))}
                                 className="w-full h-1.5 bg-light-300 rounded-full appearance-none cursor-pointer accent-gold-500 mb-4"
@@ -227,7 +285,7 @@ export default function InventoryPage() {
                             <h3 className="font-bold text-navy-900 mb-4">Featured</h3>
                             <div className="space-y-3">
                                 {[
-                                    'A/C: Front', 'Backup Camera', 'Cruise Control', 'Navigation',
+                                    'Featured', 'A/C: Front', 'Backup Camera', 'Cruise Control', 'Navigation',
                                     'Power Locks', 'Audio system', 'Touchscreen display', 'GPS navigation',
                                     'Phone connectivity', 'In-car Wi-Fi', 'Chrome-plated grill',
                                     'Smart headlight cluster', 'Premium wheels', 'Body character lines',
@@ -284,10 +342,14 @@ export default function InventoryPage() {
                             </div>
 
                             <div className="relative">
-                                <select className="appearance-none bg-white border border-light-300 text-navy-700 font-medium py-2.5 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-1 focus:ring-gold-500 cursor-pointer text-[14px]">
-                                    <option>Sort by (Default)</option>
-                                    <option>Lowest Price</option>
-                                    <option>Highest Price</option>
+                                <select
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value)}
+                                    className="appearance-none bg-white border border-light-300 text-navy-700 font-medium py-2.5 pl-4 pr-10 rounded-xl focus:outline-none focus:ring-1 focus:ring-gold-500 cursor-pointer text-[14px]"
+                                >
+                                    <option value="Default">Sort by (Default)</option>
+                                    <option value="Lowest Price">Lowest Price</option>
+                                    <option value="Highest Price">Highest Price</option>
                                 </select>
                                 <ChevronDown className="absolute right-3 top-3 h-4 w-4 text-light-500 pointer-events-none" />
                             </div>
@@ -297,31 +359,39 @@ export default function InventoryPage() {
                     {/* Cars Content */}
                     <div className={viewType === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "flex flex-col gap-6"}>
                         {filteredCars.map((car: any) => (
-                            <div key={car.id} className={`border border-light-300 rounded-2xl overflow-hidden hover:border-gold-500 transition-all duration-300 bg-white flex ${viewType === 'list' ? 'flex-row h-64' : 'flex-col'}`}>
+                            <div key={car._id || car.id} className={`border border-light-300 rounded-2xl overflow-hidden hover:border-gold-500 transition-all duration-300 bg-white flex ${viewType === 'list' ? 'flex-row h-64' : 'flex-col'}`}>
                                 <div className={`relative overflow-hidden ${viewType === 'list' ? 'w-1/3' : 'h-56'}`}>
-                                    <div className="absolute top-4 left-4 z-10 flex gap-2">
-                                        <span className="bg-gold-500 text-navy-900 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Featured</span>
-                                    </div>
+                                    {car.isFeatured && (
+                                        <div className="absolute top-4 left-4 z-10 flex gap-2">
+                                            <span className="bg-gold-500 text-navy-900 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-lg">Featured</span>
+                                        </div>
+                                    )}
                                     <div className="absolute top-4 right-4 z-10">
                                         <span className="bg-navy-900/80 backdrop-blur-md text-gold-400 text-[11px] font-bold rounded-full w-9 h-9 flex items-center justify-center shadow-lg">{car.year}</span>
                                     </div>
-                                    <img src={`https://images.unsplash.com/photo-${car.img}?auto=format&fit=crop&q=80&w=600&h=400`} alt={car.title} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
+                                    <img
+                                        src={car.images?.[0] || (car.img ? `https://images.unsplash.com/photo-${car.img}?auto=format&fit=crop&q=80&w=600&h=400` : 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=600&h=400')}
+                                        alt={car.title || `${car.year} ${car.make} ${car.carModel}`}
+                                        className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+                                    />
                                 </div>
                                 <div className={`p-6 flex-grow flex flex-col ${viewType === 'list' ? 'justify-between' : ''}`}>
                                     <div>
-                                        <div className="text-gold-500 text-[12px] font-bold mb-1.5 tracking-wide uppercase">{car.type}</div>
-                                        <h3 className={`font-bold text-navy-900 mb-4 ${viewType === 'list' ? 'text-2xl' : 'text-[17px] line-clamp-1'}`}>{car.title}</h3>
+                                        <div className="text-gold-500 text-[12px] font-bold mb-1.5 tracking-wide uppercase">{car.type || car.bodyType}</div>
+                                        <h3 className={`font-bold text-navy-900 mb-4 ${viewType === 'list' ? 'text-2xl' : 'text-[17px] line-clamp-1'}`}>
+                                            {car.title || `${car.year} ${car.make} ${car.carModel}`}
+                                        </h3>
 
                                         <div className={`flex items-center gap-4 text-[13px] text-navy-500 mb-4 ${viewType === 'list' ? 'flex-wrap' : ''}`}>
-                                            <span className="flex items-center bg-light-100 px-3 py-1.5 rounded-lg"><CarIcon className="w-3.5 h-3.5 mr-2 text-navy-300" /> {car.miles.toLocaleString()} km</span>
-                                            <span className="flex items-center bg-light-100 px-3 py-1.5 rounded-lg"><svg className="w-3.5 h-3.5 mr-2 text-navy-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18M5 21V7l8-4v18M13 3v18M19 21V11l-6-4M9 7v6M9 17v-2" /></svg> {car.fuel}</span>
-                                            <span className="flex items-center bg-light-100 px-3 py-1.5 rounded-lg"><Cog className="w-3.5 h-3.5 mr-2 text-navy-300" /> {car.trans}</span>
+                                            <span className="flex items-center bg-light-100 px-3 py-1.5 rounded-lg"><CarIcon className="w-3.5 h-3.5 mr-2 text-navy-300" /> {(car.mileage || car.miles || 0).toLocaleString()} km</span>
+                                            <span className="flex items-center bg-light-100 px-3 py-1.5 rounded-lg"><svg className="w-3.5 h-3.5 mr-2 text-navy-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18M5 21V7l8-4v18M13 3v18M19 21V11l-6-4M9 7v6M9 17v-2" /></svg> {car.fuelType || car.fuel}</span>
+                                            <span className="flex items-center bg-light-100 px-3 py-1.5 rounded-lg"><Cog className="w-3.5 h-3.5 mr-2 text-navy-300" /> {car.transmission || car.trans}</span>
                                         </div>
                                     </div>
 
                                     <div className={`flex items-center justify-between border-t border-light-200 pt-4 ${viewType === 'list' ? 'mt-0' : 'mt-4'}`}>
                                         <div className="text-[22px] font-black text-navy-900">${car.price.toLocaleString()}</div>
-                                        <Link href={`/inventory/${car.id}`} className="text-[13px] font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full px-6 py-2.5 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-sm active:scale-95">
+                                        <Link href={`/inventory/${car._id || car.id}`} className="text-[13px] font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full px-6 py-2.5 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-sm active:scale-95">
                                             View car
                                         </Link>
                                     </div>
@@ -336,5 +406,17 @@ export default function InventoryPage() {
                 <Partners />
             </div>
         </div>
+    );
+}
+
+export default function InventoryPage() {
+    return (
+        <Suspense fallback={
+            <div className="bg-light-100 min-h-screen py-20 flex items-center justify-center">
+                <Loader2 className="w-12 h-12 animate-spin text-gold-500" />
+            </div>
+        }>
+            <InventoryContent />
+        </Suspense>
     );
 }

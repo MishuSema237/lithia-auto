@@ -9,6 +9,7 @@ export interface BlogPost {
     image: string;
     commentsCount: number;
     tags: string[];
+    isFeatured?: boolean;
 }
 
 export const BLOGS: BlogPost[] = [
@@ -26,7 +27,8 @@ export const BLOGS: BlogPost[] = [
         date: 'April 6, 2024',
         image: 'https://images.unsplash.com/photo-1542362567-b052ed97f53f?auto=format&fit=crop&q=80&w=1200',
         commentsCount: 0,
-        tags: ['AutoDecar', 'BMW']
+        tags: ['AutoDecar', 'BMW', 'Design'],
+        isFeatured: true
     },
     {
         id: '2',
@@ -38,7 +40,8 @@ export const BLOGS: BlogPost[] = [
         date: 'February 18, 2024',
         image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=1200',
         commentsCount: 12,
-        tags: ['EV', 'Racing']
+        tags: ['EV', 'Racing', '2026Tech'],
+        isFeatured: true
     },
     {
         id: '3',
@@ -86,7 +89,8 @@ export const BLOGS: BlogPost[] = [
         date: 'March 15, 2024',
         image: 'https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&q=80&w=1200',
         commentsCount: 15,
-        tags: ['Sustainability', 'Interior']
+        tags: ['Sustainability', 'Interior'],
+        isFeatured: true
     },
     {
         id: '7',

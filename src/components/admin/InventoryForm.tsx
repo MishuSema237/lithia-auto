@@ -39,15 +39,29 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
         drivetrain: 'FWD',
         transmission: 'Automatic',
         condition: 'Clean title, No accidents reported',
+        cylinders: '',
+        doors: '4',
+        color: '',
+        seats: '5',
+        cityMPG: '',
+        highwayMPG: '',
+        engineSize: '',
         description: '',
-        isFeatured: false
+        comfortDescription: '',
+        isFeatured: false,
+        homepageHero: false,
+        recommended: false,
+        latestPicks: false
     });
+
+    const [reviews, setReviews] = useState<any[]>([]);
 
     const [features, setFeatures] = useState({
         convenience: [] as string[],
         entertainment: [] as string[],
         safety: [] as string[],
         exterior: [] as string[],
+        interior: [] as string[],
         seating: [] as string[],
         other: [] as string[]
     });
@@ -68,8 +82,19 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                 drivetrain: initialData.drivetrain || 'FWD',
                 transmission: initialData.transmission || 'Automatic',
                 condition: initialData.condition || 'Clean title, No accidents reported',
+                cylinders: initialData.cylinders || '',
+                doors: (initialData.doors || 4).toString(),
+                color: initialData.color || '',
+                seats: (initialData.seats || 5).toString(),
+                cityMPG: (initialData.cityMPG || '').toString(),
+                highwayMPG: (initialData.highwayMPG || '').toString(),
+                engineSize: initialData.engineSize || '',
                 description: initialData.description || '',
-                isFeatured: !!initialData.isFeatured
+                comfortDescription: initialData.comfortDescription || '',
+                isFeatured: !!initialData.isFeatured,
+                homepageHero: !!initialData.homepageHero,
+                recommended: !!initialData.recommended,
+                latestPicks: !!initialData.latestPicks
             });
 
             if (initialData.features) {
@@ -78,6 +103,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                     entertainment: initialData.features.entertainment || [],
                     safety: initialData.features.safety || [],
                     exterior: initialData.features.exterior || [],
+                    interior: initialData.features.interior || [],
                     seating: initialData.features.seating || [],
                     other: initialData.features.other || []
                 });
@@ -85,6 +111,13 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
 
             if (initialData.images) {
                 setImages(initialData.images.map((url: string) => ({ url, status: 'existing' })));
+            }
+
+            if (initialData.reviews) {
+                setReviews(initialData.reviews.map((r: any) => ({
+                    ...r,
+                    date: r.date ? new Date(r.date).toISOString().split('T')[0] : new Date().toISOString().split('T')[0]
+                })));
             }
         }
     }, [initialData]);
@@ -162,6 +195,29 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
         setImages(prev => prev.filter((_: any, i: number) => i !== index));
     };
 
+    const addReview = () => {
+        setReviews(prev => [...prev, {
+            author: '',
+            avatar: '',
+            rating: 5,
+            title: '',
+            body: '',
+            date: new Date().toISOString().split('T')[0]
+        }]);
+    };
+
+    const removeReview = (index: number) => {
+        setReviews(prev => prev.filter((_, i) => i !== index));
+    };
+
+    const updateReview = (index: number, field: string, value: any) => {
+        setReviews(prev => {
+            const next = [...prev];
+            next[index] = { ...next[index], [field]: value };
+            return next;
+        });
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
@@ -189,6 +245,12 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                             method: 'POST',
                             body: fd,
                         });
+
+                        if (!uploadRes.ok) {
+                            const errorData = await uploadRes.json();
+                            throw new Error(errorData.error?.message || 'Image upload failed');
+                        }
+
                         const uploadData = await uploadRes.json();
                         processedImages[i] = { url: uploadData.secure_url, status: 'existing' };
                     }
@@ -203,6 +265,15 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                 year: parseInt(formData.year),
                 images: processedImages.map((img: any) => img.url),
                 features,
+                reviews: reviews.map(r => ({
+                    ...r,
+                    rating: parseInt(r.rating) || 5,
+                    date: r.date ? new Date(r.date) : new Date()
+                })),
+                doors: parseInt(formData.doors),
+                seats: parseInt(formData.seats),
+                cityMPG: parseFloat(formData.cityMPG) || undefined,
+                highwayMPG: parseFloat(formData.highwayMPG) || undefined,
                 sellerInfo: {
                     name: 'Lithia Auto Advantage',
                     phone: '(708) 419-2546',
@@ -252,12 +323,26 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
             </div>
 
             <Card className="shadow-none border-light-300">
-                <div className="px-6 py-4 border-b border-light-200 flex justify-between items-center">
+                <div className="px-6 py-4 border-b border-light-200 flex flex-wrap gap-4 items-center">
                     <h2 className="text-lg font-semibold text-navy-800">Basic Information</h2>
-                    <label className="flex items-center gap-2 cursor-pointer bg-gold-50 px-3 py-1.5 rounded-lg border border-gold-200">
-                        <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="rounded border-gold-300 text-gold-500 shadow-none" />
-                        <span className="text-xs font-bold text-navy-900 uppercase">Feature on Homepage</span>
-                    </label>
+                    <div className="flex flex-wrap gap-3">
+                        <label className="flex items-center gap-2 cursor-pointer bg-gold-50 px-3 py-1.5 rounded-lg border border-gold-200">
+                            <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="rounded border-gold-300 text-gold-500 shadow-none" />
+                            <span className="text-[10px] font-bold text-navy-900 uppercase">Featured</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer bg-navy-50 px-3 py-1.5 rounded-lg border border-navy-200">
+                            <input type="checkbox" name="homepageHero" checked={formData.homepageHero} onChange={handleChange} className="rounded border-navy-300 text-navy-900 shadow-none" />
+                            <span className="text-[10px] font-bold text-navy-900 uppercase">Hero Feature</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer bg-green-50 px-3 py-1.5 rounded-lg border border-green-200">
+                            <input type="checkbox" name="recommended" checked={formData.recommended} onChange={handleChange} className="rounded border-green-300 text-green-600 shadow-none" />
+                            <span className="text-[10px] font-bold text-navy-900 uppercase">Recommended</span>
+                        </label>
+                        <label className="flex items-center gap-2 cursor-pointer bg-purple-50 px-3 py-1.5 rounded-lg border border-purple-200">
+                            <input type="checkbox" name="latestPicks" checked={formData.latestPicks} onChange={handleChange} className="rounded border-purple-300 text-purple-600 shadow-none" />
+                            <span className="text-[10px] font-bold text-navy-900 uppercase">Latest Pick</span>
+                        </label>
+                    </div>
                 </div>
                 <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
@@ -316,6 +401,66 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                             <option value="Fair Deal">Fair Deal</option>
                         </select>
                     </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Fuel Type *</label>
+                        <select name="fuelType" value={formData.fuelType} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" required>
+                            <option value="Gasoline">Gasoline</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Electric">Electric</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Drivetrain *</label>
+                        <select name="drivetrain" value={formData.drivetrain} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" required>
+                            <option value="FWD">FWD (Front-Wheel Drive)</option>
+                            <option value="RWD">RWD (Rear-Wheel Drive)</option>
+                            <option value="AWD">AWD (All-Wheel Drive)</option>
+                            <option value="4WD">4WD (Four-Wheel Drive)</option>
+                        </select>
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Transmission *</label>
+                        <select name="transmission" value={formData.transmission} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" required>
+                            <option value="Automatic">Automatic</option>
+                            <option value="Manual">Manual</option>
+                            <option value="CVT">CVT</option>
+                        </select>
+                    </div>
+                    <div className="space-y-2 col-span-1 md:col-span-2">
+                        <label className="text-sm font-semibold text-navy-800">Vehicle Condition</label>
+                        <input type="text" name="condition" value={formData.condition} onChange={handleChange} placeholder="e.g. Clean title, No accidents reported" className="w-full bg-light-50 border border-light-300 p-2 text-sm" />
+                    </div>
+
+                    {/* New Fields Section */}
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Cylinders</label>
+                        <input type="text" name="cylinders" value={formData.cylinders} onChange={handleChange} placeholder="e.g. V6, 4" className="w-full bg-light-50 border border-light-300 p-2 text-sm" />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Doors</label>
+                        <input type="number" name="doors" value={formData.doors} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Interior/Exterior Color</label>
+                        <input type="text" name="color" value={formData.color} onChange={handleChange} placeholder="e.g. Blue, Gray" className="w-full bg-light-50 border border-light-300 p-2 text-sm" />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Seats</label>
+                        <input type="number" name="seats" value={formData.seats} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">City MPG</label>
+                        <input type="number" name="cityMPG" value={formData.cityMPG} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Highway MPG</label>
+                        <input type="number" name="highwayMPG" value={formData.highwayMPG} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Engine Size</label>
+                        <input type="text" name="engineSize" value={formData.engineSize} onChange={handleChange} placeholder="e.g. 2.9, 5.0L" className="w-full bg-light-50 border border-light-300 p-2 text-sm" />
+                    </div>
                 </CardContent>
             </Card>
 
@@ -370,25 +515,86 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                         <textarea name="description" value={formData.description} onChange={handleChange} rows={4} className="w-full bg-light-50 border border-light-300 p-3 text-sm" />
                     </div>
 
+                    <div className="space-y-2">
+                        <label className="text-sm font-semibold text-navy-800">Comfort & Convenience Description</label>
+                        <textarea name="comfortDescription" value={formData.comfortDescription} onChange={handleChange} rows={3} placeholder="Proin sed tellus porttitor..." className="w-full bg-light-50 border border-light-300 p-3 text-sm" />
+                    </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {(Object.keys(features) as Array<keyof typeof features>).map((cat: string) => (
                             <div key={cat}>
                                 <h4 className="font-bold text-[10px] uppercase text-navy-400 mb-3 border-b border-light-200 pb-1">{cat}</h4>
                                 <div className="space-y-2">
-                                    {(cat === 'convenience' ? ['Adaptive Cruise', 'Heated Seats', 'Navigation', 'Keyless Start'] :
-                                        cat === 'entertainment' ? ['Premium Audio', 'Apple CarPlay', 'Android Auto', 'Bluetooth'] :
-                                            cat === 'safety' ? ['Backup Camera', 'Blind Spot Monitor', 'Lane Assist', 'Emergency Braking'] :
-                                                cat === 'exterior' ? ['LED Lights', 'Panoramic Sunroof', 'Roof Rack', 'Tow Package'] :
-                                                    ['Spare Tire', 'Cargo Mat', 'First Aid Kit']).map((f: string) => (
-                                                        <label key={f} className="flex items-center gap-2 cursor-pointer group">
-                                                            <input type="checkbox" checked={features[cat as keyof typeof features].includes(f)} onChange={() => handleFeatureChange(cat as keyof typeof features, f)} className="rounded text-gold-500" />
-                                                            <span className="text-xs text-navy-700 group-hover:text-gold-600">{f}</span>
-                                                        </label>
-                                                    ))}
+                                    {(cat === 'convenience' ? ['Adaptive Cruise', 'Heated Seats', 'Navigation', 'Keyless Start', 'Automatic Climate Control', 'A/C: Front', 'Cruise Control', 'Phone connectivity', 'In-car Wi-Fi'] :
+                                        cat === 'entertainment' ? ['Premium Audio', 'Apple CarPlay', 'Android Auto', 'Bluetooth', 'Touch Screen', 'Audio system', 'Touchscreen display', 'GPS navigation'] :
+                                            cat === 'safety' ? ['Backup Camera', 'Blind Spot Monitor', 'Lane Assist', 'Emergency Braking', 'Anti Lock Braking System', 'Passenger Airbag', 'Driver Airbag', 'Power Locks'] :
+                                                cat === 'exterior' ? ['LED Lights', 'Panoramic Sunroof', 'Roof Rack', 'Tow Package', 'Alloy Wheels', 'Fog Lights - Front', 'Chrome-plated grill', 'Smart headlight cluster', 'Premium wheels', 'Body character lines', 'High-quality paint'] :
+                                                    cat === 'interior' ? ['Multi-function Steering Wheel', 'Power Windows Rear', 'Power Windows Front', 'Engine Start Stop Button', 'Power Steering'] :
+                                                        ['Spare Tire', 'Cargo Mat', 'First Aid Kit']).map((f: string) => (
+                                                            <label key={f} className="flex items-center gap-2 cursor-pointer group">
+                                                                <input type="checkbox" checked={features[cat as keyof typeof features].includes(f)} onChange={() => handleFeatureChange(cat as keyof typeof features, f)} className="rounded text-gold-500" />
+                                                                <span className="text-xs text-navy-700 group-hover:text-gold-600">{f}</span>
+                                                            </label>
+                                                        ))}
                                 </div>
                             </div>
                         ))}
                     </div>
+                </CardContent>
+            </Card>
+            <Card className="shadow-none border-light-300">
+                <div className="px-6 py-4 border-b border-light-200 flex justify-between items-center">
+                    <h2 className="text-lg font-semibold text-navy-800">Customer Reviews</h2>
+                    <Button type="button" variant="outline" size="sm" onClick={addReview}>
+                        <Plus className="h-4 w-4 mr-2" />
+                        Add Review
+                    </Button>
+                </div>
+                <CardContent className="p-6 space-y-6">
+                    {reviews.length === 0 ? (
+                        <div className="text-center py-8 bg-light-50 rounded-xl border border-dashed border-light-300">
+                            <p className="text-sm text-navy-500">No reviews added yet. Click "Add Review" to represent customer feedback.</p>
+                        </div>
+                    ) : (
+                        <div className="space-y-6">
+                            {reviews.map((review, idx) => (
+                                <div key={idx} className="p-4 bg-light-50 border border-light-200 rounded-xl space-y-4 relative group">
+                                    <button type="button" onClick={() => removeReview(idx)} className="absolute top-2 right-2 p-1.5 text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                                        <Trash2 className="h-4 w-4" />
+                                    </button>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase text-navy-400">Author Name</label>
+                                            <input type="text" value={review.author} onChange={(e) => updateReview(idx, 'author', e.target.value)} placeholder="e.g. John Doe" className="w-full bg-white border border-light-300 p-2 text-sm rounded" />
+                                        </div>
+                                        <div className="space-y-2 md:col-span-2">
+                                            <label className="text-[10px] font-bold uppercase text-navy-400">Avatar URL</label>
+                                            <div className="flex gap-2">
+                                                <input type="text" value={review.avatar} onChange={(e) => updateReview(idx, 'avatar', e.target.value)} placeholder="https://..." className="flex-1 bg-white border border-light-300 p-2 text-sm rounded" />
+                                                {review.avatar && <img src={review.avatar} className="w-9 h-9 rounded-full object-cover border border-gold-200" alt="Avatar preview" />}
+                                            </div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase text-navy-400">Rating (1-5)</label>
+                                            <input type="number" min="1" max="5" value={review.rating} onChange={(e) => updateReview(idx, 'rating', e.target.value)} className="w-full bg-white border border-light-300 p-2 text-sm rounded" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase text-navy-400">Title</label>
+                                            <input type="text" value={review.title} onChange={(e) => updateReview(idx, 'title', e.target.value)} placeholder="e.g. Amazing Car" className="w-full bg-white border border-light-300 p-2 text-sm rounded" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-bold uppercase text-navy-400">Date</label>
+                                            <input type="date" value={review.date} onChange={(e) => updateReview(idx, 'date', e.target.value)} className="w-full bg-white border border-light-300 p-2 text-sm rounded" />
+                                        </div>
+                                        <div className="space-y-2 md:col-span-3">
+                                            <label className="text-[10px] font-bold uppercase text-navy-400">Review Body</label>
+                                            <textarea value={review.body} onChange={(e) => updateReview(idx, 'body', e.target.value)} rows={3} placeholder="Write the review content here..." className="w-full bg-white border border-light-300 p-3 text-sm rounded" />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </CardContent>
             </Card>
         </form>
