@@ -39,7 +39,7 @@ export default function HelpCenterPage() {
                                     {cat.icon}
                                 </div>
                                 <h3 className="text-xl font-black text-navy-900 mb-3">{cat.title}</h3>
-                                <p className="text-navy-500 text-sm leading-relaxed mb-6">{cat.desc}</p>
+                                <p className="text-navy-600 text-sm leading-relaxed mb-6">{cat.desc}</p>
                                 <div className="flex items-center gap-2 text-gold-600 font-bold text-xs uppercase tracking-widest">
                                     Browse topics <ChevronRight className="w-4 h-4" />
                                 </div>
@@ -55,7 +55,7 @@ export default function HelpCenterPage() {
                     <div className="bg-white rounded-[40px] p-12 shadow-2xl border border-light-200 flex flex-col lg:flex-row justify-between items-center gap-12">
                         <div className="max-w-xl text-center lg:text-left">
                             <h2 className="text-4xl font-black text-navy-900 mb-6">Can't find what you're <span className="text-gold-500">looking for?</span></h2>
-                            <p className="text-navy-500 text-lg leading-relaxed">
+                            <p className="text-navy-600 text-lg leading-relaxed">
                                 Our elite concierge team is available 24/7 to assist you with any inquiries regarding our inventory or services.
                             </p>
                         </div>

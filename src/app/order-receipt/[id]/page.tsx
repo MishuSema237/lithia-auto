@@ -47,7 +47,7 @@ export default function OrderReceiptPage({ params }: { params: Promise<{ id: str
                 <div className="bg-white p-12 text-center rounded-3xl shadow-xl max-w-lg">
                     <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6 text-red-500 text-3xl font-black">!</div>
                     <h1 className="text-3xl font-black text-navy-900 mb-4 tracking-tight">Order Not Found</h1>
-                    <p className="text-navy-500 mb-8 font-medium">We couldn't locate an order with that ID. Please check your tracking number or contact support.</p>
+                    <p className="text-navy-600 mb-8 font-medium">We couldn't locate an order with that ID. Please check your tracking number or contact support.</p>
                     <Link href="/" className="bg-navy-900 text-white font-bold py-4 px-8 rounded-full hover:bg-gold-500 transition-colors inline-block">
                         Return to Dashboard
                     </Link>
@@ -67,7 +67,7 @@ export default function OrderReceiptPage({ params }: { params: Promise<{ id: str
                         <CheckCircle2 className="w-12 h-12 text-green-500" />
                     </div>
                     <h1 className="text-4xl md:text-5xl font-black text-navy-900 mb-4 tracking-tight">Order Confirmed</h1>
-                    <p className="text-lg text-navy-500 font-medium max-w-lg mx-auto leading-relaxed">
+                    <p className="text-lg text-navy-600 font-medium max-w-lg mx-auto leading-relaxed">
                         Thank you for your purchase, {order.firstName}. Your order has been successfully placed and is currently being processed by our team.
                     </p>
                 </div>
@@ -100,21 +100,21 @@ export default function OrderReceiptPage({ params }: { params: Promise<{ id: str
                                 <div className="w-8 h-8 rounded-full bg-navy-900 text-gold-500 flex items-center justify-center font-bold text-sm shrink-0">1</div>
                                 <div>
                                     <h4 className="font-bold text-navy-900">Email Confirmation</h4>
-                                    <p className="text-sm text-navy-500 mt-1">A detailed receipt has been sent to <span className="text-gold-600 font-medium">{order.email}</span>.</p>
+                                    <p className="text-sm text-navy-600 mt-1">A detailed receipt has been sent to <span className="text-gold-600 font-medium">{order.email}</span>.</p>
                                 </div>
                             </div>
                             <div className="flex gap-4 items-start">
                                 <div className="w-8 h-8 rounded-full bg-light-200 text-navy-400 flex items-center justify-center font-bold text-sm shrink-0">2</div>
                                 <div>
                                     <h4 className="font-bold text-navy-900">Processing & Assignment</h4>
-                                    <p className="text-sm text-navy-500 mt-1">Our concierges are reviewing your requested vehicles and preparing the documentation.</p>
+                                    <p className="text-sm text-navy-600 mt-1">Our concierges are reviewing your requested vehicles and preparing the documentation.</p>
                                 </div>
                             </div>
                             <div className="flex gap-4 items-start">
                                 <div className="w-8 h-8 rounded-full bg-light-200 text-navy-400 flex items-center justify-center font-bold text-sm shrink-0">3</div>
                                 <div>
                                     <h4 className="font-bold text-navy-900">White-Glove Delivery</h4>
-                                    <p className="text-sm text-navy-500 mt-1">Once processed, you will receive tracking alerts as your vehicle is dispatched to your location.</p>
+                                    <p className="text-sm text-navy-600 mt-1">Once processed, you will receive tracking alerts as your vehicle is dispatched to your location.</p>
                                 </div>
                             </div>
                         </div>

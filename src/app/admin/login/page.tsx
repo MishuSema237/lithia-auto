@@ -94,7 +94,7 @@ export default function AdminLoginPage() {
                         </form>
 
                         <div className="mt-8 text-center">
-                            <Link href="/" className="text-navy-500 hover:text-navy-900 text-sm font-medium transition-colors">
+                            <Link href="/" className="text-navy-600 hover:text-navy-900 text-sm font-medium transition-colors">
                                 ← Back to Website
                             </Link>
                         </div>

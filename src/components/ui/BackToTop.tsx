@@ -29,10 +29,10 @@ export function BackToTop() {
     return (
         <button
             onClick={scrollToTop}
-            className={`fixed bottom-8 left-8 z-50 p-4 bg-gold-500 text-navy-900 rounded-full shadow-2xl border-2 border-navy-900 transition-all duration-500 hover:bg-gold-400 hover:-translate-y-2 active:scale-90
+            className={`fixed bottom-8 left-8 z-50 p-2 bg-gold-500 text-navy-900 rounded-full shadow-2xl border-2 border-navy-900 transition-all duration-500 hover:bg-gold-400 hover:-translate-y-2 active:scale-90
                 ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-50 pointer-events-none'}`}
         >
-            <ArrowUp className="h-6 w-6 stroke-[3]" />
+            <ArrowUp className="w-4 h-4 md:w-6 md:h-6 stroke-[3]" />
         </button>
     );
 }

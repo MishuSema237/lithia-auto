@@ -70,12 +70,12 @@ export default function MakesPage() {
         <div className="max-w-5xl mx-auto px-4 py-8">
             <div className="mb-8">
                 <h1 className="text-3xl font-bold text-navy-900">Brand Manager</h1>
-                <p className="text-navy-500 mt-2">Manage logos for car makes used in your inventory.</p>
+                <p className="text-navy-600 mt-2">Manage logos for car makes used in your inventory.</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {makes.length === 0 ? (
-                    <Card className="col-span-full py-12 text-center text-navy-500">
+                    <Card className="col-span-full py-12 text-center text-navy-600">
                         No makes found in inventory. Add cars first!
                     </Card>
                 ) : (

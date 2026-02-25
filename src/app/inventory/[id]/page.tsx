@@ -146,7 +146,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-8">
 
                 {/* Main Hero Image Slider */}
-                <div className="relative w-full h-[500px] md:h-[600px] rounded-2xl overflow-hidden mb-8 group">
+                <div className="relative w-full h-[300px] md:h-[600px] rounded-2xl overflow-hidden mb-8 group">
                     <div className="flex w-full h-full transition-transform duration-700 ease-in-out" style={{ transform: `translateX(-${currentImageIndex * 100}%)` }}>
                         {(car.images && car.images.length > 0 ? car.images : [carData.image]).map((img: string, idx: number) => (
                             <img
@@ -163,13 +163,13 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                         <>
                             <button
                                 onClick={() => setCurrentImageIndex(prev => (prev - 1 + car.images.length) % car.images.length)}
-                                className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-colors z-10"
+                                className="absolute left-6 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-colors z-10"
                             >
                                 <ArrowLeft className="w-6 h-6" />
                             </button>
                             <button
                                 onClick={() => setCurrentImageIndex(prev => (prev + 1) % car.images.length)}
-                                className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-colors z-10"
+                                className="absolute right-6 top-1/2 -translate-y-1/2 w-8 h-8 md:w-12 md:h-12 rounded-full bg-black/20 hover:bg-black/40 backdrop-blur-md text-white flex items-center justify-center transition-colors z-10"
                             >
                                 <ArrowRight className="w-6 h-6" />
                             </button>
@@ -207,8 +207,8 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
 
                         {/* Description */}
                         <section id="overview">
-                            <h2 className="text-[28px] font-bold text-navy-900 mb-6 tracking-tight">Description</h2>
-                            <div className="text-navy-500 text-[15px] leading-relaxed space-y-4">
+                            <h2 className="text-2xl font-bold text-navy-900 mb-6 tracking-tight">Description</h2>
+                            <div className="text-navy-600 text-[15px] leading-relaxed space-y-4">
                                 {car.description ? (
                                     <p>{car.description}</p>
                                 ) : (
@@ -222,7 +222,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
 
                         {/* Car Overview */}
                         <section id="specs">
-                            <h2 className="text-[28px] font-bold text-navy-900 mb-6 tracking-tight">Car overview</h2>
+                            <h2 className="text-2xl font-bold text-navy-900 mb-6 tracking-tight">Car overview</h2>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-6">
                                 {[
                                     { icon: <CarIcon className="w-5 h-5" />, label: 'Condition:', value: car.condition || 'Clean title' },
@@ -241,7 +241,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                                     { icon: <Repeat className="w-5 h-5" />, label: 'Drive Type:', value: car.drivetrain || car.driveType || 'AWD' },
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex items-center justify-between border-b border-light-200 pb-4">
-                                        <div className="flex items-center text-navy-500 text-[15px]">
+                                        <div className="flex items-center text-navy-600 text-[15px]">
                                             <span className="text-light-500 mr-3 shrink-0">{item.icon}</span>
                                             {item.label}
                                         </div>
@@ -253,7 +253,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
 
                         {/* Features Section (Accordions) */}
                         <section id="features" className="space-y-6">
-                            <h2 className="text-[28px] font-bold text-navy-900 tracking-tight mb-8">Features & Equipment</h2>
+                            <h2 className="text-2xl font-bold text-navy-900 tracking-tight mb-8">Features & Equipment</h2>
                             <div className="space-y-4">
                                 {car.features && Object.entries(car.features).map(([key, list]: [string, any]) => {
                                     if (!list || list.length === 0) return null;
@@ -285,7 +285,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                                             <div className={`transition-all duration-300 ease-in-out ${isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'}`}>
                                                 <div className="px-6 pb-6 border-t border-gold-100/50 pt-4">
                                                     {key === 'convenience' && car.comfortDescription && (
-                                                        <p className="text-navy-500 text-[14px] leading-relaxed mb-6 italic bg-white/50 p-4 rounded-lg border border-gold-100">{car.comfortDescription}</p>
+                                                        <p className="text-navy-600 text-[14px] leading-relaxed mb-6 italic bg-white/50 p-4 rounded-lg border border-gold-100">{car.comfortDescription}</p>
                                                     )}
                                                     <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-6">
                                                         {list.map((item: string, i: number) => (
@@ -306,12 +306,12 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                         {/* Reviews Section (Conditional) */}
                         {reviews.length > 0 && (
                             <section id="reviews">
-                                <div className="flex items-center gap-4 mb-8">
-                                    <h2 className="text-[28px] font-bold text-navy-900 tracking-tight">Car User Reviews & Rating</h2>
+                                <div className="flex items-center flex-col md:flex-row gap-4 mb-8">
+                                    <h2 className="text-2xl font-bold text-navy-900 tracking-tight">Car User Reviews & Rating</h2>
                                     <div className="flex items-center bg-gold-50 px-4 py-1.5 rounded-full border border-gold-200">
                                         <Star className="w-4 h-4 text-gold-500 fill-current mr-2" />
                                         <span className="font-bold text-navy-900">{averageRating}</span>
-                                        <span className="text-navy-500 text-sm ml-1">({reviews.length} reviews)</span>
+                                        <span className="text-navy-600 text-sm ml-1">({reviews.length} reviews)</span>
                                     </div>
                                 </div>
                                 <div className="space-y-8 divide-y divide-light-200 border-b border-light-200 pb-8">
@@ -331,7 +331,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                                                 </div>
                                                 <span className="text-[11px] font-bold text-light-500">{review.date ? new Date(review.date).toLocaleDateString() : 'Recent'}</span>
                                             </div>
-                                            <p className="text-navy-500 text-[14px] leading-relaxed max-w-4xl">{review.body || review.content}</p>
+                                            <p className="text-navy-600 text-[14px] leading-relaxed max-w-4xl">{review.body || review.content}</p>
                                         </div>
                                     ))}
                                 </div>
@@ -344,7 +344,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                     <aside className="w-full lg:w-[35%] xl:w-[30%] space-y-8">
                         <div className="bg-white border border-light-300 rounded-xl p-6 sticky top-[150px]">
                             <h1 className="text-2xl font-bold text-navy-900 mb-4 tracking-tight">{carData.title}</h1>
-                            <div className="flex flex-wrap text-[12px] text-navy-500 gap-y-3 mb-6">
+                            <div className="flex flex-wrap text-[12px] text-navy-600 gap-y-3 mb-6">
                                 <span className="flex items-center w-1/2"><CarIcon className="w-4 h-4 mr-2" /> {(car.mileage || car.miles || 0).toLocaleString()} kms</span>
                                 <span className="flex items-center w-1/2"><svg className="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 21h18M5 21V7l8-4v18M13 3v18M19 21V11l-6-4M9 7v6M9 17v-2" /></svg> {car.fuelType || car.fuel}</span>
                                 <span className="flex items-center w-1/2 mt-2"><svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg> {car.transmission || car.trans}</span>
@@ -368,7 +368,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                                             </div>
                                             <div className="flex flex-col justify-center">
                                                 <h4 className="font-bold text-navy-900 text-[13px] leading-tight mb-1 group-hover:text-gold-500 transition-colors">{item.year} {item.make} {item.carModel || item.title}</h4>
-                                                <span className="font-extrabold text-navy-900 text-[14px]">${(item.price || 0).toLocaleString()}</span>
+                                                <span className="font-bold text-navy-900 text-[14px]">${(item.price || 0).toLocaleString()}</span>
                                             </div>
                                         </Link>
                                     ))}

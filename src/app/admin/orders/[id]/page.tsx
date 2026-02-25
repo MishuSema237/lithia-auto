@@ -152,11 +152,11 @@ export default function AdminOrderDetailsPage({ params }: { params: Promise<{ id
             {/* Header */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-light-300 pb-6">
                 <div>
-                    <Link href="/admin/orders" className="inline-flex items-center text-navy-500 hover:text-gold-500 font-bold mb-4 text-sm transition-colors">
+                    <Link href="/admin/orders" className="inline-flex items-center text-navy-600 hover:text-gold-500 font-bold mb-4 text-sm transition-colors">
                         <ChevronLeft className="h-4 w-4 mr-1" /> Back to Orders
                     </Link>
                     <h1 className="text-2xl font-black text-navy-900 font-mono tracking-tight">Order #{order.orderId}</h1>
-                    <p className="text-sm text-navy-500 mt-1">
+                    <p className="text-sm text-navy-600 mt-1">
                         Placed on {new Date(order.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
                     </p>
                 </div>
@@ -199,7 +199,7 @@ export default function AdminOrderDetailsPage({ params }: { params: Promise<{ id
                                         </div>
                                         <div className="flex-1">
                                             <h4 className="font-bold text-navy-900">{item.title}</h4>
-                                            <p className="text-xs text-navy-500">{item.year} • {item.mileage || '0'} miles</p>
+                                            <p className="text-xs text-navy-600">{item.year} • {item.mileage || '0'} miles</p>
                                         </div>
                                         <div className="text-right">
                                             <div className="font-black text-navy-900">${item.price.toLocaleString()}</div>

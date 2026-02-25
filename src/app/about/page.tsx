@@ -72,12 +72,6 @@ export default function AboutPage() {
                     <p className="text-navy-100 text-xl mb-10 max-w-2xl mx-auto leading-relaxed">
                         Leading online car buying and selling platform. We help you find your dream car with absolute ease.
                     </p>
-                    <Link href="/inventory">
-                        <Button variant="primary" size="lg" className="px-10 h-16 text-lg rounded-full group">
-                            Search for your dream car
-                            <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-                        </Button>
-                    </Link>
                 </div>
             </section>
 
@@ -115,7 +109,7 @@ export default function AboutPage() {
                         <div className="w-full lg:w-1/2 space-y-12">
                             <div>
                                 <h2 className="text-navy-900 font-black text-4xl md:text-5xl mb-6">Why Choose <span className="text-gold-500">Lithia Auto</span></h2>
-                                <p className="text-navy-500 text-lg leading-relaxed">
+                                <p className="text-navy-600 text-lg leading-relaxed">
                                     Our establishment deals in vehicles with many years of experience, ensuring the names become preferred choices for optimal results.
                                 </p>
                             </div>
@@ -127,7 +121,7 @@ export default function AboutPage() {
                                             {feature.icon}
                                         </div>
                                         <h3 className="text-navy-900 font-bold text-lg mb-2">{feature.title}</h3>
-                                        <p className="text-navy-500 text-sm leading-relaxed">{feature.desc}</p>
+                                        <p className="text-navy-600 text-sm leading-relaxed">{feature.desc}</p>
                                     </div>
                                 ))}
                             </div>
@@ -171,7 +165,7 @@ export default function AboutPage() {
                     <div className="flex justify-between items-end mb-16 px-4">
                         <div>
                             <h2 className="text-4xl md:text-5xl font-black text-navy-900 mb-4">Recommended <span className="text-gold-500">Vehicles</span></h2>
-                            <p className="text-navy-500 text-lg">Specially curated selections for your premium lifestyle.</p>
+                            <p className="text-navy-600 text-lg">Specially curated selections for your premium lifestyle.</p>
                         </div>
                         <Link href="/inventory" className="hidden md:flex items-center gap-2 text-navy-900 font-bold hover:text-gold-500 transition-colors group">
                             View all <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -209,7 +203,7 @@ export default function AboutPage() {
                             ))}
                         </div>
                     ) : (
-                        <div className="text-center py-20 text-navy-500 font-bold">No recommended vehicles available.</div>
+                        <div className="text-center py-20 text-navy-600 font-bold">No recommended vehicles available.</div>
                     )}
                 </div>
             </section>

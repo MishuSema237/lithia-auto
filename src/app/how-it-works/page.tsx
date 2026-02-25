@@ -70,7 +70,7 @@ export default function HowItWorksPage() {
                                     0{i + 1}
                                 </div>
                                 <h3 className="text-2xl font-black text-navy-900 mb-4">{step.title}</h3>
-                                <p className="text-navy-500 leading-relaxed mb-6">
+                                <p className="text-navy-600 leading-relaxed mb-6">
                                     {step.desc}
                                 </p>
                                 <div className="flex items-center gap-2 text-gold-600 font-bold text-sm">
@@ -100,7 +100,7 @@ export default function HowItWorksPage() {
                                         <div className="w-6 h-6 rounded-full bg-gold-500 flex-shrink-0 mt-1"></div>
                                         <div>
                                             <h4 className="font-bold text-navy-900 mb-1">{feature.t}</h4>
-                                            <p className="text-sm text-navy-500">{feature.d}</p>
+                                            <p className="text-sm text-navy-600">{feature.d}</p>
                                         </div>
                                     </div>
                                 ))}

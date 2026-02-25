@@ -99,7 +99,7 @@ export function Testimonials({
                             word.toLowerCase() === 'clients' ? <span key={i} className="text-gold-500">{word}</span> : word + ' '
                         ))}
                     </h2>
-                    {subtitle && <p className={`${bgVariant === 'navy' ? 'text-navy-200' : 'text-navy-500'} text-lg max-w-2xl mx-auto`}>{subtitle}</p>}
+                    {subtitle && <p className={`${bgVariant === 'navy' ? 'text-navy-200' : 'text-navy-600'} text-lg max-w-2xl mx-auto`}>{subtitle}</p>}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -120,7 +120,7 @@ export function Testimonials({
                                 </p>
                             </div>
                             <div className={`flex items-center gap-4 pt-6 border-t ${bgVariant === 'navy' ? 'border-navy-700' : 'border-light-100'}`}>
-                                <img src={t.image} alt={t.name} className="w-12 h-12 rounded-full object-cover ring-2 ring-gold-500/20" />
+                                <img src={t.image} alt={t.name} className="w-8 h-8 md:w-12 md:h-12 rounded-full object-cover ring-2 ring-gold-500/20" />
                                 <div>
                                     <p className={`font-bold ${bgVariant === 'navy' ? 'text-white' : 'text-navy-900'}`}>{t.name}</p>
                                     <p className={`text-xs ${bgVariant === 'navy' ? 'text-navy-400' : 'text-navy-400'}`}>{t.role}</p>

@@ -115,7 +115,7 @@ export default function BlogListingPage() {
                                         <div className="absolute inset-0 bg-navy-900/10 group-hover:bg-transparent transition-colors"></div>
                                     </Link>
 
-                                    <p className="text-navy-500 text-lg leading-relaxed mb-10 line-clamp-3">
+                                    <p className="text-navy-600 text-lg leading-relaxed mb-10 line-clamp-3">
                                         {post.excerpt}
                                     </p>
 
@@ -128,7 +128,7 @@ export default function BlogListingPage() {
                                                     onClick={() => toggleTag(tag)}
                                                     className={`px-3 py-1 border rounded-lg text-[10px] font-black transition-all cursor-pointer ${selectedTags.includes(tag)
                                                         ? 'bg-gold-500 border-gold-500 text-navy-900 shadow-md'
-                                                        : 'bg-light-50 border-light-200 text-navy-500 hover:border-gold-500 hover:text-gold-600'
+                                                        : 'bg-light-50 border-light-200 text-navy-600 hover:border-gold-500 hover:text-gold-600'
                                                         }`}
                                                 >
                                                     {tag}
@@ -138,7 +138,7 @@ export default function BlogListingPage() {
                                     </div>
                                 </article>
                             )) : (
-                                <div className="text-center py-20 text-navy-500 font-bold">
+                                <div className="text-center py-20 text-navy-600 font-bold">
                                     No posts found matching your search.
                                 </div>
                             )}
@@ -205,7 +205,7 @@ export default function BlogListingPage() {
                                         onClick={() => toggleTag(tag)}
                                         className={`px-5 py-2.5 border rounded-xl text-xs font-bold transition-all cursor-pointer ${selectedTags.includes(tag)
                                             ? 'bg-gold-500 border-gold-500 text-navy-900 shadow-md scale-105'
-                                            : 'bg-white border-light-200 text-navy-500 hover:border-gold-500 hover:text-gold-600'
+                                            : 'bg-white border-light-200 text-navy-600 hover:border-gold-500 hover:text-gold-600'
                                             }`}
                                     >
                                         {tag}

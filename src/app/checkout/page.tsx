@@ -98,10 +98,10 @@ export default function CheckoutPage() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
 
                 <div className="mb-10">
-                    <Link href="/cart" className="inline-flex items-center text-navy-500 hover:text-navy-900 font-bold text-sm mb-4 transition-colors">
+                    <Link href="/cart" className="inline-flex items-center text-navy-600 hover:text-navy-900 font-bold text-sm mb-4 transition-colors">
                         <ChevronLeft className="w-4 h-4 mr-1" /> Back to Cart
                     </Link>
-                    <h1 className="text-4xl font-extrabold text-navy-900 tracking-tight">Checkout</h1>
+                    <h1 className="text-4xl font-bold text-navy-900 tracking-tight">Checkout</h1>
                 </div>
 
                 <div className="flex flex-col lg:flex-row gap-10">
@@ -112,7 +112,7 @@ export default function CheckoutPage() {
                         <form onSubmit={handleSubmit} className="space-y-8">
 
                             {/* Contact Information */}
-                            <div className="bg-white rounded-3xl p-8 border border-light-300 shadow-sm">
+                            <div className="bg-white rounded-lg md:rounded-3xl p-4 md:p-8 border border-light-300 shadow-sm">
                                 <h2 className="text-xl font-bold text-navy-900 mb-6 flex items-center">
                                     <User className="w-5 h-5 mr-3 text-gold-500" /> Contact Information
                                 </h2>
@@ -178,7 +178,7 @@ export default function CheckoutPage() {
                             </div>
 
                             {/* Delivery/Billing Address */}
-                            <div className="bg-white rounded-3xl p-8 border border-light-300 shadow-sm">
+                            <div className="bg-white rounded-lg md:rounded-3xl p-4 md:p-8 border border-light-300 shadow-sm">
                                 <h2 className="text-xl font-bold text-navy-900 mb-6 flex items-center">
                                     <MapPin className="w-5 h-5 mr-3 text-gold-500" /> Delivery Address
                                 </h2>
@@ -255,7 +255,7 @@ export default function CheckoutPage() {
                             </div>
 
                             {/* Payment Method */}
-                            <div className="bg-white rounded-3xl p-8 border border-light-300 shadow-sm">
+                            <div className="bg-white rounded-lg md:rounded-3xl p-4 md:p-8 border border-light-300 shadow-sm">
                                 <h2 className="text-xl font-bold text-navy-900 mb-6 flex items-center">
                                     <CreditCard className="w-5 h-5 mr-3 text-gold-500" /> Payment Method
                                 </h2>
@@ -271,21 +271,21 @@ export default function CheckoutPage() {
                                             <input
                                                 type="radio"
                                                 name="paymentMethod"
-                                                value={method.identifier}
-                                                checked={formData.paymentMethod === method.identifier}
+                                                value={method._id}
+                                                checked={formData.paymentMethod === method._id}
                                                 onChange={handleInputChange}
                                                 className="hidden"
                                             />
                                             <div className="flex-1">
                                                 <div className="font-bold text-navy-900">{method.label}</div>
-                                                <div className="text-[12px] text-navy-500">{method.description}</div>
+                                                <div className="text-[12px] text-navy-600">{method.description}</div>
                                             </div>
                                             {formData.paymentMethod === method._id && (
                                                 <CheckCircle2 className="w-5 h-5 text-gold-600" />
                                             )}
                                         </label>
                                     )) : (
-                                        <div className="text-sm text-navy-500 py-4 col-span-2 text-center border overflow-hidden border-dashed border-light-300 rounded-lg">
+                                        <div className="text-sm text-navy-600 py-4 col-span-2 text-center border overflow-hidden border-dashed border-light-300 rounded-lg">
                                             Loading available payment options...
                                         </div>
                                     )}
@@ -300,7 +300,7 @@ export default function CheckoutPage() {
                             <button
                                 type="submit"
                                 disabled={isProcessing}
-                                className="w-full bg-navy-900 text-gold-400 hover:bg-gold-500 hover:text-navy-900 py-6 rounded-2xl font-extrabold text-[18px] transition-all flex items-center justify-center group disabled:opacity-70 disabled:cursor-not-allowed"
+                                className="w-full bg-navy-900 text-gold-400 hover:bg-gold-500 hover:text-navy-900 py-6 rounded-2xl font-bold text-[18px] transition-all flex items-center justify-center group disabled:opacity-70 disabled:cursor-not-allowed"
                             >
                                 {isProcessing ? (
                                     <span className="flex items-center">
@@ -334,7 +334,7 @@ export default function CheckoutPage() {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <div className="font-bold text-navy-900 text-[14px] truncate uppercase">{item.title}</div>
-                                            <div className="text-[12px] text-navy-500 uppercase">{item.year} • {item.type}</div>
+                                            <div className="text-[12px] text-navy-600 uppercase">{item.year} • {item.type}</div>
                                         </div>
                                         <div className="font-bold text-navy-900 text-[14px]">{item.price}</div>
                                     </div>
@@ -342,11 +342,11 @@ export default function CheckoutPage() {
                             </div>
 
                             <div className="pt-6 border-t border-light-200 space-y-3 mb-6">
-                                <div className="flex justify-between text-navy-500 font-medium text-sm">
+                                <div className="flex justify-between text-navy-600 font-medium text-sm">
                                     <span>Subtotal</span>
                                     <span>${total.toLocaleString()}</span>
                                 </div>
-                                <div className="flex justify-between text-navy-500 font-medium text-sm">
+                                <div className="flex justify-between text-navy-600 font-medium text-sm">
                                     <span>Shipping</span>
                                     <span className="text-green-600 font-bold uppercase text-[11px]">Free</span>
                                 </div>
@@ -354,7 +354,7 @@ export default function CheckoutPage() {
 
                             <div className="flex justify-between items-end mb-8">
                                 <span className="text-navy-900 font-bold">Total</span>
-                                <span className="text-2xl font-extrabold text-navy-900 tracking-tight">${total.toLocaleString()}</span>
+                                <span className="text-2xl font-bold text-navy-900 tracking-tight">${total.toLocaleString()}</span>
                             </div>
 
                             <div className="bg-gold-50 p-4 rounded-2xl flex items-start gap-4">

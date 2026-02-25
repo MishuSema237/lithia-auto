@@ -88,11 +88,11 @@ function TrackOrderContent() {
             <div className="container mx-auto px-4 max-w-4xl">
 
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl font-extrabold text-navy-900 mb-4 tracking-tight">Track Your Vehicle</h1>
-                    <p className="text-navy-500 font-medium">Enter your details below to check the real-time status of your premium purchase.</p>
+                    <h1 className="text-4xl font-bold text-navy-900 mb-4 tracking-tight">Track Your Vehicle</h1>
+                    <p className="text-navy-600 font-medium">Enter your details below to check the real-time status of your premium purchase.</p>
                 </div>
 
-                <div className="bg-white rounded-3xl p-8 md:p-12 border border-light-300 shadow-xl mb-10">
+                <div className="bg-white rounded-lg md:rounded-3xl p-4 md:p-8 md:p-12 border border-light-300 shadow-xl mb-10">
                     <form onSubmit={handleTrack} className="flex flex-col md:flex-row gap-4">
                         <div className="flex-1 space-y-2">
                             <label className="text-[13px] font-bold text-navy-700 ml-1 uppercase tracking-wider">Order ID</label>
@@ -122,7 +122,7 @@ function TrackOrderContent() {
                             </div>
                         </div>
                         <div className="pt-7">
-                            <button type="submit" className="w-full md:w-auto bg-navy-900 text-gold-400 hover:bg-gold-500 hover:text-navy-900 px-10 py-4 rounded-2xl font-extrabold transition-all flex items-center justify-center group">
+                            <button type="submit" className="w-full md:w-auto bg-navy-900 text-gold-400 hover:bg-gold-500 hover:text-navy-900 px-10 py-4 rounded-2xl font-bold transition-all flex items-center justify-center group">
                                 <Search className="w-5 h-5 mr-2" /> Track
                             </button>
                         </div>
@@ -138,7 +138,7 @@ function TrackOrderContent() {
                             <div className="flex flex-col md:flex-row justify-between gap-8 relative z-10">
                                 <div className="space-y-4">
                                     <div>
-                                        <span className="text-gold-500 text-[11px] font-extrabold uppercase tracking-[0.2em] block mb-2">Order Identification</span>
+                                        <span className="text-gold-500 text-[11px] font-bold uppercase tracking-[0.2em] block mb-2">Order Identification</span>
                                         <h2 className="text-2xl font-mono font-bold text-white tracking-widest uppercase">{orderId}</h2>
                                     </div>
                                     <div className="flex items-center gap-2">
@@ -148,7 +148,7 @@ function TrackOrderContent() {
                                 </div>
                                 <div className="text-left md:text-right space-y-4">
                                     <div>
-                                        <span className="text-gold-500 text-[11px] font-extrabold uppercase tracking-[0.2em] block mb-2">Delivery Estimate</span>
+                                        <span className="text-gold-500 text-[11px] font-bold uppercase tracking-[0.2em] block mb-2">Delivery Estimate</span>
                                         <div className="text-2xl font-bold text-white">
                                             {trackingDetails.expectedDeliveredDate ? formatDate(trackingDetails.expectedDeliveredDate) : 'TBD'}
                                         </div>
@@ -161,7 +161,7 @@ function TrackOrderContent() {
                         </div>
 
                         {/* Progress Tracker */}
-                        <div className="bg-white rounded-3xl p-8 md:p-12 border border-light-300 shadow-sm">
+                        <div className="bg-white rounded-lg md:rounded-3xl p-4 md:p-8 md:p-12 border border-light-300 shadow-sm">
                             <h3 className="text-xl font-bold text-navy-900 mb-10 text-center tracking-tight">Purchase Journey</h3>
                             <div className="relative">
                                 {/* Timeline Line */}
@@ -188,10 +188,10 @@ function TrackOrderContent() {
                                                     {step.icon}
                                                 </div>
                                                 <div className="ml-6 md:ml-0 md:mt-6 text-left md:text-center">
-                                                    <div className={`font-extrabold text-sm uppercase tracking-tight mb-1 ${isActive ? 'text-navy-900' : 'text-light-400'}`}>
+                                                    <div className={`font-bold text-sm uppercase tracking-tight mb-1 ${isActive ? 'text-navy-900' : 'text-light-400'}`}>
                                                         {step.label}
                                                     </div>
-                                                    <div className="text-[12px] text-navy-500 font-medium">{step.date}</div>
+                                                    <div className="text-[12px] text-navy-600 font-medium">{step.date}</div>
                                                 </div>
                                             </div>
                                         );
@@ -202,7 +202,7 @@ function TrackOrderContent() {
 
                         {/* Order Details & Address */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div className="bg-white rounded-3xl p-8 border border-light-300 shadow-sm">
+                            <div className="bg-white rounded-lg md:rounded-3xl p-4 md:p-8 border border-light-300 shadow-sm">
                                 <h3 className="text-lg font-bold text-navy-900 mb-4 flex items-center">
                                     <MapPin className="w-5 h-5 mr-2 text-gold-500" /> Shipping Address
                                 </h3>
@@ -213,7 +213,7 @@ function TrackOrderContent() {
                                     <p>{orderData?.country}</p>
                                 </div>
                             </div>
-                            <div className="bg-white rounded-3xl p-8 border border-light-300 shadow-sm">
+                            <div className="bg-white rounded-lg md:rounded-3xl p-4 md:p-8 border border-light-300 shadow-sm">
                                 <h3 className="text-lg font-bold text-navy-900 mb-4 flex items-center">
                                     <Search className="w-5 h-5 mr-2 text-gold-500" /> Contact Info
                                 </h3>

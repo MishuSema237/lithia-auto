@@ -51,7 +51,7 @@ export default function CopyrightsPage() {
                             <ShieldAlert className="w-16 h-16 text-gold-600 shrink-0" />
                             <div>
                                 <h3 className="text-2xl font-black text-navy-900 mb-4">Copyright Infringement Notice</h3>
-                                <p className="text-navy-500 leading-relaxed mb-6">
+                                <p className="text-navy-600 leading-relaxed mb-6">
                                     Lithia Auto respects the intellectual property rights of others. If you believe your work has been copied in a way that constitutes copyright infringement, please provide our legal department with the following information:
                                 </p>
                                 <ul className="space-y-3 text-sm text-navy-600 font-bold">

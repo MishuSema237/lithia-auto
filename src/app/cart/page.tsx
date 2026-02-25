@@ -15,8 +15,8 @@ export default function CartPage() {
                     <div className="bg-gold-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
                         <ShoppingCart className="w-10 h-10 text-gold-500" />
                     </div>
-                    <h2 className="text-3xl font-extrabold text-navy-900 mb-4">Your cart is empty</h2>
-                    <p className="text-navy-500 mb-8 leading-relaxed">It looks like you haven't added any dream vehicles to your cart yet.</p>
+                    <h2 className="text-3xl font-bold text-navy-900 mb-4">Your cart is empty</h2>
+                    <p className="text-navy-600 mb-8 leading-relaxed">It looks like you haven't added any dream vehicles to your cart yet.</p>
                     <Link href="/inventory" className="inline-flex items-center justify-center bg-navy-900 text-gold-400 font-bold py-4 px-8 rounded-xl hover:bg-gold-500 hover:text-navy-900 transition-all w-full">
                         Browse Inventory <ArrowRight className="ml-2 w-5 h-5" />
                     </Link>
@@ -31,14 +31,14 @@ export default function CartPage() {
 
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-4">
                     <div>
-                        <Link href="/inventory" className="inline-flex items-center text-navy-500 hover:text-navy-900 font-bold text-sm mb-2 transition-colors">
+                        <Link href="/inventory" className="inline-flex items-center text-navy-600 hover:text-navy-900 font-bold text-sm mb-2 transition-colors">
                             <ChevronLeft className="w-4 h-4 mr-1" /> Continue Shopping
                         </Link>
-                        <h1 className="text-4xl font-extrabold text-navy-900 tracking-tight">Shopping Cart</h1>
+                        <h1 className="text-4xl font-bold text-navy-900 tracking-tight">Shopping Cart</h1>
                     </div>
                     <div className="bg-white border border-light-300 px-6 py-3 rounded-2xl flex items-center shadow-sm">
-                        <span className="text-navy-500 font-medium mr-3">Total Items:</span>
-                        <span className="text-navy-900 font-extrabold text-xl">{cart.length}</span>
+                        <span className="text-navy-600 font-medium mr-3">Total Items:</span>
+                        <span className="text-navy-900 font-bold text-xl">{cart.length}</span>
                     </div>
                 </div>
 
@@ -56,7 +56,7 @@ export default function CartPage() {
                                 <div className="flex-grow">
                                     <div className="flex justify-between items-start mb-2">
                                         <div>
-                                            <div className="text-gold-500 text-[11px] font-extrabold tracking-widest uppercase mb-1">{item.type} • {item.year}</div>
+                                            <div className="text-gold-500 text-[11px] font-bold tracking-widest uppercase mb-1">{item.type} • {item.year}</div>
                                             <Link href={`/inventory/${item.id}`}>
                                                 <h3 className="text-xl font-bold text-navy-900 hover:text-gold-500 transition-colors uppercase">{item.title}</h3>
                                             </Link>
@@ -72,7 +72,7 @@ export default function CartPage() {
                                     <div className="flex items-end justify-between mt-4">
                                         <div className="space-y-1">
                                             <span className="text-[13px] text-navy-400 block">Single Unit Price</span>
-                                            <span className="text-2xl font-extrabold text-navy-900">{item.price}</span>
+                                            <span className="text-2xl font-bold text-navy-900">{item.price}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@ export default function CartPage() {
                     {/* Summary Sidebar */}
                     <aside className="w-full xl:w-[35%]">
                         <div className="bg-white rounded-3xl border border-navy-900 p-8 shadow-xl sticky top-28">
-                            <h2 className="text-2xl font-extrabold text-navy-900 mb-6 flex items-center">
+                            <h2 className="text-2xl font-bold text-navy-900 mb-6 flex items-center">
                                 <CreditCard className="w-6 h-6 mr-3 text-gold-500" /> Order Summary
                             </h2>
 
@@ -102,12 +102,12 @@ export default function CartPage() {
                                 </div>
                                 <div className="flex justify-between items-end pt-2">
                                     <span className="text-navy-900 font-bold">Total Amount</span>
-                                    <span className="text-3xl font-extrabold text-navy-900 tracking-tight">${total.toLocaleString()}</span>
+                                    <span className="text-3xl font-bold text-navy-900 tracking-tight">${total.toLocaleString()}</span>
                                 </div>
                             </div>
 
                             <Link href="/checkout" className="block">
-                                <button className="w-full bg-navy-900 text-gold-400 hover:bg-gold-500 hover:text-navy-900 py-5 rounded-2xl font-extrabold text-[16px] transition-all flex items-center justify-center group">
+                                <button className="w-full bg-navy-900 text-gold-400 hover:bg-gold-500 hover:text-navy-900 py-5 rounded-2xl font-bold text-[16px] transition-all flex items-center justify-center group">
                                     Checkout Now <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </Link>

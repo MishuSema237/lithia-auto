@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState, useMemo, Suspense } from 'react';
-import { ChevronDown, X, Grid, List as ListIcon, Check, Cog } from 'lucide-react';
+import { ChevronDown, X, Grid, List as ListIcon, Check, Cog, Filter, Search } from 'lucide-react';
 import { Car as CarIcon } from 'lucide-react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 import { useToast } from '@/components/ui/Toast';
 import { Partners } from '@/components/ui/Partners';
@@ -12,7 +13,8 @@ import { Loader2 } from 'lucide-react';
 
 function InventoryContent() {
     const [viewType, setViewType] = useState<'grid' | 'list'>('grid');
-    const [allCars, setAllCars] = useState<any[]>([]);
+    const [sortBy, setSortBy] = useState('Default');
+    const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [filters, setFilters] = useState({
         make: '',
@@ -23,8 +25,7 @@ function InventoryContent() {
         kmRange: [0, 200000],
         features: [] as string[]
     });
-    const [sortBy, setSortBy] = useState('Default');
-
+    const [allCars, setAllCars] = useState<any[]>([]);
     const [makes, setMakes] = useState<string[]>([]);
     const [models, setModels] = useState<string[]>([]);
     const { showToast } = useToast();
@@ -169,15 +170,27 @@ function InventoryContent() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col xl:flex-row gap-8">
 
                 {/* Sidebar Filters */}
-                <aside className="w-full xl:w-[320px] flex-shrink-0 bg-white rounded-xl border border-light-200 p-6 h-fit">
+                <aside className={cn(
+                    "w-full xl:w-[320px] flex-shrink-0 bg-white rounded-xl border border-light-200 p-6 h-fit transition-all duration-300",
+                    "max-xl:fixed max-xl:inset-0 max-xl:z-50 max-xl:rounded-none max-xl:overflow-y-auto",
+                    isMobileFilterOpen ? "max-xl:translate-x-0" : "max-xl:-translate-x-full"
+                )}>
                     <div className="flex items-center justify-between mb-8">
                         <h2 className="text-xl font-bold text-navy-900">Filters and Sort</h2>
-                        <button
-                            onClick={clearFilters}
-                            className="text-sm font-semibold text-navy-500 hover:text-navy-900 flex items-center transition-colors"
-                        >
-                            <X className="h-4 w-4 mr-1" /> Clear
-                        </button>
+                        <div className="flex items-center gap-4">
+                            <button
+                                onClick={clearFilters}
+                                className="text-sm font-semibold text-navy-600 hover:text-navy-900 flex items-center transition-colors"
+                            >
+                                <X className="h-4 w-4 mr-1" /> Clear
+                            </button>
+                            <button
+                                onClick={() => setIsMobileFilterOpen(false)}
+                                className="xl:hidden p-2 rounded-lg bg-light-100 text-navy-900"
+                            >
+                                <X className="h-5 w-5" />
+                            </button>
+                        </div>
                     </div>
 
                     <div className="space-y-4">
@@ -307,11 +320,21 @@ function InventoryContent() {
                                             >
                                                 {isSelected && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                                             </div>
-                                            <span className={`text-[15px] transition-colors ${isSelected ? 'text-navy-900 font-bold' : 'text-navy-500 group-hover:text-navy-900'}`}>{feature}</span>
+                                            <span className={`text-[15px] transition-colors ${isSelected ? 'text-navy-900 font-bold' : 'text-navy-600 group-hover:text-navy-900'}`}>{feature}</span>
                                         </label>
                                     );
                                 })}
                             </div>
+                        </div>
+
+                        {/* Apply Button for Mobile */}
+                        <div className="xl:hidden pt-6">
+                            <button
+                                onClick={() => setIsMobileFilterOpen(false)}
+                                className="w-full bg-gold-500 text-navy-900 font-bold py-3.5 rounded-xl hover:bg-gold-400 transition-all text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3"
+                            >
+                                Apply Filters
+                            </button>
                         </div>
 
                     </div>
@@ -321,8 +344,15 @@ function InventoryContent() {
 
                     {/* Top Bar */}
                     <div className="flex flex-col xl:flex-row justify-between items-start xl:items-center mb-8 gap-4">
-                        <div className="flex gap-2">
-                            <button className="bg-navy-900 text-gold-400 font-bold py-2.5 px-6 rounded-xl text-[14px]">All Cars ({filteredCars.length})</button>
+                        <div className="flex gap-2 w-full justify-between items-center">
+                            <button className="bg-navy-900 text-gold-400 font-bold py-2.5 px-6 rounded-xl text-[14px] text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">All Cars ({filteredCars.length})</button>
+                            <button
+                                onClick={() => setIsMobileFilterOpen(true)}
+                                className="xl:hidden flex items-center gap-2 bg-white border border-light-300 text-navy-900 font-bold py-2.5 px-6 rounded-xl text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3"
+                            >
+                                <Filter className="w-4 h-4 text-gold-500" />
+                                Filter
+                            </button>
                         </div>
 
                         <div className="flex items-center gap-4 w-full xl:w-auto">
@@ -359,8 +389,8 @@ function InventoryContent() {
                     {/* Cars Content */}
                     <div className={viewType === 'grid' ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" : "flex flex-col gap-6"}>
                         {filteredCars.map((car: any) => (
-                            <div key={car._id || car.id} className={`border border-light-300 rounded-2xl overflow-hidden hover:border-gold-500 transition-all duration-300 bg-white flex ${viewType === 'list' ? 'flex-row h-64' : 'flex-col'}`}>
-                                <div className={`relative overflow-hidden ${viewType === 'list' ? 'w-1/3' : 'h-56'}`}>
+                            <div key={car._id || car.id} className={`border border-light-300 rounded-2xl overflow-hidden hover:border-gold-500 transition-all duration-300 bg-white flex ${viewType === 'list' ? 'flex-col md:flex-row md:h-64' : 'flex-col'}`}>
+                                <div className={`relative overflow-hidden ${viewType === 'list' ? 'w-full md:w-1/3 h-52 md:h-full' : 'h-56'}`}>
                                     {car.isFeatured && (
                                         <div className="absolute top-4 left-4 z-10 flex gap-2">
                                             <span className="bg-gold-500 text-navy-900 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-lg">Featured</span>
@@ -378,11 +408,11 @@ function InventoryContent() {
                                 <div className={`p-6 flex-grow flex flex-col ${viewType === 'list' ? 'justify-between' : ''}`}>
                                     <div>
                                         <div className="text-gold-500 text-[12px] font-bold mb-1.5 tracking-wide uppercase">{car.type || car.bodyType}</div>
-                                        <h3 className={`font-bold text-navy-900 mb-4 ${viewType === 'list' ? 'text-2xl' : 'text-[17px] line-clamp-1'}`}>
+                                        <h3 className={`font-bold text-navy-900 mb-4 ${viewType === 'list' ? 'text-xl md:text-2xl' : 'text-[17px] line-clamp-1'}`}>
                                             {car.title || `${car.year} ${car.make} ${car.carModel}`}
                                         </h3>
 
-                                        <div className={`flex items-center gap-4 text-[13px] text-navy-500 mb-4 ${viewType === 'list' ? 'flex-wrap' : ''}`}>
+                                        <div className={`flex items-center gap-4 text-[13px] text-navy-600 mb-4 ${viewType === 'list' ? 'flex-wrap' : ''}`}>
                                             <span className="flex items-center bg-light-100 px-3 py-1.5 rounded-lg"><CarIcon className="w-3.5 h-3.5 mr-2 text-navy-300" /> {(car.mileage || car.miles || 0).toLocaleString()} km</span>
                                             <span className="flex items-center bg-light-100 px-3 py-1.5 rounded-lg"><svg className="w-3.5 h-3.5 mr-2 text-navy-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 21h18M5 21V7l8-4v18M13 3v18M19 21V11l-6-4M9 7v6M9 17v-2" /></svg> {car.fuelType || car.fuel}</span>
                                             <span className="flex items-center bg-light-100 px-3 py-1.5 rounded-lg"><Cog className="w-3.5 h-3.5 mr-2 text-navy-300" /> {car.transmission || car.trans}</span>
@@ -390,8 +420,8 @@ function InventoryContent() {
                                     </div>
 
                                     <div className={`flex items-center justify-between border-t border-light-200 pt-4 ${viewType === 'list' ? 'mt-0' : 'mt-4'}`}>
-                                        <div className="text-[22px] font-black text-navy-900">${car.price.toLocaleString()}</div>
-                                        <Link href={`/inventory/${car._id || car.id}`} className="text-[13px] font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full px-6 py-2.5 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-sm active:scale-95">
+                                        <div className="text-[22px] font-bold text-navy-900">${car.price.toLocaleString()}</div>
+                                        <Link href={`/inventory/${car._id || car.id}`} className="text-[13px] font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full px-6 py-2.5 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-sm active:scale-95 text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
                                             View car
                                         </Link>
                                     </div>

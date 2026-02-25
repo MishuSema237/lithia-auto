@@ -473,7 +473,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                         <div className="bg-light-50 border-2 border-dashed border-light-300 rounded-xl p-6 text-center">
                             <UploadCloud className="h-8 w-8 text-navy-400 mx-auto mb-2" />
                             <h3 className="font-bold text-sm text-navy-900">Upload Files</h3>
-                            <p className="text-[10px] text-navy-500 mb-3">Images will be saved only after form submission.</p>
+                            <p className="text-[10px] text-navy-600 mb-3">Images will be saved only after form submission.</p>
                             <input type="file" multiple accept="image/*" className="hidden" ref={fileInputRef} onChange={handleFileSelect} />
                             <Button type="button" variant="outline" size="sm" onClick={() => fileInputRef.current?.click()}>
                                 Select Images
@@ -553,7 +553,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                 <CardContent className="p-6 space-y-6">
                     {reviews.length === 0 ? (
                         <div className="text-center py-8 bg-light-50 rounded-xl border border-dashed border-light-300">
-                            <p className="text-sm text-navy-500">No reviews added yet. Click "Add Review" to represent customer feedback.</p>
+                            <p className="text-sm text-navy-600">No reviews added yet. Click "Add Review" to represent customer feedback.</p>
                         </div>
                     ) : (
                         <div className="space-y-6">

@@ -118,7 +118,7 @@ export default function AdminPaymentMethodsPage() {
             <div className="flex justify-between items-center">
                 <div>
                     <h1 className="text-2xl font-bold text-navy-900">Payment Methods</h1>
-                    <p className="text-navy-500 mt-1">Configure available payment options for checkout.</p>
+                    <p className="text-navy-600 mt-1">Configure available payment options for checkout.</p>
                 </div>
                 <Button onClick={() => handleOpenModal()} variant="primary" className="flex items-center gap-2">
                     <Plus className="h-4 w-4" /> Add Method
@@ -131,9 +131,9 @@ export default function AdminPaymentMethodsPage() {
                         <table className="w-full text-left">
                             <thead className="bg-light-50 border-b border-light-200">
                                 <tr>
-                                    <th className="px-6 py-4 text-xs font-bold text-navy-500 uppercase tracking-wider">Method Name</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-navy-500 uppercase tracking-wider">Status</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-navy-500 uppercase tracking-wider text-right">Actions</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-navy-600 uppercase tracking-wider">Method Name</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-navy-600 uppercase tracking-wider">Status</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-navy-600 uppercase tracking-wider text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-light-200">
@@ -155,7 +155,7 @@ export default function AdminPaymentMethodsPage() {
                                         <tr key={method._id} className="hover:bg-light-50 transition-colors">
                                             <td className="px-6 py-4">
                                                 <div className="font-bold text-navy-900">{method.label}</div>
-                                                <div className="text-sm text-navy-500">{method.description}</div>
+                                                <div className="text-sm text-navy-600">{method.description}</div>
                                             </td>
                                             <td className="px-6 py-4">
                                                 <button

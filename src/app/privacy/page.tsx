@@ -36,7 +36,7 @@ export default function PrivacyPage() {
                         <ShieldCheck className="w-4 h-4" /> Secure & Private
                     </div>
                     <h1 className="text-4xl md:text-5xl font-black text-navy-900 mb-6 tracking-tight">Privacy <span className="text-gold-500">Policy</span></h1>
-                    <p className="text-navy-500 max-w-2xl mx-auto text-lg leading-relaxed">
+                    <p className="text-navy-600 max-w-2xl mx-auto text-lg leading-relaxed">
                         At Lithia Auto, we value your trust above all else. This policy outlines our commitment to protecting your personal information and ensuring a secure car buying journey.
                     </p>
                 </div>
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
                                     {policy.icon}
                                 </div>
                                 <h3 className="text-2xl font-black text-navy-900 mb-4">{policy.title}</h3>
-                                <p className="text-navy-500 leading-relaxed">
+                                <p className="text-navy-600 leading-relaxed">
                                     {policy.desc}
                                 </p>
                             </div>

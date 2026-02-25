@@ -138,7 +138,7 @@ export default function AdminBlogPage() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-navy-900">Blog Management</h1>
-                    <p className="text-navy-500 text-sm mt-1">Create, edit, and manage your website articles.</p>
+                    <p className="text-navy-600 text-sm mt-1">Create, edit, and manage your website articles.</p>
                 </div>
                 <Button variant="primary" onClick={() => handleOpenModal()}>
                     <PlusCircle className="h-5 w-5 mr-2" />

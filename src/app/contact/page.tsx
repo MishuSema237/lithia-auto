@@ -59,8 +59,8 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
 
             <div className="text-center max-w-2xl mx-auto mb-16">
-                <h1 className="text-4xl md:text-5xl font-extrabold text-navy-900 mb-4 tracking-tight">Contact <span className="text-gold-500">Us</span></h1>
-                <p className="text-lg text-navy-500">
+                <h1 className="text-4xl md:text-5xl font-bold text-navy-900 mb-4 tracking-tight">Contact <span className="text-gold-500">Us</span></h1>
+                <p className="text-lg text-navy-600">
                     Whether you're looking for your perfect car, or exploring your selling options, we're here to provide assistance at every step.
                 </p>
             </div>

@@ -47,7 +47,7 @@ export default function AdminOrdersPage() {
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-navy-900">Orders</h1>
-                    <p className="text-navy-500 mt-1">Manage all incoming vehicle and part orders.</p>
+                    <p className="text-navy-600 mt-1">Manage all incoming vehicle and part orders.</p>
                 </div>
                 <div className="relative w-full md:w-64">
                     <input
@@ -67,12 +67,12 @@ export default function AdminOrdersPage() {
                         <table className="w-full text-left whitespace-nowrap">
                             <thead className="bg-light-50 border-b border-light-200">
                                 <tr>
-                                    <th className="px-6 py-4 text-xs font-bold text-navy-500 uppercase tracking-wider">Order ID</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-navy-500 uppercase tracking-wider">Date</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-navy-500 uppercase tracking-wider">Customer</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-navy-500 uppercase tracking-wider">Total</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-navy-500 uppercase tracking-wider">Status</th>
-                                    <th className="px-6 py-4 text-xs font-bold text-navy-500 uppercase tracking-wider text-right">Actions</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-navy-600 uppercase tracking-wider">Order ID</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-navy-600 uppercase tracking-wider">Date</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-navy-600 uppercase tracking-wider">Customer</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-navy-600 uppercase tracking-wider">Total</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-navy-600 uppercase tracking-wider">Status</th>
+                                    <th className="px-6 py-4 text-xs font-bold text-navy-600 uppercase tracking-wider text-right">Actions</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-light-200">
@@ -98,7 +98,7 @@ export default function AdminOrdersPage() {
                                             </td>
                                             <td className="px-6 py-4">
                                                 <div className="font-bold text-navy-900 text-sm">{order.firstName} {order.lastName}</div>
-                                                <div className="text-xs text-navy-500">{order.email}</div>
+                                                <div className="text-xs text-navy-600">{order.email}</div>
                                             </td>
                                             <td className="px-6 py-4 font-bold text-navy-900 text-sm">${order.total.toLocaleString()}</td>
                                             <td className="px-6 py-4">
@@ -140,7 +140,7 @@ export default function AdminOrdersPage() {
                                     </div>
                                     <div>
                                         <div className="font-bold text-navy-900 text-sm">{order.firstName} {order.lastName}</div>
-                                        <div className="text-xs text-navy-500">{order.email}</div>
+                                        <div className="text-xs text-navy-600">{order.email}</div>
                                     </div>
                                     <div className="flex justify-between items-center pt-2 border-t border-light-100">
                                         <div className="text-xs text-navy-400">

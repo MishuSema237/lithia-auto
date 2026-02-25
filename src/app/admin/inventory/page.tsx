@@ -62,7 +62,7 @@ export default function AdminInventory() {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-navy-900">Inventory Management</h1>
-                    <p className="text-sm text-navy-500 mt-1">Manage comprehensive details, specs, and images for all cars.</p>
+                    <p className="text-sm text-navy-600 mt-1">Manage comprehensive details, specs, and images for all cars.</p>
                 </div>
                 <Link href="/admin/inventory/new">
                     <Button variant="primary">
@@ -105,7 +105,7 @@ export default function AdminInventory() {
                             <CarIcon className="h-8 w-8 text-light-400" />
                         </div>
                         <h3 className="font-bold text-navy-900">No vehicles found</h3>
-                        <p className="text-navy-500 text-sm mt-1">Try adjusting your search or add a new vehicle.</p>
+                        <p className="text-navy-600 text-sm mt-1">Try adjusting your search or add a new vehicle.</p>
                     </div>
                 ) : (
                     <>
@@ -131,7 +131,7 @@ export default function AdminInventory() {
                                                     </div>
                                                     <div>
                                                         <div className="font-bold text-navy-900">{car.year} {car.make} {car.carModel}</div>
-                                                        <div className="text-xs text-navy-500 line-clamp-1">{car.transmission} · {car.fuelType}</div>
+                                                        <div className="text-xs text-navy-600 line-clamp-1">{car.transmission} · {car.fuelType}</div>
                                                     </div>
                                                 </div>
                                             </td>
@@ -187,7 +187,7 @@ export default function AdminInventory() {
                                                 <div className="font-bold text-navy-900">${car.price.toLocaleString()}</div>
                                             </div>
                                             <h3 className="font-bold text-navy-900 text-sm truncate">{car.year} {car.make} {car.carModel}</h3>
-                                            <div className="text-[10px] text-navy-500 font-mono mt-1">{car.vin}</div>
+                                            <div className="text-[10px] text-navy-600 font-mono mt-1">{car.vin}</div>
                                         </div>
                                     </div>
 
@@ -215,7 +215,7 @@ export default function AdminInventory() {
                 )}
 
                 {!isLoading && filteredCars.length > 0 && (
-                    <div className="p-4 border-t border-light-200 bg-light-50 flex items-center justify-between text-xs font-medium text-navy-500">
+                    <div className="p-4 border-t border-light-200 bg-light-50 flex items-center justify-between text-xs font-medium text-navy-600">
                         <span>Total {filteredCars.length} result(s)</span>
                         <div className="flex space-x-2">
                             <Button variant="outline" size="sm" className="h-8 px-3" disabled>Prev</Button>

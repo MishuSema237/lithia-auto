@@ -60,6 +60,9 @@
   --shadow-2xl: none;
   --shadow-inner: none;
   --shadow: none;
+
+  /* Custom Breakpoints */
+  --breakpoint-mobile: 480px;
 }
 
 @layer base {

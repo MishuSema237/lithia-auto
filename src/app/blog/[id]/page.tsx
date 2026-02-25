@@ -93,7 +93,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ id: string 
                 <div className="flex flex-col lg:flex-row gap-12">
                     {/* Main Content */}
                     <main className="w-full lg:w-[68%]">
-                        <Link href="/blog" className="inline-flex items-center text-navy-500 hover:text-navy-900 font-bold text-sm mb-6 transition-colors group">
+                        <Link href="/blog" className="inline-flex items-center text-navy-600 hover:text-navy-900 font-bold text-sm mb-6 transition-colors group">
                             <ChevronLeft className="w-4 h-4 mr-1 group-hover:-translate-x-1 transition-transform" /> Back to Blog
                         </Link>
 
@@ -164,7 +164,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ id: string 
                             <div className="flex items-center gap-4 flex-wrap">
                                 <span className="text-xs font-black text-navy-900 uppercase tracking-widest">Tags:</span>
                                 {postTags.map((tag: string) => (
-                                    <span key={tag} onClick={() => router.push(`/blog?tag=${encodeURIComponent(tag)}`)} className="px-5 py-2.5 bg-white border border-light-200 rounded-xl text-xs font-bold text-navy-500 hover:border-gold-500 hover:text-gold-600 transition-all cursor-pointer">{tag}</span>
+                                    <span key={tag} onClick={() => router.push(`/blog?tag=${encodeURIComponent(tag)}`)} className="px-5 py-2.5 bg-white border border-light-200 rounded-xl text-xs font-bold text-navy-600 hover:border-gold-500 hover:text-gold-600 transition-all cursor-pointer">{tag}</span>
                                 ))}
                             </div>
                         </div>
@@ -233,7 +233,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ id: string 
                             <h3 className="text-xl font-black text-navy-900 mb-6">Popular tags</h3>
                             <div className="flex flex-wrap gap-2">
                                 {sidebarTags.map((tag: string) => (
-                                    <span key={tag} onClick={() => router.push(`/blog?tag=${encodeURIComponent(tag)}`)} className="px-5 py-2.5 bg-white border border-light-200 rounded-xl text-xs font-bold text-navy-500 hover:border-gold-500 hover:text-gold-600 transition-all cursor-pointer">{tag}</span>
+                                    <span key={tag} onClick={() => router.push(`/blog?tag=${encodeURIComponent(tag)}`)} className="px-5 py-2.5 bg-white border border-light-200 rounded-xl text-xs font-bold text-navy-600 hover:border-gold-500 hover:text-gold-600 transition-all cursor-pointer">{tag}</span>
                                 ))}
                             </div>
                         </div>

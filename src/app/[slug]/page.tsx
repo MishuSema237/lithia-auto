@@ -27,7 +27,7 @@ export default async function GenericStaticPage({ params }: { params: Promise<{ 
 
                 <div className="bg-navy-50 border border-light-200 p-8 rounded-2xl flex items-center justify-between group cursor-pointer hover:bg-navy-900 transition-colors">
                     <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-navy-900 text-gold-500 flex items-center justify-center font-bold text-lg group-hover:bg-gold-500 group-hover:text-navy-900">PDF</div>
+                        <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-navy-900 text-gold-500 flex items-center justify-center font-bold text-lg group-hover:bg-gold-500 group-hover:text-navy-900">PDF</div>
                         <div>
                             <h4 className="font-bold text-navy-900 group-hover:text-white">Download Full Document</h4>
                             <p className="text-navy-400 text-sm group-hover:text-navy-300">Updated January 2024 • 1.2 MB</p>

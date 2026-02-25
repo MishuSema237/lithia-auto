@@ -66,7 +66,7 @@ export default function TermsPage() {
                             <Shield className="w-6 h-6 text-gold-600 shrink-0 mt-1" />
                             <div>
                                 <h4 className="font-bold text-navy-900 mb-2">Notice to International Buyers</h4>
-                                <p className="text-navy-500 text-sm leading-relaxed">
+                                <p className="text-navy-600 text-sm leading-relaxed">
                                     Additional terms apply for vehicles shipped outside the European Union or North America. Please consult our logistics team for specific regulatory requirements regarding your jurisdiction.
                                 </p>
                             </div>
