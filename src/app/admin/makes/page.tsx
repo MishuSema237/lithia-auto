@@ -204,8 +204,8 @@ export default function MakesPage() {
                                             />
                                             <Button
                                                 variant="outline"
-                                                size="icon"
-                                                className="h-10 w-10 shrink-0 border-light-300 hover:border-gold-500 hover:text-gold-500"
+                                                size="sm"
+                                                className="h-10 w-10 shrink-0 border-light-300 hover:border-gold-500 hover:text-gold-500 p-0"
                                                 onClick={() => document.getElementById(`file-${make.name}`)?.click()}
                                                 disabled={isSaving === make.name}
                                             >
