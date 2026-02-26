@@ -22,9 +22,11 @@ export function Navbar() {
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center">
                         <Link href="/" className="flex items-center gap-2">
-                            <span className="font-bold text-xl md:text-[26px] tracking-tight text-navy-900">
-                                LithiaAuto
-                            </span>
+                            <img 
+                                src="/images/LithiaAutosLogo.png" 
+                                alt="Lithia Autos" 
+                                className="h-8 md:h-10 w-auto object-contain"
+                            />
                         </Link>
                     </div>
 

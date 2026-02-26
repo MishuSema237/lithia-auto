@@ -88,7 +88,11 @@ export default function AgentForm({ initialData, isEdit, id }: AgentFormProps) {
             const isExternalUrl = formData.image && !formData.image.includes('cloudinary.com') && formData.image.startsWith('http');
             
             if (imageFile || isExternalUrl) {
-                const signRes = await fetch('/api/admin/cloudinary-sign', { method: 'POST' });
+                const signRes = await fetch('/api/admin/cloudinary-sign', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ folder: 'lithia-auto-agents' })
+                });
                 const { timestamp, signature, cloudName, apiKey } = await signRes.json();
 
                 const fd = new FormData();

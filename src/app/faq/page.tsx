@@ -51,9 +51,9 @@ export default function FAQPage() {
         {
             title: 'Overview',
             items: [
-                { q: 'What is LithiaAuto.com?', a: 'Once your account is set up and you\'ve familiarized yourself with the platform, you are ready to start using our services. Whether it\'s accessing specific features, making transactions, or utilizing our tools, you\'ll find everything you need at your fingertips.' },
-                { q: 'How do I access LithiaAuto.com?', a: 'You can access our platform from any modern web browser or mobile device. Simply log in to view our exclusive inventory and track your orders.' },
-                { q: 'How is LithiaAuto content organized?', a: 'Our content is meticulously organized into categories like Make, Body Type, and Price range to ensure you can find the exact vehicle you\'re looking for with minimal effort.' }
+                { q: 'What is LithiaAutos.com?', a: 'Once your account is set up and you\'ve familiarized yourself with the platform, you are ready to start using our services. Whether it\'s accessing specific features, making transactions, or utilizing our tools, you\'ll find everything you need at your fingertips.' },
+                { q: 'How do I access LithiaAutos.com?', a: 'You can access our platform from any modern web browser or mobile device. Simply log in to view our exclusive inventory and track your orders.' },
+                { q: 'How is LithiaAutos content organized?', a: 'Our content is meticulously organized into categories like Make, Body Type, and Price range to ensure you can find the exact vehicle you\'re looking for with minimal effort.' }
             ]
         },
         {

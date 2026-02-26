@@ -53,7 +53,7 @@ export default function AdminLoginPage() {
                             <Lock className="h-8 w-8 text-gold-500" />
                         </div>
                         <h1 className="text-2xl font-bold text-navy-900">Admin Login</h1>
-                        <p className="text-navy-900/70">Lithia Auto Management System</p>
+                        <p className="text-navy-900/70">Lithia Autos Management System</p>
                     </div>
 
                     <div className="p-8">
@@ -102,7 +102,7 @@ export default function AdminLoginPage() {
                 </div>
 
                 <p className="text-center mt-6 text-navy-400 text-sm">
-                    &copy; 2024 Lithia Auto Group. All rights reserved.
+                    &copy; 2024 Lithia Autos Group. All rights reserved.
                 </p>
             </div>
         </div>

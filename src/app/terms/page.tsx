@@ -9,12 +9,12 @@ export default function TermsPage() {
         {
             title: '1. Acceptance of Terms',
             icon: <Globe className="w-6 h-6 text-gold-500" />,
-            content: 'By accessing and using LithiaAuto.com, you agree to be bound by these Terms and Conditions and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.'
+            content: 'By accessing and using LithiaAutos.com, you agree to be bound by these Terms and Conditions and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.'
         },
         {
             title: '2. Luxury Vehicle Sales',
             icon: <Scale className="w-6 h-6 text-gold-500" />,
-            content: 'All sales conducted through LithiaAuto are subject to final inspection and documentation verification. We reserve the right to refuse service or cancel orders at our discretion, particularly in cases of suspected fraud or pricing errors.'
+            content: 'All sales conducted through Lithia Autos are subject to final inspection and documentation verification. We reserve the right to refuse service or cancel orders at our discretion, particularly in cases of suspected fraud or pricing errors.'
         },
         {
             title: '3. Intellectual Property',
@@ -24,7 +24,7 @@ export default function TermsPage() {
         {
             title: '4. Limitation of Liability',
             icon: <AlertCircle className="w-6 h-6 text-gold-500" />,
-            content: 'In no event shall Lithia Auto or its partners be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on our platform.'
+            content: 'In no event shall Lithia Autos or its partners be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on our platform.'
         }
     ];
 

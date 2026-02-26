@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button';
 import { Mail, Phone, MapPin, ChevronDown, Loader2 } from 'lucide-react';
 import { useToast } from '@/components/ui/Toast';
 import { LocationsMarquee } from '@/components/ui/LocationsMarquee';
+import { LiveMap } from '@/components/ui/LiveMap';
 
 export default function ContactPage() {
     const { showToast } = useToast();
@@ -225,6 +226,10 @@ export default function ContactPage() {
                     </Card>
                 </div>
 
+            </div>
+
+            <div className="mt-20">
+                <LiveMap />
             </div>
 
             <div className="mt-20 -mx-4 sm:-mx-6 lg:-mx-8">

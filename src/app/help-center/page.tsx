@@ -60,11 +60,11 @@ export default function HelpCenterPage() {
                             </p>
                         </div>
                         <div className="grid grid-cols-1 gap-6 w-full lg:w-auto">
-                            <a href="mailto:support@lithiaauto.com" className="flex items-center gap-6 p-6 bg-navy-900 rounded-3xl group">
+                            <a href="mailto:support@lithiaautos.com" className="flex items-center gap-6 p-6 bg-navy-900 rounded-3xl group">
                                 <div className="w-12 h-12 bg-gold-500 rounded-xl flex items-center justify-center text-navy-900"><Mail className="w-6 h-6" /></div>
                                 <div>
                                     <p className="text-navy-300 text-xs font-bold uppercase tracking-widest mb-1">Email us</p>
-                                    <p className="text-white font-bold">support@lithiaauto.com</p>
+                                    <p className="text-white font-bold">support@lithiaautos.com</p>
                                 </div>
                             </a>
                             <a href="tel:+1555000000" className="flex items-center gap-6 p-6 bg-white border border-light-200 rounded-3xl hover:border-gold-500 transition-all">

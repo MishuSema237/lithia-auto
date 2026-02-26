@@ -39,19 +39,54 @@ export default function MakesPage() {
     const handleUpdateLogo = async (name: string, logoUrl: string) => {
         setIsSaving(name);
         try {
+            let finalLogoUrl = logoUrl;
+
+            // 1. If it's an external URL (not already Cloudinary), upload it to Cloudinary first.
+            // This fixes Safari/iOS rendering issues with random external URLs.
+            const isExternalUrl = logoUrl && !logoUrl.includes('cloudinary.com') && logoUrl.startsWith('http');
+            
+            if (isExternalUrl) {
+                const signRes = await fetch('/api/admin/cloudinary-sign', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ folder: 'lithia-auto-inventory' })
+                });
+                const { timestamp, signature, cloudName, apiKey } = await signRes.json();
+
+                const fd = new FormData();
+                fd.append('file', logoUrl);
+                fd.append('api_key', apiKey);
+                fd.append('timestamp', timestamp);
+                fd.append('signature', signature);
+                fd.append('folder', 'lithia-auto-inventory');
+
+                const uploadRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                    method: 'POST',
+                    body: fd,
+                });
+
+                if (uploadRes.ok) {
+                    const uploadData = await uploadRes.json();
+                    finalLogoUrl = uploadData.secure_url;
+                }
+            }
+
+            // 2. Save to database
             const res = await fetch('/api/admin/makes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, logoUrl })
+                body: JSON.stringify({ name, logoUrl: finalLogoUrl })
             });
+
             if (res.ok) {
                 showToast(`Logo updated for ${name}`, 'success');
                 // Update local state
-                setMakes(prev => prev.map(m => m.name === name ? { ...m, logoUrl } : m));
+                setMakes(prev => prev.map(m => m.name === name ? { ...m, logoUrl: finalLogoUrl } : m));
             } else {
                 showToast('Failed to update logo', 'error');
             }
         } catch (error) {
+            console.error('Error updating logo:', error);
             showToast('Error updating logo', 'error');
         } finally {
             setIsSaving(null);

@@ -18,7 +18,7 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
         name: 'Arlene McCoy',
         role: 'CEO, Themeist',
         image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=100',
-        text: '"My experience with Lithia Auto has exceeded expectations. They efficiently manage vehicles with a professional and attentive approach in every situation. I feel reassured that any issue will be resolved promptly and effectively."',
+        text: '"My experience with Lithia Autos has exceeded expectations. They efficiently manage vehicles with a professional and attentive approach in every situation. I feel reassured that any issue will be resolved promptly and effectively."',
         rating: 5
     },
     {
@@ -34,7 +34,7 @@ const DEFAULT_TESTIMONIALS: Testimonial[] = [
         name: 'Jane Cooper',
         role: 'Marketing Lead',
         image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&q=80&w=100',
-        text: '"Lithia Auto redefined what car shopping looks like for me. The transparency and the detail provided for each vehicle made me feel confident in my purchase. A truly five-star experience from start to finish."',
+        text: '"Lithia Autos redefined what car shopping looks like for me. The transparency and the detail provided for each vehicle made me feel confident in my purchase. A truly five-star experience from start to finish."',
         rating: 5
     }
 ];
@@ -123,7 +123,14 @@ export function Testimonials({
                                     </p>
                                 </div>
                                 <div className={`flex items-center gap-4 pt-6 border-t ${bgVariant === 'navy' ? 'border-navy-700' : 'border-light-100'}`}>
-                                    <img src={t.image} alt={t.name} className="w-8 h-8 md:w-12 md:h-12 rounded-full object-cover ring-2 ring-gold-500/20" />
+                                    <img 
+                                        src={t.image} 
+                                        alt={t.name} 
+                                        className="w-8 h-8 md:w-12 md:h-12 rounded-full object-cover ring-2 ring-gold-500/20 shrink-0" 
+                                        loading="eager"
+                                        width={48}
+                                        height={48}
+                                    />
                                     <div>
                                         <p className={`font-bold ${bgVariant === 'navy' ? 'text-white' : 'text-navy-900'}`}>{t.name}</p>
                                         <p className={`text-xs ${bgVariant === 'navy' ? 'text-navy-400' : 'text-navy-400'}`}>{t.role}</p>
@@ -140,16 +147,19 @@ export function Testimonials({
                     display: flex;
                     width: max-content;
                     animation: marquee 60s linear infinite;
+                    will-change: transform;
+                    transform: translateZ(0);
+                    -webkit-transform: translateZ(0);
                 }
                 .hover\:pause:hover {
                     animation-play-state: paused;
                 }
                 @keyframes marquee {
                     0% {
-                        transform: translateX(0);
+                        transform: translate3d(0, 0, 0);
                     }
                     100% {
-                        transform: translateX(calc(-100% / 3));
+                        transform: translate3d(calc(-100% / 3), 0, 0);
                     }
                 }
             `}</style>

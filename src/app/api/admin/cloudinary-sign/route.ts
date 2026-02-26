@@ -11,10 +11,12 @@ const config = {
 
 cloudinary.config(config);
 
-export async function POST() {
+export async function POST(request: Request) {
     try {
+        const body = await request.json().catch(() => ({}));
         const timestamp = Math.round(new Date().getTime() / 1000);
-        const folder = 'lithia-auto-inventory';
+        const folder = body.folder || 'lithia-auto-inventory';
+        
         const signature = cloudinary.utils.api_sign_request(
             { timestamp, folder },
             config.api_secret

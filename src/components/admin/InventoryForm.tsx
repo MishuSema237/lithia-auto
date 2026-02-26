@@ -223,19 +223,28 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
         setIsSubmitting(true);
 
         try {
-            // 1. Upload new files if any
+            // 1. Upload new files or external URLs to Cloudinary
             const processedImages = [...images];
-            const newFiles = processedImages.filter((img: any) => img.status === 'new' && img.file);
+            const needsUpload = processedImages.filter((img: any) => 
+                img.status === 'new' && (img.file || (img.url && !img.url.includes('cloudinary.com') && img.url.startsWith('http')))
+            );
 
-            if (newFiles.length > 0) {
-                const signRes = await fetch('/api/admin/cloudinary-sign', { method: 'POST' });
+            if (needsUpload.length > 0) {
+                const signRes = await fetch('/api/admin/cloudinary-sign', { 
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ folder: 'lithia-auto-inventory' })
+                });
                 const { timestamp, signature, cloudName, apiKey } = await signRes.json();
 
                 for (let i = 0; i < processedImages.length; i++) {
                     const img = processedImages[i];
-                    if (img.status === 'new' && img.file) {
+                    const isNewFile = img.status === 'new' && img.file;
+                    const isExternalUrl = img.status === 'new' && !img.file && img.url && !img.url.includes('cloudinary.com') && img.url.startsWith('http');
+                    
+                    if (isNewFile || isExternalUrl) {
                         const fd = new FormData();
-                        fd.append('file', img.file);
+                        fd.append('file', img.file || img.url);
                         fd.append('api_key', apiKey);
                         fd.append('timestamp', timestamp);
                         fd.append('signature', signature);
@@ -275,7 +284,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                 cityMPG: parseFloat(formData.cityMPG) || undefined,
                 highwayMPG: parseFloat(formData.highwayMPG) || undefined,
                 sellerInfo: {
-                    name: 'Lithia Auto Advantage',
+                    name: 'Lithia Autos Advantage',
                     phone: '(708) 419-2546',
                     location: 'Bridgeview, IL'
                 }

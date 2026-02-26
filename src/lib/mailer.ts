@@ -18,7 +18,7 @@ export const transporter = nodemailer.createTransport({
 export const sendEmail = async (to: string, subject: string, html: string, attachments?: any[]) => {
     try {
         const info = await transporter.sendMail({
-            from: `"Lithia Auto" <${SMTP_EMAIL}>`,
+            from: `"Lithia Autos" <${SMTP_EMAIL}>`,
             to,
             subject,
             html,

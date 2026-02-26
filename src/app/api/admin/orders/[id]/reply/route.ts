@@ -32,7 +32,7 @@ export async function POST(
                 <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0; white-space: pre-wrap;">
                     ${message}
                 </div>
-                <p style="margin-top: 30px; font-size: 12px; color: #777; text-align: center;">&copy; ${new Date().getFullYear()} Lithia Auto. All rights reserved.</p>
+                <p style="margin-top: 30px; font-size: 12px; color: #777; text-align: center;">&copy; ${new Date().getFullYear()} Lithia Autos. All rights reserved.</p>
             </div>
         `;
 

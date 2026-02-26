@@ -13,7 +13,7 @@ export default function CorporatePoliciesPage() {
         {
             title: 'Environmental Responsibility',
             icon: <Globe className="w-6 h-6" />,
-            desc: 'Lithia Auto is committed to a sustainable future by promoting electric vehicle adoption and optimizing our logistics to reduce carbon footprint.'
+            desc: 'Lithia Autos is committed to a sustainable future by promoting electric vehicle adoption and optimizing our logistics to reduce carbon footprint.'
         },
         {
             title: 'Workplace Excellence',
@@ -46,7 +46,7 @@ export default function CorporatePoliciesPage() {
                     <div className="max-w-4xl mx-auto text-center mb-20">
                         <h2 className="text-3xl md:text-5xl font-black text-navy-900 mb-6">Our Core <span className="text-gold-500">Foundations</span></h2>
                         <p className="text-gray-600 text-lg leading-relaxed">
-                            Lithia Auto operates at the intersection of luxury and integrity. Our corporate policies are designed to ensure that every vehicle sold and every partnership formed meets our exacting standards.
+                            Lithia Autos operates at the intersection of luxury and integrity. Our corporate policies are designed to ensure that every vehicle sold and every partnership formed meets our exacting standards.
                         </p>
                     </div>
 

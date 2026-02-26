@@ -15,7 +15,7 @@ export default function CopyrightsPage() {
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black text-white mb-6 tracking-tight uppercase">Intellectual <span className="text-gold-500">Property</span></h1>
                     <p className="text-navy-200 text-lg max-w-2xl mx-auto font-medium">
-                        Respecting creativity and protecting the Lithia Auto brand identity and digital assets.
+                        Respecting creativity and protecting the Lithia Autos brand identity and digital assets.
                     </p>
                 </div>
             </section>
@@ -27,7 +27,7 @@ export default function CopyrightsPage() {
                         <div className="space-y-6">
                             <h2 className="text-3xl font-black text-navy-900 mb-8 border-l-4 border-gold-500 pl-6">Digital Assets</h2>
                             <p className="text-gray-600 leading-relaxed text-lg">
-                                All vehicle photography, cinemagraphs, and promotional videos produced by Lithia Auto are exclusive intellectual property. Unauthorized reproduction or redistribution is strictly prohibited.
+                                All vehicle photography, cinemagraphs, and promotional videos produced by Lithia Autos are exclusive intellectual property. Unauthorized reproduction or redistribution is strictly prohibited.
                             </p>
                             <div className="flex gap-4">
                                 <div className="p-3 bg-navy-50 rounded-xl text-navy-600"><ImageIcon className="w-6 h-6" /></div>
@@ -37,7 +37,7 @@ export default function CopyrightsPage() {
                         <div className="space-y-6">
                             <h2 className="text-3xl font-black text-navy-900 mb-8 border-l-4 border-gold-500 pl-6">Trademarks</h2>
                             <p className="text-gray-600 leading-relaxed text-lg">
-                                The Lithia Auto name, logo, and distinctive brand elements are registered trademarks. Any use of these marks without prior written authorization constitutes trademark infringement.
+                                The Lithia Autos name, logo, and distinctive brand elements are registered trademarks. Any use of these marks without prior written authorization constitutes trademark infringement.
                             </p>
                             <div className="flex gap-4">
                                 <div className="p-3 bg-navy-50 rounded-xl text-navy-600"><FileSignature className="w-6 h-6" /></div>
@@ -52,7 +52,7 @@ export default function CopyrightsPage() {
                             <div>
                                 <h3 className="text-2xl font-black text-navy-900 mb-4">Copyright Infringement Notice</h3>
                                 <p className="text-gray-600 leading-relaxed mb-6">
-                                    Lithia Auto respects the intellectual property rights of others. If you believe your work has been copied in a way that constitutes copyright infringement, please provide our legal department with the following information:
+                                    Lithia Autos respects the intellectual property rights of others. If you believe your work has been copied in a way that constitutes copyright infringement, please provide our legal department with the following information:
                                 </p>
                                 <ul className="space-y-3 text-sm text-navy-600 font-bold">
                                     <li className="flex items-center gap-3"><div className="w-1.5 h-1.5 rounded-full bg-gold-500"></div> Physical or electronic signature</li>

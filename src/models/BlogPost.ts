@@ -24,7 +24,7 @@ const BlogPostSchema: Schema = new Schema({
     excerpt: { type: String, required: true },
     content: { type: String, required: true },
     category: { type: String, required: true },
-    author: { type: String, required: true, default: 'Lithia Auto' },
+    author: { type: String, required: true, default: 'Lithia Autos' },
     image: { type: String, required: true },
     date: { type: String, required: true },
     commentsCount: { type: Number, default: 0 },

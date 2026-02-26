@@ -61,7 +61,7 @@ function SuccessContent() {
                 </div>
 
                 <p className="text-center mt-12 text-navy-400 text-sm font-medium">
-                    Questions? Contact our concierge at <span className="text-navy-900 font-bold underline cursor-pointer">support@lithiaauto.com</span>
+                    Questions? Contact our concierge at <span className="text-navy-900 font-bold underline cursor-pointer">support@lithiaautos.com</span>
                 </p>
             </div>
         </div>

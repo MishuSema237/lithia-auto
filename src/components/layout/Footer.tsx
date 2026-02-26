@@ -21,7 +21,7 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
                     {/* About */}
                     <div>
-                        <h4 className="text-gold-400 font-bold mb-6 text-xl">About Lithia Auto</h4>
+                        <h4 className="text-gold-400 font-bold mb-6 text-xl text-white">About Lithia Autos</h4>
                         <ul className="space-y-4 text-[15px]">
                             {[
                                 { name: 'About us', href: '/about' },
@@ -89,13 +89,15 @@ export function Footer() {
                 {/* Bottom Row */}
                 <div className="pt-8 border-t border-navy-800 flex flex-col lg:flex-row justify-between items-center gap-6 relative">
                     <Link href="/" className="flex items-center gap-2">
-                        <span className="font-bold text-2xl tracking-tight text-white">
-                            LithiaAuto
-                        </span>
+                        <img
+                            src="/images/LithiaAutosLogo.png"
+                            alt="Lithia Autos"
+                            className="h-10 md:h-12 w-auto object-contain"
+                        />
                     </Link>
 
                     <p className="text-[15px] text-navy-300">
-                        &copy; {new Date().getFullYear()} Lithia Auto. All rights reserved
+                        &copy; {new Date().getFullYear()} Lithia Autos. All rights reserved
                     </p>
 
                     <div className="flex items-center gap-3">

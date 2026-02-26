@@ -36,7 +36,7 @@ export async function POST(request: Request) {
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #ddd; padding: 20px; border-radius: 10px;">
                 <h1 style="color: #0c1b33; border-bottom: 2px solid #eab308; padding-bottom: 10px;">Order Confirmation</h1>
                 <p>Hello ${firstName},</p>
-                <p>Thank you for your order with <strong>Lithia Auto</strong>. Your order has been placed successfully and is being processed.</p>
+                <p>Thank you for your order with <strong>Lithia Autos</strong>. Your order has been placed successfully and is being processed.</p>
                 
                 <div style="background: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
                     <p style="margin: 0;"><strong>Order ID:</strong> ${orderId}</p>
@@ -79,7 +79,7 @@ export async function POST(request: Request) {
                     </div>
                 ` : ''}
 
-                <p style="margin-top: 30px; font-size: 12px; color: #777; text-align: center;">&copy; ${new Date().getFullYear()} Lithia Auto. All rights reserved.</p>
+                <p style="margin-top: 30px; font-size: 12px; color: #777; text-align: center;">&copy; ${new Date().getFullYear()} Lithia Autos. All rights reserved.</p>
             </div>
         `;
 

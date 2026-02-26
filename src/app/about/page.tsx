@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Testimonials } from '@/components/ui/Testimonials';
 import { Partners } from '@/components/ui/Partners';
 import { LocationsMarquee } from '@/components/ui/LocationsMarquee';
+import { LiveMap } from '@/components/ui/LiveMap';
 
 export default function AboutPage() {
     const [recommendedCars, setRecommendedCars] = useState<any[]>([]);
@@ -136,7 +137,7 @@ export default function AboutPage() {
                         {/* Right: Feature Cards */}
                         <div className="w-full lg:w-1/2 space-y-12">
                             <div>
-                                <h2 className="text-navy-900 font-black text-4xl md:text-5xl mb-6">Why Choose <span className="text-gold-500">Lithia Auto</span></h2>
+                                <h2 className="text-navy-900 font-black text-4xl md:text-5xl mb-6">Why Choose <span className="text-gold-500">Lithia Autos</span></h2>
                                 <p className="text-gray-600 text-lg leading-relaxed">
                                     Our establishment deals in vehicles with many years of experience, ensuring the names become preferred choices for optimal results.
                                 </p>
@@ -251,6 +252,10 @@ export default function AboutPage() {
                     )}
                 </div>
             </section>
+
+            <div className="mb-20">
+                <LiveMap />
+            </div>
 
             <div className="mb-20">
                 <LocationsMarquee />

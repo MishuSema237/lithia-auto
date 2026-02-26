@@ -34,7 +34,7 @@ export default function PrivacyPage() {
                 <div className="container mx-auto px-4 text-center">
                     <h1 className="text-4xl md:text-5xl font-black text-navy-900 mb-6 tracking-tight">Privacy <span className="text-gold-500">Policy</span></h1>
                     <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
-                        At Lithia Auto, we value your trust above all else. This policy outlines our commitment to protecting your personal information and ensuring a secure car buying journey.
+                        At Lithia Autos, we value your trust above all else. This policy outlines our commitment to protecting your personal information and ensuring a secure car buying journey.
                     </p>
                 </div>
             </section>

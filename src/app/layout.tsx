@@ -12,23 +12,72 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Lithia Auto | Exotic & Performance Cars in [City, State]",
+  metadataBase: new URL("https://lithia-auto.vercel.app"),
+
+  title: {
+    default: "Lithia Autos | Exotic, Luxury & Performance Cars in [City, State]",
+    template: "%s | Lithia Autos",
+  },
+
   description:
-    "Discover high-performance and exotic vehicles at Lithia Auto. Shop sports cars, supercars, and premium performance models in [City, State].",
+    "Lithia Autos is your destination for exotic, luxury, and high-performance vehicles in [City, State]. Explore supercars, sports cars, premium SUVs, and rare performance models with competitive pricing and verified clean titles.",
+
+  keywords: [
+    "Exotic cars in [City, State]",
+    "Luxury car dealership",
+    "Performance cars for sale",
+    "Supercars",
+    "Sports cars",
+    "Premium vehicles",
+    "High performance vehicles",
+    "Used exotic cars",
+    "Luxury SUVs",
+    "Lithia Autos"
+  ],
+
+  authors: [{ name: "Lithia Autos" }],
+  creator: "Lithia Autos",
+  publisher: "Lithia Autos",
+
   openGraph: {
-    title: "Exotic & Performance Cars | Lithia Auto",
-    description:
-      "Supercars. Sports cars. Pure performance. Find yours at Lithia Auto.",
+    type: "website",
     url: "https://lithia-auto.vercel.app",
-    siteName: "Lithia Auto",
+    siteName: "Lithia Autos",
+    title: "Exotic, Luxury & Performance Cars | Lithia Autos",
+    description:
+      "Discover verified exotic and luxury vehicles at Lithia Autos. Supercars, sports cars, and premium performance models available now in [City, State].",
     images: [
       {
-        url: "/og-performance.jpg",
+        url: "/thumbnail.png",
         width: 1200,
         height: 630,
-        alt: "Exotic performance car at Lithia Auto",
+        alt: "Lithia Autos Exotic & Performance Cars",
       },
     ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "Exotic & Luxury Cars | Lithia Autos",
+    description:
+      "Shop high-performance and luxury vehicles at Lithia Autos in [City, State]. Clean titles. Premium selection.",
+    images: ["/thumbnail.png"],
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+
+  alternates: {
+    canonical: "https://lithia-auto.vercel.app",
   },
 };
 
@@ -52,6 +101,24 @@ export default function RootLayout({
             <BackToTop />
           </ToastProvider>
         </CartProvider>
+        
+        {/* Smartsupp Live Chat */}
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `
+              var _smartsupp = _smartsupp || {};
+              _smartsupp.key = '68994566b65e974b51ab7e4d789412964959c3b8';
+              window.smartsupp||(function(d) {
+                var s,c,o=smartsupp=function(){ o._.push(arguments)};o._=[];
+                s=d.getElementsByTagName('script')[0];c=d.createElement('script');
+                c.type='text/javascript';c.charset='utf-8';c.async=true;
+                c.src='https://www.smartsuppchat.com/loader.js?';s.parentNode.insertBefore(c,s);
+              })(document);
+            `
+          }}
+        />
+        <noscript>Powered by <a href="https://www.smartsupp.com" target="_blank" rel="noopener noreferrer">Smartsupp</a></noscript>
       </body>
     </html>
   );

@@ -22,7 +22,7 @@ export default function BlogListingPage() {
                         setPosts(data.map((p: any) => ({
                             id: p._id,
                             title: p.title,
-                            author: p.author || 'Lithia Auto',
+                            author: p.author || 'Lithia Autos',
                             category: p.category,
                             commentsCount: p.commentsCount || 0,
                             date: p.date,

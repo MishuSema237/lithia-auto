@@ -10,18 +10,18 @@ export default async function GenericStaticPage({ params }: { params: Promise<{ 
         'copyrights': 'Copyright Information'
     };
 
-    const title = titles[slug] || 'Lithia Auto Information';
+    const title = titles[slug] || 'Lithia Autos Information';
 
     return (
         <StaticPageWrapper
             title={title}
-            subtitle={`Official information and essential details regarding ${title.toLowerCase()} at Lithia Auto.`}
+            subtitle={`Official information and essential details regarding ${title.toLowerCase()} at Lithia Autos.`}
         >
             <div className="py-10 space-y-8">
                 <section>
                     <h2 className="text-2xl font-bold text-navy-900 mb-4 tracking-tight">Overview</h2>
                     <p className="text-navy-600 leading-relaxed">
-                        At Lithia Auto, we maintain the highest standards of transparency and professionalism in all our operations. This page contains detailed information and official documentation regarding our {title.toLowerCase()}.
+                        At Lithia Autos, we maintain the highest standards of transparency and professionalism in all our operations. This page contains detailed information and official documentation regarding our {title.toLowerCase()}.
                     </p>
                 </section>
 
@@ -39,7 +39,7 @@ export default async function GenericStaticPage({ params }: { params: Promise<{ 
                 <section>
                     <h2 className="text-2xl font-bold text-navy-900 mb-4 tracking-tight">Contact Our Team</h2>
                     <p className="text-navy-600">
-                        For specific inquiries related to this department, please contact our administrative office at <a href="mailto:admin@lithiaauto.com" className="text-gold-600 font-bold hover:underline">admin@lithiaauto.com</a>.
+                        For specific inquiries related to this department, please contact our administrative office at <a href="mailto:admin@lithiaautos.com" className="text-gold-600 font-bold hover:underline">admin@lithiaautos.com</a>.
                     </p>
                 </section>
             </div>

@@ -120,7 +120,7 @@ export default function Home() {
             setDbBlogs(data.map((p: any) => ({
               id: p._id,
               title: p.title,
-              author: p.author || 'Lithia Auto',
+              author: p.author || 'Lithia Autos',
               category: p.category,
               date: p.date,
               image: p.image,
@@ -584,10 +584,16 @@ export default function Home() {
                   <Link
                     key={brand.name}
                     href={`/inventory?make=${encodeURIComponent(brand.name)}`}
-                    className="border border-light-300 rounded-xl p-8 flex flex-col items-center justify-center hover:border-gold-500 hover:shadow-none transition-all duration-300 cursor-pointer bg-white h-48 hover:-translate-y-1 group"
+                    className="border border-light-300 rounded-xl p-8 flex flex-col items-center justify-center hover:border-gold-500 hover:shadow-none transition-all duration-300 cursor-pointer bg-white h-48 hover:-translate-y-1 group shrink-0"
                   >
-                    <img src={brand.img} alt={brand.name} className="h-14 object-contain mb-5 grayscale group-hover:grayscale-0 transition-all" />
-                    <span className="font-bold text-navy-900">{brand.name}</span>
+                    <img 
+                      src={brand.img} 
+                      alt={brand.name} 
+                      className="h-14 w-auto min-w-[50px] object-contain mb-5 grayscale group-hover:grayscale-0 transition-all rendering-auto" 
+                      style={{ aspectRatio: 'auto' }}
+                      loading="eager"
+                    />
+                    <span className="font-bold text-navy-900 line-clamp-1">{brand.name}</span>
                     <span className="text-[13px] text-navy-400 mt-1 font-medium">{brand.count} Car</span>
                   </Link>
                 ))}

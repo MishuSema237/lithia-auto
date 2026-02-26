@@ -47,11 +47,13 @@ export function Partners() {
             <div className="relative flex overflow-hidden group">
                 <div className="flex animate-marquee whitespace-nowrap gap-16 items-center py-4">
                     {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, i) => (
-                        <div key={i} className="flex items-center justify-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer px-8">
+                        <div key={i} className="flex items-center justify-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer px-8 shrink-0">
                             <img
                                 src={partner.logo}
                                 alt={partner.name}
-                                className="h-12 w-auto object-contain max-w-[120px]"
+                                className="h-12 w-auto min-w-[60px] object-contain max-w-[120px] rendering-auto"
+                                style={{ aspectRatio: 'auto' }}
+                                loading="eager"
                             />
                         </div>
                     ))}
@@ -64,9 +66,8 @@ export function Partners() {
                     animation: marquee 60s linear infinite;
                     width: max-content;
                     will-change: transform;
-                    backface-visibility: hidden;
-                    perspective: 1000;
-                    transform: translate3d(0, 0, 0);
+                    transform: translateZ(0);
+                    -webkit-transform: translateZ(0);
                 }
                 .group:hover .animate-marquee {
                     animation-play-state: paused;

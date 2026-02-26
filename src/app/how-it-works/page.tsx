@@ -116,7 +116,7 @@ export default function HowItWorksPage() {
                                 <div className="absolute inset-0 bg-navy-900/20"></div>
                                 <div className="absolute bottom-8 left-8 right-8 bg-white/90 backdrop-blur-md p-6 rounded-2xl">
                                     <p className="text-navy-900 font-bold text-lg italic">
-                                        "The transition from browsing to owning was seamless. Lithia Auto handles every detail with extreme professionalism."
+                                        "The transition from browsing to owning was seamless. Lithia Autos handles every detail with extreme professionalism."
                                     </p>
                                     <p className="text-gold-600 text-sm mt-2 font-bold">— Satisfied Owner</p>
                                 </div>
