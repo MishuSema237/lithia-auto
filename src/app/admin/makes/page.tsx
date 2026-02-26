@@ -93,6 +93,55 @@ export default function MakesPage() {
         }
     };
 
+    const handleFileUpload = async (name: string, file: File) => {
+        setIsSaving(name);
+        try {
+            // 1. Get Cloudinary signature
+            const signRes = await fetch('/api/admin/cloudinary-sign', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ folder: 'lithia-auto-inventory' })
+            });
+            const { timestamp, signature, cloudName, apiKey } = await signRes.json();
+
+            // 2. Upload to Cloudinary
+            const fd = new FormData();
+            fd.append('file', file);
+            fd.append('api_key', apiKey);
+            fd.append('timestamp', timestamp);
+            fd.append('signature', signature);
+            fd.append('folder', 'lithia-auto-inventory');
+
+            const uploadRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                method: 'POST',
+                body: fd,
+            });
+
+            if (!uploadRes.ok) throw new Error('Upload failed');
+            const uploadData = await uploadRes.json();
+            const finalLogoUrl = uploadData.secure_url;
+
+            // 3. Save to database
+            const res = await fetch('/api/admin/makes', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, logoUrl: finalLogoUrl })
+            });
+
+            if (res.ok) {
+                showToast(`Logo uploaded for ${name}`, 'success');
+                setMakes(prev => prev.map(m => m.name === name ? { ...m, logoUrl: finalLogoUrl } : m));
+            } else {
+                showToast('Failed to update database', 'error');
+            }
+        } catch (error) {
+            console.error('Error uploading logo:', error);
+            showToast('Error uploading logo', 'error');
+        } finally {
+            setIsSaving(null);
+        }
+    };
+
     if (isLoading) {
         return (
             <div className="flex items-center justify-center min-h-[400px]">
@@ -133,15 +182,36 @@ export default function MakesPage() {
                                 <div className="space-y-4">
                                     <div className="space-y-1.5">
                                         <label className="text-[11px] font-bold text-navy-400 uppercase tracking-wider">Logo URL</label>
-                                        <input
-                                            placeholder="https://..."
-                                            value={make.logoUrl}
-                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                                                const newVal = e.target.value;
-                                                setMakes(prev => prev.map(m => m.name === make.name ? { ...m, logoUrl: newVal } : m));
-                                            }}
-                                            className="w-full h-10 px-3 text-sm border border-light-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 bg-white"
-                                        />
+                                        <div className="flex gap-2">
+                                            <input
+                                                placeholder="https://..."
+                                                value={make.logoUrl}
+                                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                                                    const newVal = e.target.value;
+                                                    setMakes(prev => prev.map(m => m.name === make.name ? { ...m, logoUrl: newVal } : m));
+                                                }}
+                                                className="flex-1 h-10 px-3 text-sm border border-light-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 bg-white"
+                                            />
+                                            <input
+                                                type="file"
+                                                id={`file-${make.name}`}
+                                                className="hidden"
+                                                accept="image/*,.svg"
+                                                onChange={(e) => {
+                                                    const file = e.target.files?.[0];
+                                                    if (file) handleFileUpload(make.name, file);
+                                                }}
+                                            />
+                                            <Button
+                                                variant="outline"
+                                                size="icon"
+                                                className="h-10 w-10 shrink-0 border-light-300 hover:border-gold-500 hover:text-gold-500"
+                                                onClick={() => document.getElementById(`file-${make.name}`)?.click()}
+                                                disabled={isSaving === make.name}
+                                            >
+                                                <ImageIcon className="w-4 h-4" />
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
