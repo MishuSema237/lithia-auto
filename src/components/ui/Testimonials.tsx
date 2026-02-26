@@ -83,6 +83,8 @@ export function Testimonials({
     }, []);
 
     const activeTestimonials = list.length > 0 ? list : DEFAULT_TESTIMONIALS;
+    // Triple the list for a truly seamless transition if the list is small
+    const displayList = [...activeTestimonials, ...activeTestimonials, ...activeTestimonials];
 
     const bgClasses = {
         white: 'bg-white',
@@ -91,7 +93,7 @@ export function Testimonials({
     };
 
     return (
-        <section className={`py-24 ${bgClasses[bgVariant]}`}>
+        <section className={`py-24 overflow-hidden ${bgClasses[bgVariant]}`}>
             <div className="container mx-auto px-4">
                 <div className="text-center mb-16">
                     <h2 className={`text-4xl md:text-5xl font-black mb-4 ${bgVariant === 'navy' ? 'text-white' : 'text-navy-900'}`}>
@@ -102,34 +104,57 @@ export function Testimonials({
                     {subtitle && <p className={`${bgVariant === 'navy' ? 'text-navy-200' : 'text-navy-600'} text-lg max-w-2xl mx-auto`}>{subtitle}</p>}
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {activeTestimonials.map((t) => (
-                        <div
-                            key={t.id}
-                            className={`p-8 rounded-3xl shadow-sm border flex flex-col justify-between hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 ${bgVariant === 'navy'
-                                ? 'bg-navy-800 border-navy-700'
-                                : 'bg-white border-light-100'
-                                }`}
-                        >
-                            <div>
-                                <div className="flex text-gold-500 gap-1 mb-6">
-                                    {[...Array(t.rating)].map((_: any, i: number) => <Star key={i} className="w-5 h-5 fill-current" />)}
-                                </div>
-                                <p className={`italic leading-relaxed mb-8 ${bgVariant === 'navy' ? 'text-navy-100' : 'text-navy-600'}`}>
-                                    {t.text}
-                                </p>
-                            </div>
-                            <div className={`flex items-center gap-4 pt-6 border-t ${bgVariant === 'navy' ? 'border-navy-700' : 'border-light-100'}`}>
-                                <img src={t.image} alt={t.name} className="w-8 h-8 md:w-12 md:h-12 rounded-full object-cover ring-2 ring-gold-500/20" />
+                <div className="relative group">
+                    <div className="flex animate-marquee hover:pause whitespace-nowrap gap-8 py-4">
+                        {displayList.map((t, idx) => (
+                            <div
+                                key={`${t.id}-${idx}`}
+                                className={`inline-block w-[350px] md:w-[450px] whitespace-normal p-8 rounded-3xl shadow-sm border flex flex-col justify-between hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 shrink-0 ${bgVariant === 'navy'
+                                    ? 'bg-navy-800 border-navy-700'
+                                    : 'bg-white border-light-100'
+                                    }`}
+                            >
                                 <div>
-                                    <p className={`font-bold ${bgVariant === 'navy' ? 'text-white' : 'text-navy-900'}`}>{t.name}</p>
-                                    <p className={`text-xs ${bgVariant === 'navy' ? 'text-navy-400' : 'text-navy-400'}`}>{t.role}</p>
+                                    <div className="flex text-gold-500 gap-1 mb-6">
+                                        {[...Array(t.rating || 5)].map((_: any, i: number) => <Star key={i} className="w-5 h-5 fill-current" />)}
+                                    </div>
+                                    <p className={`italic leading-relaxed mb-8 ${bgVariant === 'navy' ? 'text-navy-100' : 'text-navy-600'}`}>
+                                        {t.text}
+                                    </p>
+                                </div>
+                                <div className={`flex items-center gap-4 pt-6 border-t ${bgVariant === 'navy' ? 'border-navy-700' : 'border-light-100'}`}>
+                                    <img src={t.image} alt={t.name} className="w-8 h-8 md:w-12 md:h-12 rounded-full object-cover ring-2 ring-gold-500/20" />
+                                    <div>
+                                        <p className={`font-bold ${bgVariant === 'navy' ? 'text-white' : 'text-navy-900'}`}>{t.name}</p>
+                                        <p className={`text-xs ${bgVariant === 'navy' ? 'text-navy-400' : 'text-navy-400'}`}>{t.role}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
             </div>
+
+            <style jsx>{`
+                .animate-marquee {
+                    display: flex;
+                    width: max-content;
+                    animation: marquee 60s linear infinite;
+                }
+                .hover\:pause:hover {
+                    animation-play-state: paused;
+                }
+                @keyframes marquee {
+                    0% {
+                        transform: translateX(0);
+                    }
+                    100% {
+                        transform: translateX(calc(-100% / 3));
+                    }
+                }
+            `}</style>
         </section>
     );
 }
+
+

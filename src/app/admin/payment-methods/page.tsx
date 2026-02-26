@@ -115,12 +115,12 @@ export default function AdminPaymentMethodsPage() {
 
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row justify-between items-center">
                 <div>
                     <h1 className="text-2xl font-bold text-navy-900">Payment Methods</h1>
                     <p className="text-navy-600 mt-1">Configure available payment options for checkout.</p>
                 </div>
-                <Button onClick={() => handleOpenModal()} variant="primary" className="flex items-center gap-2">
+                <Button onClick={() => handleOpenModal()} variant="primary" className="flex mt-4 md:mt-0 items-center gap-2">
                     <Plus className="h-4 w-4" /> Add Method
                 </Button>
             </div>

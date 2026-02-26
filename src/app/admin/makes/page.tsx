@@ -67,7 +67,7 @@ export default function MakesPage() {
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-4 py-8">
+        <div className="max-w-5xl mx-auto py-8">
             <div className="mb-8">
                 <h1 className="text-3xl font-bold text-navy-900">Brand Manager</h1>
                 <p className="text-navy-600 mt-2">Manage logos for car makes used in your inventory.</p>

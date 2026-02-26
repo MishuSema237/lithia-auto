@@ -306,48 +306,48 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
 
     return (
         <form className="space-y-8" onSubmit={handleSubmit}>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                    <Button type="button" variant="ghost" size="sm" onClick={() => router.back()}>
+                    <Button type="button" variant="ghost" size="sm" onClick={() => router.back()} className="shrink-0">
                         <ArrowLeft className="h-5 w-5" />
                     </Button>
-                    <h1 className="text-2xl font-bold text-navy-900">{isEdit ? 'Edit Vehicle' : 'Add New Vehicle'}</h1>
+                    <h1 className="text-xl md:text-2xl font-bold text-navy-900 truncate">{isEdit ? 'Edit Vehicle' : 'Add New Vehicle'}</h1>
                 </div>
-                <div className="flex gap-3">
-                    <Button type="button" variant="outline" onClick={() => router.back()}>Cancel</Button>
-                    <Button type="submit" variant="primary" disabled={isSubmitting}>
+                <div className="flex gap-2 w-full sm:w-auto">
+                    <Button type="button" variant="outline" onClick={() => router.back()} className="flex-1 sm:flex-none">Cancel</Button>
+                    <Button type="submit" variant="primary" disabled={isSubmitting} className="flex-1 sm:flex-none">
                         {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Save className="h-4 w-4 mr-2" />}
-                        {isEdit ? 'Save Changes' : 'Publish Vehicle'}
+                        <span className="truncate">{isEdit ? 'Save Changes' : 'Publish'}</span>
                     </Button>
                 </div>
             </div>
 
             <Card className="shadow-none border-light-300">
-                <div className="px-6 py-4 border-b border-light-200 flex flex-wrap gap-4 items-center">
+                <div className="px-4 md:px-6 py-4 border-b border-light-200 flex flex-col sm:flex-row sm:items-center gap-4">
                     <h2 className="text-lg font-semibold text-navy-800">Basic Information</h2>
-                    <div className="flex flex-wrap gap-3">
-                        <label className="flex items-center gap-2 cursor-pointer bg-gold-50 px-3 py-1.5 rounded-lg border border-gold-200">
+                    <div className="flex flex-wrap gap-2">
+                        <label className="flex items-center gap-2 cursor-pointer bg-gold-50 px-2.5 py-1.5 rounded-lg border border-gold-200">
                             <input type="checkbox" name="isFeatured" checked={formData.isFeatured} onChange={handleChange} className="rounded border-gold-300 text-gold-500 shadow-none" />
                             <span className="text-[10px] font-bold text-navy-900 uppercase">Featured</span>
                         </label>
-                        <label className="flex items-center gap-2 cursor-pointer bg-navy-50 px-3 py-1.5 rounded-lg border border-navy-200">
+                        <label className="flex items-center gap-2 cursor-pointer bg-navy-50 px-2.5 py-1.5 rounded-lg border border-navy-200">
                             <input type="checkbox" name="homepageHero" checked={formData.homepageHero} onChange={handleChange} className="rounded border-navy-300 text-navy-900 shadow-none" />
-                            <span className="text-[10px] font-bold text-navy-900 uppercase">Hero Feature</span>
+                            <span className="text-[10px] font-bold text-navy-900 uppercase">Hero</span>
                         </label>
-                        <label className="flex items-center gap-2 cursor-pointer bg-green-50 px-3 py-1.5 rounded-lg border border-green-200">
+                        <label className="flex items-center gap-2 cursor-pointer bg-green-50 px-2.5 py-1.5 rounded-lg border border-green-200">
                             <input type="checkbox" name="recommended" checked={formData.recommended} onChange={handleChange} className="rounded border-green-300 text-green-600 shadow-none" />
-                            <span className="text-[10px] font-bold text-navy-900 uppercase">Recommended</span>
+                            <span className="text-[10px] font-bold text-navy-900 uppercase">Recs</span>
                         </label>
-                        <label className="flex items-center gap-2 cursor-pointer bg-purple-50 px-3 py-1.5 rounded-lg border border-purple-200">
+                        <label className="flex items-center gap-2 cursor-pointer bg-purple-50 px-2.5 py-1.5 rounded-lg border border-purple-200">
                             <input type="checkbox" name="latestPicks" checked={formData.latestPicks} onChange={handleChange} className="rounded border-purple-300 text-purple-600 shadow-none" />
-                            <span className="text-[10px] font-bold text-navy-900 uppercase">Latest Pick</span>
+                            <span className="text-[10px] font-bold text-navy-900 uppercase">Latest</span>
                         </label>
                     </div>
                 </div>
-                <CardContent className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <CardContent className="p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-navy-800">VIN</label>
-                        <div className="flex gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2">
                             <input type="text" name="vin" value={formData.vin} onChange={handleChange} className="flex-1 bg-light-50 border border-light-300 p-2 text-sm uppercase" />
                             <Button type="button" variant="outline" size="sm" onClick={handleVinDecode} disabled={isDecoding}>
                                 {isDecoding ? <Loader2 className="h-4 w-4 animate-spin" /> : <Search className="h-4 w-4 mr-1" />}
@@ -465,10 +465,10 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
             </Card>
 
             <Card className="shadow-none border-light-300">
-                <div className="px-6 py-4 border-b border-light-200">
+                <div className="px-4 md:px-6 py-4 border-b border-light-200">
                     <h2 className="text-lg font-semibold text-navy-800">Media & Images</h2>
                 </div>
-                <CardContent className="p-6">
+                <CardContent className="p-4 md:p-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                         <div className="bg-light-50 border-2 border-dashed border-light-300 rounded-xl p-6 text-center">
                             <UploadCloud className="h-8 w-8 text-navy-400 mx-auto mb-2" />
@@ -482,7 +482,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                         <div className="bg-light-50 border-2 border-dashed border-light-300 rounded-xl p-6 text-center">
                             <LinkIcon className="h-8 w-8 text-navy-400 mx-auto mb-2" />
                             <h3 className="font-bold text-sm text-navy-900">Image URL</h3>
-                            <div className="flex gap-2 mt-3">
+                            <div className="flex flex-col sm:flex-row gap-2 mt-3">
                                 <input type="text" value={imageUrlInput} onChange={(e) => setImageUrlInput(e.target.value)} placeholder="https://..." className="flex-1 text-xs border border-light-300 p-2 rounded" />
                                 <Button type="button" variant="navy" size="sm" onClick={addImageUrl}>Add</Button>
                             </div>
@@ -506,10 +506,10 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
             </Card>
 
             <Card className="shadow-none border-light-300">
-                <div className="px-6 py-4 border-b border-light-200">
+                <div className="px-4 md:px-6 py-4 border-b border-light-200">
                     <h2 className="text-lg font-semibold text-navy-800">Features & Description</h2>
                 </div>
-                <CardContent className="p-6 space-y-6">
+                <CardContent className="p-4 md:p-6 space-y-6">
                     <div className="space-y-2">
                         <label className="text-sm font-semibold text-navy-800">Seller Description</label>
                         <textarea name="description" value={formData.description} onChange={handleChange} rows={4} className="w-full bg-light-50 border border-light-300 p-3 text-sm" />
@@ -520,7 +520,7 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                         <textarea name="comfortDescription" value={formData.comfortDescription} onChange={handleChange} rows={3} placeholder="Proin sed tellus porttitor..." className="w-full bg-light-50 border border-light-300 p-3 text-sm" />
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                         {(Object.keys(features) as Array<keyof typeof features>).map((cat: string) => (
                             <div key={cat}>
                                 <h4 className="font-bold text-[10px] uppercase text-navy-400 mb-3 border-b border-light-200 pb-1">{cat}</h4>
@@ -543,14 +543,14 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                 </CardContent>
             </Card>
             <Card className="shadow-none border-light-300">
-                <div className="px-6 py-4 border-b border-light-200 flex justify-between items-center">
+                <div className="px-4 md:px-6 py-4 border-b border-light-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <h2 className="text-lg font-semibold text-navy-800">Customer Reviews</h2>
                     <Button type="button" variant="outline" size="sm" onClick={addReview}>
                         <Plus className="h-4 w-4 mr-2" />
                         Add Review
                     </Button>
                 </div>
-                <CardContent className="p-6 space-y-6">
+                <CardContent className="p-4 md:p-6 space-y-6">
                     {reviews.length === 0 ? (
                         <div className="text-center py-8 bg-light-50 rounded-xl border border-dashed border-light-300">
                             <p className="text-sm text-navy-600">No reviews added yet. Click "Add Review" to represent customer feedback.</p>

@@ -47,7 +47,7 @@ export default function EditInventoryPage({ params }: { params: Promise<{ id: st
     }
 
     return (
-        <div className="max-w-5xl mx-auto px-4">
+        <div className="max-w-5xl mx-auto">
             <InventoryForm initialData={car} isEdit={true} id={id} />
         </div>
     );

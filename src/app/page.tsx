@@ -173,6 +173,14 @@ export default function Home() {
     setCurrentLatestPick((prev: number) => (prev + 1) % finalLatestPicks.length);
   };
 
+  useEffect(() => {
+    if (finalLatestPicks.length <= 1) return;
+    const timer = setInterval(() => {
+      nextLatestPick();
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [finalLatestPicks.length]);
+
   const [makes, setMakes] = useState<string[]>([]);
   const [selectedMake, setSelectedMake] = useState('');
   const [dbMakes, setDbMakes] = useState<any[]>([]);
@@ -248,6 +256,18 @@ export default function Home() {
     const icons: Record<string, string> = { 'SUV': '🚙', 'Sedan': '🚗', 'Hatchback': '🚗', 'Coupe': '🏎️' };
     return { name: type || 'Other', count, icon: icons[type] || '🚗' };
   });
+
+  const [brandOffset, setBrandOffset] = useState(0);
+  const brandsPerPage = 6;
+  const totalBrandPages = Math.ceil(brandsWithStock.length / brandsPerPage);
+
+  useEffect(() => {
+    if (brandsWithStock.length <= brandsPerPage) return;
+    const timer = setInterval(() => {
+      setBrandOffset((prev) => (prev + 1) % totalBrandPages);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [brandsWithStock.length, totalBrandPages]);
 
   const currentCar = displayHeroCars[currentSlide % displayHeroCars.length];
 
@@ -552,14 +572,41 @@ export default function Home() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-6 gap-6">
-          {brandsWithStock.map(brand => (
-            <div key={brand.name} className="border border-light-300 rounded-xl p-8 flex flex-col items-center justify-center hover:border-gold-500 hover:shadow-none transition-all duration-300 cursor-pointer bg-white h-48 hover:-translate-y-1">
-              <img src={brand.img} alt={brand.name} className="h-14 object-contain mb-5" />
-              <span className="font-bold text-navy-900">{brand.name}</span>
-              <span className="text-[13px] text-navy-400 mt-1 font-medium">{brand.count} Car</span>
+        <div className="relative overflow-hidden">
+          <div 
+            className="flex transition-transform duration-1000 ease-in-out" 
+            style={{ transform: `translateX(-${brandOffset * 100}%)` }}
+          >
+            {/* Group brands by pages for the carousel effect */}
+            {Array.from({ length: totalBrandPages }).map((_, pageIdx) => (
+              <div key={pageIdx} className="grid grid-cols-2 lg:grid-cols-6 gap-6 min-w-full">
+                {brandsWithStock.slice(pageIdx * brandsPerPage, (pageIdx + 1) * brandsPerPage).map(brand => (
+                  <Link
+                    key={brand.name}
+                    href={`/inventory?make=${encodeURIComponent(brand.name)}`}
+                    className="border border-light-300 rounded-xl p-8 flex flex-col items-center justify-center hover:border-gold-500 hover:shadow-none transition-all duration-300 cursor-pointer bg-white h-48 hover:-translate-y-1 group"
+                  >
+                    <img src={brand.img} alt={brand.name} className="h-14 object-contain mb-5 grayscale group-hover:grayscale-0 transition-all" />
+                    <span className="font-bold text-navy-900">{brand.name}</span>
+                    <span className="text-[13px] text-navy-400 mt-1 font-medium">{brand.count} Car</span>
+                  </Link>
+                ))}
+              </div>
+            ))}
+          </div>
+          
+          {/* Carousel Indicators */}
+          {totalBrandPages > 1 && (
+            <div className="flex justify-center gap-2 mt-8">
+              {Array.from({ length: totalBrandPages }).map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setBrandOffset(i)}
+                  className={`w-2.5 h-2.5 rounded-full transition-all ${brandOffset === i ? 'bg-gold-500 w-8' : 'bg-light-300'}`}
+                />
+              ))}
             </div>
-          ))}
+          )}
         </div>
       </section>
 

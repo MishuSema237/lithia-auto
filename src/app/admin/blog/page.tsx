@@ -207,7 +207,7 @@ export default function AdminBlogPage() {
                                 <label className="text-xs font-bold text-navy-600 uppercase">Title</label>
                                 <input type="text" className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg focus:border-gold-500 outline-none" value={form.title} onChange={e => setForm({ ...form, title: e.target.value })} required />
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-1">
                                     <label className="text-xs font-bold text-navy-600 uppercase">Category</label>
                                     <select className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" value={form.category} onChange={e => setForm({ ...form, category: e.target.value })}>
@@ -222,7 +222,7 @@ export default function AdminBlogPage() {
                                     <input type="text" className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" value={form.image} onChange={e => setForm({ ...form, image: e.target.value })} placeholder="https://..." required />
                                 </div>
                             </div>
-                            <div className="grid grid-cols-2 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div className="space-y-1">
                                     <label className="text-xs font-bold text-navy-600 uppercase">Tags (comma separated)</label>
                                     <input type="text" className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" value={form.tags} onChange={e => setForm({ ...form, tags: e.target.value })} placeholder="AutoDecar, BMW, Design" />
@@ -241,7 +241,7 @@ export default function AdminBlogPage() {
                                 <textarea className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" rows={6} value={form.content} onChange={e => setForm({ ...form, content: e.target.value })} required />
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4 border-t border-light-200 pt-4 mt-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-light-200 pt-4 mt-4">
                                 <div className="space-y-1">
                                     <label className="text-xs font-bold text-navy-600 uppercase text-gold-600">Highlight Quote Text</label>
                                     <textarea className="w-full bg-light-50 border border-light-300 p-2.5 text-sm rounded-lg outline-none" rows={3} value={form.quoteText} onChange={e => setForm({ ...form, quoteText: e.target.value })} placeholder="Lorem ipsum dolor..." />

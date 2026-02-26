@@ -3,16 +3,35 @@
 import React from 'react';
 
 const PARTNERS = [
-    { name: 'BMW', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/BMW.svg' },
-    { name: 'Mercedes', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/90/Mercedes-Benz_Logo_2010.svg' },
-    { name: 'Audi', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Audi_logo_detail.svg' },
-    { name: 'Tesla', logo: 'https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg' },
-    { name: 'Lexus', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d1/Lexus_logo.svg' },
-    { name: 'Porsche', logo: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Porsche_logo.svg' },
-    { name: 'Ford', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a0/Ford_Motor_Company_Logo.svg' },
-    { name: 'Toyota', logo: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Toyota_carlogo.svg' },
-    { name: 'Land Rover', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Land_Rover_logo_2023.svg/1200px-Land_Rover_logo_2023.svg.png' },
-    { name: 'Kia', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/47/KIA_logo_2021.svg' },
+    { name: 'RAM', logo: 'https://logowik.com/content/uploads/images/ram-black9664.jpg' },
+    { name: 'Rolls Royce', logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkwuMOG80bPYHyqVRXUDy1En-J56S9fVF2Vg&s' },
+    { name: 'Volvo', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Volvo_logo.svg/640px-Volvo_logo.svg.png' },
+    { name: 'Volkswagen', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Volkswagen_Logo_till_1995.svg/640px-Volkswagen_Logo_till_1995.svg.png' },
+    { name: 'Lexus', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Lexus.svg/1280px-Lexus.svg.png?20241201141350' },
+    { name: 'Porsche', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Porsche_wordmark_black_rgb.svg/1280px-Porsche_wordmark_black_rgb.svg.png?20241015081352' },
+    { name: 'Ford', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/1280px-Ford_logo_flat.svg.png?20230831145925' },
+    { name: 'Toyota', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Toyota_black_logo.png/640px-Toyota_black_logo.png' },
+    { name: 'Land Rover', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Land_Rover_1978_logo.svg/1280px-Land_Rover_1978_logo.svg.png?20250908093549' },
+    { name: 'Kia', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/KIA_logo3.svg/1280px-KIA_logo3.svg.png?20241230161505' },
+    { name: 'Subaru', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Subaru_Logo_2024.svg/640px-Subaru_Logo_2024.svg.png' },
+    { name: 'McLaren', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/McLaren_2018_logo.svg/640px-McLaren_2018_logo.svg.png' },
+    { name: 'Mini', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/MINI_logo.svg/960px-MINI_logo.svg.png?20231121175537' },
+    { name: 'Nissan', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Nissan_logo_2001.svg/640px-Nissan_logo_2001.svg.png' },
+    { name: 'Mazda', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Mazda_logo_with_emblem%2C_new.svg/640px-Mazda_logo_with_emblem%2C_new.svg.png' },
+    { name: 'Maserati', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Maserati_logo_2.svg/640px-Maserati_logo_2.svg.png' },
+    { name: 'Lincoln', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Logo_Lincoln.svg/640px-Logo_Lincoln.svg.png' },
+    { name: 'Jaguar', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Jaguar_wordmark_2021.svg/640px-Jaguar_wordmark_2021.svg.png' },
+    { name: 'Infiniti', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Infiniti_logo_1989_-_no_text.svg/640px-Infiniti_logo_1989_-_no_text.svg.png' },
+    { name: 'Lamborghini', logo: 'https://upload.wikimedia.org/wikipedia/fr/thumb/1/1d/Lamborghini-Logo.svg/960px-Lamborghini-Logo.svg.png?20110820005836' },
+    { name: 'Jeep', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Jeep_logo.svg/640px-Jeep_logo.svg.png' },
+    { name: 'Honda', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Logo_Honda_F1.svg/640px-Logo_Honda_F1.svg.png' },
+    { name: 'GMC', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/GMC-Logo.svg/640px-GMC-Logo.svg.png' },
+    { name: 'Ferrari', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Ferrari_wordmark.svg/640px-Ferrari_wordmark.svg.png' },
+    { name: 'FAIT', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/FIAT_logo_%282020%29.svg/640px-FIAT_logo_%282020%29.svg.png' },
+    { name: 'Genesis', logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/83/Genesis_division_emblem.svg/1280px-Genesis_division_emblem.svg.png?20240822194009' },
+    { name: 'Dodge', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Dodge_1962_logo.svg/640px-Dodge_1962_logo.svg.png' },
+    { name: 'Chrysler', logo: 'https://upload.wikimedia.org/wikipedia/it/thumb/8/8a/Logo_della_Chrysler_%28vecchio%29.svg/960px-Logo_della_Chrysler_%28vecchio%29.svg.png?_=20110627210943' },
+    { name: 'Acura', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Acura_logo.svg/640px-Acura_logo.svg.png' },
 ];
 
 export function Partners() {
@@ -27,19 +46,7 @@ export function Partners() {
 
             <div className="relative flex overflow-hidden group">
                 <div className="flex animate-marquee whitespace-nowrap gap-16 items-center py-4">
-                    {[...PARTNERS, ...PARTNERS].map((partner, i) => (
-                        <div key={i} className="flex items-center justify-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer px-8">
-                            <img
-                                src={partner.logo}
-                                alt={partner.name}
-                                className="h-12 w-auto object-contain max-w-[120px]"
-                            />
-                        </div>
-                    ))}
-                </div>
-
-                <div className="flex absolute top-0 animate-marquee2 whitespace-nowrap gap-16 items-center py-4">
-                    {[...PARTNERS, ...PARTNERS].map((partner, i) => (
+                    {[...PARTNERS, ...PARTNERS, ...PARTNERS, ...PARTNERS].map((partner, i) => (
                         <div key={i} className="flex items-center justify-center grayscale opacity-30 hover:grayscale-0 hover:opacity-100 transition-all duration-500 cursor-pointer px-8">
                             <img
                                 src={partner.logo}
@@ -53,21 +60,20 @@ export function Partners() {
 
             <style jsx>{`
                 .animate-marquee {
-                    animation: marquee 25s linear infinite;
+                    display: flex;
+                    animation: marquee 60s linear infinite;
+                    width: max-content;
+                    will-change: transform;
+                    backface-visibility: hidden;
+                    perspective: 1000;
+                    transform: translate3d(0, 0, 0);
                 }
-                .animate-marquee2 {
-                    animation: marquee2 25s linear infinite;
-                }
-                .group:hover .animate-marquee, .group:hover .animate-marquee2 {
+                .group:hover .animate-marquee {
                     animation-play-state: paused;
                 }
                 @keyframes marquee {
-                    0% { transform: translateX(0%); }
-                    100% { transform: translateX(-100%); }
-                }
-                @keyframes marquee2 {
-                    0% { transform: translateX(100%); }
-                    100% { transform: translateX(0%); }
+                    0% { transform: translate3d(0, 0, 0); }
+                    100% { transform: translate3d(-50%, 0, 0); }
                 }
             `}</style>
         </section>

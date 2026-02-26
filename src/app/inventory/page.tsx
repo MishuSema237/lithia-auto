@@ -31,11 +31,16 @@ function InventoryContent() {
     const { showToast } = useToast();
     const searchParams = useSearchParams();
 
-    // Handle initial make from URL
+    // Handle initial make and body from URL
     React.useEffect(() => {
         const makeFromUrl = searchParams.get('make');
-        if (makeFromUrl) {
-            setFilters(prev => ({ ...prev, make: makeFromUrl }));
+        const bodyFromUrl = searchParams.get('body');
+        if (makeFromUrl || bodyFromUrl) {
+            setFilters(prev => ({
+                ...prev,
+                make: makeFromUrl || prev.make,
+                body: bodyFromUrl || prev.body
+            }));
         }
     }, [searchParams]);
 
@@ -172,7 +177,7 @@ function InventoryContent() {
                 {/* Sidebar Filters */}
                 <aside className={cn(
                     "w-full xl:w-[320px] flex-shrink-0 bg-white rounded-xl border border-light-200 p-6 h-fit transition-all duration-300",
-                    "max-xl:fixed max-xl:inset-0 max-xl:z-50 max-xl:rounded-none max-xl:overflow-y-auto",
+                    "max-xl:fixed max-xl:inset-0 max-xl:z-50 max-xl:rounded-none max-xl:h-[100dvh] max-xl:overflow-y-auto",
                     isMobileFilterOpen ? "max-xl:translate-x-0" : "max-xl:-translate-x-full"
                 )}>
                     <div className="flex items-center justify-between mb-8">

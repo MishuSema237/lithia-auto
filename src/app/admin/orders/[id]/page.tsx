@@ -187,7 +187,7 @@ export default function AdminOrderDetailsPage({ params }: { params: Promise<{ id
                             </h3>
                             <div className="space-y-4">
                                 {order.cart.map((item: any, idx: number) => (
-                                    <div key={idx} className="flex gap-4 items-center p-4 bg-light-50 rounded-xl border border-light-200">
+                                    <div key={idx} className="flex flex-col md:flex-row gap-4 items-center p-4 bg-light-50 rounded-xl border border-light-200">
                                         <div className="w-20 h-16 rounded-lg overflow-hidden shrink-0 bg-white border border-light-200">
                                             {item.image ? (
                                                 <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
