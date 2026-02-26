@@ -53,7 +53,7 @@ export default function TermsPage() {
                                 </div>
                                 <div className="pt-2">
                                     <h3 className="text-2xl font-black text-navy-900 mb-4">{section.title}</h3>
-                                    <p className="text-navy-600 leading-relaxed text-lg">
+                                    <p className="text-gray-600 leading-relaxed text-lg">
                                         {section.content}
                                     </p>
                                 </div>

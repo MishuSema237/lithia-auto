@@ -115,10 +115,10 @@ export function Testimonials({
                                     }`}
                             >
                                 <div>
-                                    <div className="flex text-gold-500 gap-1 mb-6">
+                                    <div className={`flex ${bgVariant === 'navy' ? 'text-white' : 'text-navy-900'} gap-1 mb-6`}>
                                         {[...Array(t.rating || 5)].map((_: any, i: number) => <Star key={i} className="w-5 h-5 fill-current" />)}
                                     </div>
-                                    <p className={`italic leading-relaxed mb-8 ${bgVariant === 'navy' ? 'text-navy-100' : 'text-navy-600'}`}>
+                                    <p className={`italic leading-relaxed mb-8 ${bgVariant === 'navy' ? 'text-gray-400' : 'text-gray-600'}`}>
                                         {t.text}
                                     </p>
                                 </div>

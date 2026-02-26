@@ -208,7 +208,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                         {/* Description */}
                         <section id="overview">
                             <h2 className="text-2xl font-bold text-navy-900 mb-6 tracking-tight">Description</h2>
-                            <div className="text-navy-600 text-[15px] leading-relaxed space-y-4">
+                            <div className="text-gray-600 text-[15px] leading-relaxed space-y-4">
                                 {car.description ? (
                                     <p>{car.description}</p>
                                 ) : (
@@ -350,7 +350,7 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                                 <span className="flex items-center w-1/2 mt-2"><svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor"><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /></svg> {car.transmission || car.trans}</span>
                             </div>
                             <div className="text-[32px] font-black text-navy-900 mb-4">{carData.price}</div>
-                            <button onClick={handleBuyNow} className="w-full bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold py-3.5 rounded-xl transition-colors mb-3">Buy Now</button>
+                            <button onClick={handleBuyNow} className="w-full bg-gold-500 hover:bg-gold-400 text-white font-bold py-3.5 rounded-xl transition-colors mb-3">Buy Now</button>
                             <button onClick={handleAddToCart} className="w-full bg-navy-900 hover:bg-navy-800 text-gold-400 font-bold py-3.5 rounded-xl transition-colors">
                                 {addedToCart ? 'Added to Cart ✓' : 'Add to Cart'}
                             </button>

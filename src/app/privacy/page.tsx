@@ -32,11 +32,8 @@ export default function PrivacyPage() {
             {/* Header */}
             <section className="bg-navy-50 py-24">
                 <div className="container mx-auto px-4 text-center">
-                    <div className="inline-flex items-center gap-2 bg-gold-500/10 text-gold-600 px-4 py-2 rounded-full text-sm font-black uppercase tracking-widest mb-6">
-                        <ShieldCheck className="w-4 h-4" /> Secure & Private
-                    </div>
                     <h1 className="text-4xl md:text-5xl font-black text-navy-900 mb-6 tracking-tight">Privacy <span className="text-gold-500">Policy</span></h1>
-                    <p className="text-navy-600 max-w-2xl mx-auto text-lg leading-relaxed">
+                    <p className="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
                         At Lithia Auto, we value your trust above all else. This policy outlines our commitment to protecting your personal information and ensuring a secure car buying journey.
                     </p>
                 </div>
@@ -48,11 +45,11 @@ export default function PrivacyPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         {policies.map((policy, i) => (
                             <div key={i} className="bg-white p-10 rounded-3xl border border-light-200 hover:border-gold-500/50 hover:shadow-xl transition-all duration-300 group">
-                                <div className="w-14 h-14 bg-navy-900 text-gold-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <div className="w-14 h-14 bg-navy-600 text-white rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                                     {policy.icon}
                                 </div>
                                 <h3 className="text-2xl font-black text-navy-900 mb-4">{policy.title}</h3>
-                                <p className="text-navy-600 leading-relaxed">
+                                <p className="text-gray-600 leading-relaxed">
                                     {policy.desc}
                                 </p>
                             </div>

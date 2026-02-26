@@ -430,8 +430,8 @@ export default function Home() {
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a2 2 0 00-1.6-.8H9.3a2 2 0 00-1.6.8L5 11l-4.16.86a1 1 0 00-.84.99V16h3" /><circle cx="6.5" cy="16.5" r="2.5" /><circle cx="16.5" cy="16.5" r="2.5" /><path d="M11 21l3-3m0 0l3 3m-3-3v6" /></svg>
             </div>
             <h3 className="text-xl font-bold text-navy-900 mb-3">Browse inventory</h3>
-            <p className="text-navy-600 text-[15px] mb-6 flex-grow leading-relaxed">Find the ideal car for you and browse our premium inventory.</p>
-            <Link href="/inventory" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-navy-900 transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
+            <p className="text-gray-500 text-[15px] mb-6 flex-grow leading-relaxed">Find the ideal car for you and browse our premium inventory.</p>
+            <Link href="/inventory" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
               Search inventory <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
@@ -441,8 +441,8 @@ export default function Home() {
               <Banknote size={48} strokeWidth={1.5} />
             </div>
             <h3 className="text-xl font-bold text-navy-900 mb-3">Trade-in Value</h3>
-            <p className="text-navy-600 text-[15px] mb-6 flex-grow leading-relaxed">What's your car worth? Get the best value for your vehicle towards your purchase.</p>
-            <Link href="/contact" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg px-5 py-2.5 mobile:px-6 mobile:py-3 text-sm mobile:text-base flex items-center justify-center hover:bg-gold-500 hover:text-navy-900 transition-colors">
+            <p className="text-gray-500 text-[15px] mb-6 flex-grow leading-relaxed">What's your car worth? Get the best value for your vehicle towards your purchase.</p>
+            <Link href="/contact" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg px-5 py-2.5 mobile:px-6 mobile:py-3 text-sm mobile:text-base flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors">
               Get an estimate <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
@@ -452,8 +452,8 @@ export default function Home() {
               <ShieldCheck size={48} strokeWidth={1.5} />
             </div>
             <h3 className="text-xl font-bold text-navy-900 mb-3">Apply For Financing</h3>
-            <p className="text-navy-600 text-[15px] mb-6 flex-grow leading-relaxed">Fill out our credit approval form for your next vehicle loan directly with us.</p>
-            <Link href="/inventory" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-navy-900 transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
+            <p className="text-gray-500 text-[15px] mb-6 flex-grow leading-relaxed">Fill out our credit approval form for your next vehicle loan directly with us.</p>
+            <Link href="/inventory" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
               Browse cars <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
@@ -463,8 +463,8 @@ export default function Home() {
               <Cog size={48} strokeWidth={1.5} />
             </div>
             <h3 className="text-xl font-bold text-navy-900 mb-3">Expert Service</h3>
-            <p className="text-navy-600 text-[15px] mb-6 flex-grow leading-relaxed">Our expert technicians inspect every car before we sell it to you.</p>
-            <Link href="/about" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-navy-900 transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
+            <p className="text-gray-500 text-[15px] mb-6 flex-grow leading-relaxed">Our expert technicians inspect every car before we sell it to you.</p>
+            <Link href="/about" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
               Contact support <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
           </div>
@@ -490,11 +490,11 @@ export default function Home() {
                   <div className="relative h-56 overflow-hidden">
                     {(car.isFeatured || car.featured) && (
                       <div className="absolute top-4 left-4 z-10 flex gap-2">
-                        <span className="bg-gold-500 text-navy-900 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Featured</span>
+                        <span className="bg-gold-500 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Featured</span>
                       </div>
                     )}
                     <div className="absolute top-4 right-4 z-10">
-                      <span className="bg-navy-900 text-gold-400 text-xs font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">{car.year}</span>
+                      <span className="bg-navy-900 text-white text-xs font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">{car.year}</span>
                     </div>
                     <img
                       src={car.images?.[0] || (car.img ? `https://images.unsplash.com/photo-${car.img}?auto=format&fit=crop&q=80&w=600&h=400` : 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=600&h=400')}
@@ -514,7 +514,7 @@ export default function Home() {
                     </div>
                     <div className="flex items-center justify-between mt-auto pt-5 border-t border-light-200">
                       <div className="text-[22px] font-bold text-navy-900">${car.price.toLocaleString()}</div>
-                      <Link href={`/inventory/${car._id || car.id}`} className="text-sm font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-none active:scale-95 text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
+                      <Link href={`/inventory/${car._id || car.id}`} className="text-sm font-bold bg-navy-900 text-white border border-navy-900 rounded-full hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-none active:scale-95 text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
                         View details
                       </Link>
                     </div>
@@ -540,7 +540,7 @@ export default function Home() {
             <div className="relative z-10 w-full lg:w-1/2 lg:ml-auto">
               <h2 className="text-[28px] font-bold text-gold-400 mb-3 leading-tight tracking-tight">Are you looking for a car?</h2>
               <p className="text-white/90 text-[15px] mb-8 leading-relaxed">Save time and effort. Browse our extensive inventory of premium vehicles today.</p>
-              <Link href="/inventory" className="bg-gold-500 text-navy-900 font-bold rounded-lg inline-flex items-center hover:bg-gold-400 transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
+              <Link href="/inventory" className="bg-gold-500 text-white font-bold rounded-lg inline-flex items-center hover:bg-gold-400 transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
                 Find cars <Search className="ml-2.5 h-4 w-4" />
               </Link>
             </div>
@@ -553,8 +553,8 @@ export default function Home() {
             </div>
             <div className="relative z-10 w-full lg:w-1/2 lg:ml-auto text-navy-900">
               <h2 className="text-[28px] font-bold text-navy-900 mb-3 leading-tight tracking-tight">Need Financing?</h2>
-              <p className="text-navy-800 text-[15px] mb-8 leading-relaxed font-medium">Get pre-approved quickly. We offer flexible terms for your next vehicle purchase.</p>
-              <Link href="/contact" className="bg-navy-900 text-gold-400 font-bold rounded-lg inline-flex items-center hover:bg-navy-800 transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
+              <p className="text-white text-[15px] mb-8 leading-relaxed font-medium">Get pre-approved quickly. We offer flexible terms for your next vehicle purchase.</p>
+              <Link href="/contact" className="bg-navy-900 text-white font-bold rounded-lg inline-flex items-center hover:bg-navy-800 transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
                 Apply Now <ArrowRight className="ml-2.5 h-4 w-4" />
               </Link>
             </div>
@@ -573,8 +573,8 @@ export default function Home() {
         </div>
 
         <div className="relative overflow-hidden">
-          <div 
-            className="flex transition-transform duration-1000 ease-in-out" 
+          <div
+            className="flex transition-transform duration-1000 ease-in-out"
             style={{ transform: `translateX(-${brandOffset * 100}%)` }}
           >
             {/* Group brands by pages for the carousel effect */}
@@ -594,7 +594,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          
+
           {/* Carousel Indicators */}
           {totalBrandPages > 1 && (
             <div className="flex justify-center gap-2 mt-8">
@@ -637,7 +637,7 @@ export default function Home() {
               <div className="relative h-56 overflow-hidden">
                 <div className="absolute top-4 left-4 z-10 flex gap-2">
                   {(car.isFeatured || car.featured) && (
-                    <span className="bg-gold-500 text-navy-900 text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Featured</span>
+                    <span className="bg-gold-500 text-white text-[11px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Featured</span>
                   )}
                   {car.images && car.images.length > 0 && (
                     <span className="bg-black/40 backdrop-blur-md text-white text-[11px] font-bold px-3 py-1 rounded-full flex items-center">
@@ -646,7 +646,7 @@ export default function Home() {
                   )}
                 </div>
                 <div className="absolute top-4 right-4 z-10">
-                  <span className="bg-navy-900 text-gold-400 text-xs font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">{car.year}</span>
+                  <span className="bg-navy-900 text-white text-xs font-bold rounded-full w-10 h-10 flex items-center justify-center shadow-lg">{car.year}</span>
                 </div>
                 <img src={car.images?.[0] || `https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=600&h=400`} alt="Car" className="w-full h-full object-cover hover:scale-105 transition-transform duration-700" />
               </div>
@@ -659,8 +659,8 @@ export default function Home() {
                   <span className="flex items-center"><Cog className="w-4 h-4 mr-1.5 text-navy-300" /> {car.transmission || car.trans || 'Automatic'}</span>
                 </div>
                 <div className="flex items-center justify-between mt-auto pt-5 border-t border-light-200">
-                  <div className="text-[22px] font-bold text-navy-900">${(car.price || 0).toLocaleString()}</div>
-                  <Link href={`/inventory/${car._id || car.id}`} className="text-sm font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-none active:scale-95 text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
+                  <div className="text-[22px] font-bold text-white">${(car.price || 0).toLocaleString()}</div>
+                  <Link href={`/inventory/${car._id || car.id}`} className="text-sm font-bold bg-navy-900 text-white border border-navy-900 rounded-full hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-none active:scale-95 text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
                     View details
                   </Link>
                 </div>
@@ -701,16 +701,16 @@ export default function Home() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-r from-navy-900/90 via-navy-900/40 to-transparent flex items-center p-6 md:p-20">
                     <div className="max-w-xl">
-                      <span className="bg-gold-500 text-navy-900 text-[10px] md:text-xs font-black px-3 py-1.5 md:px-4 md:py-2 rounded-full uppercase tracking-[0.2em] mb-4 md:mb-6 inline-block">New Arrival</span>
+                      <span className="bg-gold-500 text-white text-[10px] md:text-xs font-black px-3 py-1.5 md:px-4 md:py-2 rounded-full uppercase tracking-[0.2em] mb-4 md:mb-6 inline-block">New Arrival</span>
                       <h3 className="text-2xl md:text-[72px] font-bold text-white leading-[1.1] tracking-tight mb-6">
                         {car.make}<br />{car.model}
                       </h3>
                       <div className="flex flex-wrap gap-4 md:gap-6 mb-6 md:mb-10 text-white/80 font-bold uppercase tracking-widest text-[10px] md:text-sm">
                         <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-gold-500"></div> {car.transmission || car.trans}</div>
                         <div className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-gold-500"></div> {car.fuelType || car.fuel}</div>
-                        <div className="flex items-center gap-2 text-gold-500 text-lg md:text-xl font-black">${car.price.toLocaleString()}</div>
+                        <div className="flex items-center gap-2 text-white text-lg md:text-xl font-black">${car.price.toLocaleString()}</div>
                       </div>
-                      <Link href={`/inventory/${car._id || car.id}`} className="inline-flex items-center bg-gold-500 hover:bg-white text-navy-900 font-bold rounded-2xl transition-all text-sm uppercase tracking-[0.1em] group/btn text-sm mobile:text-base px-10 py-4 mobile:px-12 mobile:py-5">
+                      <Link href={`/inventory/${car._id || car.id}`} className="inline-flex items-center bg-gold-500 hover:bg-white text-white font-bold rounded-2xl transition-all text-sm uppercase tracking-[0.1em] group/btn text-sm mobile:text-base px-10 py-4 mobile:px-12 mobile:py-5">
                         Explore Details <ArrowRight className="ml-3 group-hover/btn:translate-x-2 transition-transform" />
                       </Link>
                     </div>
@@ -745,7 +745,7 @@ export default function Home() {
                 <Link key={post.id || i} href={`/blog/${post.id || post._id}`} className="group flex flex-col h-full">
                   <div className="relative rounded-3xl overflow-hidden h-72 mb-8 shadow-xl">
                     <img src={post.image} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt={post.title} />
-                    <div className="absolute bottom-5 left-5 bg-gold-500 text-navy-900 text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
+                    <div className="absolute bottom-5 left-5 bg-gold-500 text-white text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-widest shadow-lg">
                       {post.date}
                     </div>
                   </div>

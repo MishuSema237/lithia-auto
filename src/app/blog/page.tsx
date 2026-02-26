@@ -105,7 +105,6 @@ export default function BlogListingPage() {
                                         <div className="flex flex-wrap items-center gap-6 text-[13px] text-navy-400 font-bold uppercase tracking-wider">
                                             <div className="flex items-center gap-2"><User className="w-4 h-4 text-gold-500" /> {post.author}</div>
                                             <div className="flex items-center gap-2 text-gold-600 font-black tracking-widest"><div className="w-1.5 h-1.5 rounded-full bg-gold-500"></div> {post.category}</div>
-                                            <div className="flex items-center gap-2"><MessageCircle className="w-4 h-4 text-gold-500" /> {post.commentsCount} comment</div>
                                             <div className="flex items-center gap-2"><Calendar className="w-4 h-4 text-gold-500" /> {post.date}</div>
                                         </div>
                                     </div>
@@ -115,7 +114,7 @@ export default function BlogListingPage() {
                                         <div className="absolute inset-0 bg-navy-900/10 group-hover:bg-transparent transition-colors"></div>
                                     </Link>
 
-                                    <p className="text-navy-600 text-lg leading-relaxed mb-10 line-clamp-3">
+                                    <p className="text-gray-600 text-lg leading-relaxed mb-10 line-clamp-3">
                                         {post.excerpt}
                                     </p>
 

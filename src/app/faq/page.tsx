@@ -14,19 +14,19 @@ interface FAQItemProps {
 function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
     return (
         <div
-            className={`border rounded-xl transition-all duration-300 mb-4 overflow-hidden ${isOpen ? 'bg-gold-50/50 border-gold-200' : 'bg-white border-light-200 hover:border-navy-200'
+            className={`border rounded-xl transition-all duration-300 mb-4 overflow-hidden ${isOpen ? 'bg-navy-600 border-gold-200' : 'bg-white border-light-200 hover:border-navy-200'
                 }`}
         >
             <button
                 onClick={onClick}
                 className="w-full text-left px-6 py-5 flex justify-between items-center group"
             >
-                <span className={`font-bold text-lg transition-colors ${isOpen ? 'text-navy-900' : 'text-navy-700 group-hover:text-navy-900'}`}>
+                <span className={`font-bold text-lg transition-colors ${isOpen ? 'text-white' : 'text-gray-600 group-hover:text-navy-900'}`}>
                     {question}
                 </span>
                 <div className={`shrink-0 ml-4 transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
                     {isOpen ? (
-                        <Minus className="w-5 h-5 text-gold-600" />
+                        <Minus className="w-5 h-5 text-white" />
                     ) : (
                         <Plus className="w-5 h-5 text-navy-400" />
                     )}
@@ -36,7 +36,7 @@ function FAQItem({ question, answer, isOpen, onClick }: FAQItemProps) {
                 className={`transition-[max-height] duration-300 ease-in-out ${isOpen ? 'max-h-96' : 'max-h-0'
                     }`}
             >
-                <div className="px-6 pb-6 text-navy-600 leading-relaxed border-t border-gold-100/50 pt-4">
+                <div className="px-6 pb-6 text-white leading-relaxed border-t border-gold-100/50 pt-4">
                     {answer}
                 </div>
             </div>

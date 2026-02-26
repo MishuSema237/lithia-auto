@@ -59,7 +59,7 @@ export default function HelpCenterPage() {
                                 Our elite concierge team is available 24/7 to assist you with any inquiries regarding our inventory or services.
                             </p>
                         </div>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full lg:w-auto">
+                        <div className="grid grid-cols-1 gap-6 w-full lg:w-auto">
                             <a href="mailto:support@lithiaauto.com" className="flex items-center gap-6 p-6 bg-navy-900 rounded-3xl group">
                                 <div className="w-12 h-12 bg-gold-500 rounded-xl flex items-center justify-center text-navy-900"><Mail className="w-6 h-6" /></div>
                                 <div>

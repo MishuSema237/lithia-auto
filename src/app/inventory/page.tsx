@@ -12,7 +12,7 @@ import { Partners } from '@/components/ui/Partners';
 import { Loader2 } from 'lucide-react';
 
 function InventoryContent() {
-    const [viewType, setViewType] = useState<'grid' | 'list'>('grid');
+    const [viewType, setViewType] = useState<'grid' | 'list'>('list');
     const [sortBy, setSortBy] = useState('Default');
     const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
@@ -402,7 +402,7 @@ function InventoryContent() {
                                         </div>
                                     )}
                                     <div className="absolute top-4 right-4 z-10">
-                                        <span className="bg-navy-900/80 backdrop-blur-md text-gold-400 text-[11px] font-bold rounded-full w-9 h-9 flex items-center justify-center shadow-lg">{car.year}</span>
+                                        <span className="bg-navy-900/80 backdrop-blur-md text-white text-[11px] font-bold rounded-full w-9 h-9 flex items-center justify-center shadow-lg">{car.year}</span>
                                     </div>
                                     <img
                                         src={car.images?.[0] || (car.img ? `https://images.unsplash.com/photo-${car.img}?auto=format&fit=crop&q=80&w=600&h=400` : 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=600&h=400')}
@@ -426,7 +426,7 @@ function InventoryContent() {
 
                                     <div className={`flex items-center justify-between border-t border-light-200 pt-4 ${viewType === 'list' ? 'mt-0' : 'mt-4'}`}>
                                         <div className="text-[22px] font-bold text-navy-900">${car.price.toLocaleString()}</div>
-                                        <Link href={`/inventory/${car._id || car.id}`} className="text-[13px] font-bold bg-navy-900 text-gold-400 border border-navy-900 rounded-full px-6 py-2.5 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-sm active:scale-95 text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
+                                        <Link href={`/inventory/${car._id || car.id}`} className="text-[13px] font-bold bg-navy-900 text-white border border-navy-900 rounded-full px-6 py-2.5 hover:bg-gold-500 hover:text-navy-900 hover:border-gold-500 transition-all shadow-sm active:scale-95 text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
                                             View car
                                         </Link>
                                     </div>

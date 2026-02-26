@@ -6,6 +6,7 @@ import { ChevronRight, Star, Phone, CheckCircle2, Award, Users, ShieldCheck, Zap
 import { Button } from '@/components/ui/Button';
 import { Testimonials } from '@/components/ui/Testimonials';
 import { Partners } from '@/components/ui/Partners';
+import { LocationsMarquee } from '@/components/ui/LocationsMarquee';
 
 export default function AboutPage() {
     const [recommendedCars, setRecommendedCars] = useState<any[]>([]);
@@ -136,7 +137,7 @@ export default function AboutPage() {
                         <div className="w-full lg:w-1/2 space-y-12">
                             <div>
                                 <h2 className="text-navy-900 font-black text-4xl md:text-5xl mb-6">Why Choose <span className="text-gold-500">Lithia Auto</span></h2>
-                                <p className="text-navy-600 text-lg leading-relaxed">
+                                <p className="text-gray-600 text-lg leading-relaxed">
                                     Our establishment deals in vehicles with many years of experience, ensuring the names become preferred choices for optimal results.
                                 </p>
                             </div>
@@ -144,11 +145,11 @@ export default function AboutPage() {
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                 {features.map((feature, i) => (
                                     <div key={i} className="bg-white p-6 rounded-2xl shadow-sm border border-light-200 hover:border-gold-500/50 transition-all hover:shadow-md group">
-                                        <div className="w-12 h-12 bg-gold-100 rounded-xl flex items-center justify-center text-gold-600 mb-4 group-hover:bg-gold-500 group-hover:text-navy-900 transition-colors">
+                                        <div className="w-12 h-12 bg-navy-600 rounded-xl flex items-center justify-center text-white mb-4 group-hover:bg-gold-500 group-hover:text-navy-900 transition-colors">
                                             {feature.icon}
                                         </div>
                                         <h3 className="text-navy-900 font-bold text-lg mb-2">{feature.title}</h3>
-                                        <p className="text-navy-600 text-sm leading-relaxed">{feature.desc}</p>
+                                        <p className="text-gray-600 text-sm leading-relaxed">{feature.desc}</p>
                                     </div>
                                 ))}
                             </div>
@@ -171,14 +172,14 @@ export default function AboutPage() {
                                         <img src={agent.image} alt={agent.name} className="w-full aspect-[4/5] object-cover group-hover:scale-105 transition-transform duration-500" />
                                         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
                                             {agent.phone ? (
-                                                <a 
+                                                <a
                                                     href={`https://wa.me/${agent.phone.replace(/\D/g, '')}`}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center hover:bg-green-600 shadow-xl transition-colors"
                                                     title="WhatsApp Agent"
                                                 >
-                                                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                                                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" /></svg>
                                                 </a>
                                             ) : (
                                                 <button className="w-10 h-10 bg-gold-500 text-navy-900 rounded-full flex items-center justify-center hover:bg-gold-400 shadow-xl transition-colors">
@@ -208,7 +209,7 @@ export default function AboutPage() {
                     <div className="flex justify-between items-end mb-16 px-4">
                         <div>
                             <h2 className="text-4xl md:text-5xl font-black text-navy-900 mb-4">Recommended <span className="text-gold-500">Vehicles</span></h2>
-                            <p className="text-navy-600 text-lg">Specially curated selections for your premium lifestyle.</p>
+                            <p className="text-gray-600 text-lg">Specially curated selections for your premium lifestyle.</p>
                         </div>
                         <Link href="/inventory" className="hidden md:flex items-center gap-2 text-navy-900 font-bold hover:text-gold-500 transition-colors group">
                             View all <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -250,6 +251,10 @@ export default function AboutPage() {
                     )}
                 </div>
             </section>
+
+            <div className="mb-20">
+                <LocationsMarquee />
+            </div>
         </div>
     );
 }

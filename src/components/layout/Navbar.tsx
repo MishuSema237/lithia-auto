@@ -104,8 +104,8 @@ export function Navbar() {
                                 className={cn(
                                     "block px-3 py-2.5 text-base font-bold rounded-lg transition-all",
                                     isActive
-                                        ? "text-gold-500 bg-navy-50/50 border-l-4 border-gold-500 pl-2"
-                                        : "text-navy-600 hover:text-gold-500 hover:bg-light-200"
+                                        ? "text-gray-600 bg-navy-50/50 border-l-4 border-gold-500 pl-2"
+                                        : "text-gray-600 hover:text-gold-500 hover:bg-light-200"
                                 )}
                             >
                                 {item.name}

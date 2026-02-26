@@ -5,6 +5,7 @@ import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Mail, Phone, MapPin, ChevronDown, Loader2 } from 'lucide-react';
 import { useToast } from '@/components/ui/Toast';
+import { LocationsMarquee } from '@/components/ui/LocationsMarquee';
 
 export default function ContactPage() {
     const { showToast } = useToast();
@@ -60,7 +61,7 @@ export default function ContactPage() {
 
             <div className="text-center max-w-2xl mx-auto mb-16">
                 <h1 className="text-4xl md:text-5xl font-bold text-navy-900 mb-4 tracking-tight">Contact <span className="text-gold-500">Us</span></h1>
-                <p className="text-lg text-navy-600">
+                <p className="text-lg text-gray-600">
                     Whether you're looking for your perfect car, or exploring your selling options, we're here to provide assistance at every step.
                 </p>
             </div>
@@ -71,7 +72,7 @@ export default function ContactPage() {
                 <div className="w-full lg:w-1/3 space-y-8">
                     <div>
                         <h3 className="text-2xl font-bold text-navy-800 mb-6">Get In Touch</h3>
-                        <p className="text-navy-600 mb-6">Our dedicated team of professionals is ready to help you with any inquiries you may have.</p>
+                        <p className="text-gray-600 mb-6">Our dedicated team of professionals is ready to help you with any inquiries you may have.</p>
                     </div>
 
                     <div className="space-y-6">
@@ -81,7 +82,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <h4 className="font-bold text-navy-900">Showroom Location</h4>
-                                <p className="text-navy-600 mt-1">8200 S Harlem Ave<br />Bridgeview, IL 60455</p>
+                                <p className="text-gray-600 mt-1">8200 S Harlem Ave<br />Bridgeview, IL 60455</p>
                             </div>
                         </div>
 
@@ -91,7 +92,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <h4 className="font-bold text-navy-900">Phone</h4>
-                                <p className="text-navy-600 mt-1"><a href="tel:7084192546" className="hover:text-gold-500 transition-colors">(708) 419-2546</a></p>
+                                <p className="text-gray-600 mt-1"><a href="tel:7084192546" className="hover:text-gold-500 transition-colors">(708) 419-2546</a></p>
                             </div>
                         </div>
 
@@ -101,7 +102,7 @@ export default function ContactPage() {
                             </div>
                             <div>
                                 <h4 className="font-bold text-navy-900">Email Address</h4>
-                                <p className="text-navy-600 mt-1"><a href="mailto:lithiaautos4@gmail.com" className="hover:text-gold-500 transition-colors">lithiaautos4@gmail.com</a></p>
+                                <p className="text-gray-600 mt-1"><a href="mailto:lithiaautos4@gmail.com" className="hover:text-gold-500 transition-colors">lithiaautos4@gmail.com</a></p>
                             </div>
                         </div>
                     </div>
@@ -210,7 +211,7 @@ export default function ContactPage() {
                                     type="submit"
                                     variant="primary"
                                     size="lg"
-                                    className="w-full md:w-auto px-10"
+                                    className="w-full md:w-auto px-10 rounded-xl"
                                     disabled={isSubmitting}
                                 >
                                     {isSubmitting ? (
@@ -224,6 +225,10 @@ export default function ContactPage() {
                     </Card>
                 </div>
 
+            </div>
+
+            <div className="mt-20 -mx-4 sm:-mx-6 lg:-mx-8">
+                <LocationsMarquee />
             </div>
 
         </div>
