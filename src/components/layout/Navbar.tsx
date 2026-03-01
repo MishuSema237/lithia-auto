@@ -22,16 +22,16 @@ export function Navbar() {
                     {/* Logo */}
                     <div className="flex-shrink-0 flex items-center">
                         <Link href="/" className="flex items-center gap-2">
-                            <img 
-                                src="/images/LithiaAutosLogo.png" 
-                                alt="Lithia Autos" 
+                            <img
+                                src="/images/LithiaAutosLogo.png"
+                                alt="Lithia Autos"
                                 className="h-8 md:h-10 w-auto object-contain"
                             />
                         </Link>
                     </div>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden md:flex space-x-8 lg:space-x-10">
+                    <nav className="hidden lg:flex space-x-8 lg:space-x-10">
                         {['Home', 'Inventory', 'About'].map((item) => {
                             const href = item === 'Home' ? '/' : `/${item.toLowerCase()}`;
                             const isActive = pathname === href;
@@ -54,7 +54,7 @@ export function Navbar() {
                     </nav>
 
                     {/* Desktop Actions */}
-                    <div className="hidden md:flex items-center space-x-6">
+                    <div className="hidden lg:flex items-center space-x-6">
                         <Link href="/track-order" className="text-navy-600 hover:text-gold-500 font-bold text-[15px] transition-colors">
                             Track Order
                         </Link>
@@ -70,7 +70,7 @@ export function Navbar() {
                     </div>
 
                     {/* Mobile menu button */}
-                    <div className="flex items-center md:hidden">
+                    <div className="flex items-center lg:hidden">
                         <button
                             type="button"
                             className="inline-flex items-center justify-center p-2 rounded-lg text-navy-700 hover:text-gold-500 focus:outline-none"
@@ -88,7 +88,7 @@ export function Navbar() {
             </div>
 
             {/* Mobile Menu */}
-            <div className={cn("md:hidden absolute w-full bg-light-100 border-b border-light-300", isMobileMenuOpen ? "block" : "hidden")}>
+            <div className={cn("lg:hidden absolute w-full bg-light-100 border-b border-light-300", isMobileMenuOpen ? "block" : "hidden")}>
                 <div className="px-4 pt-4 pb-6 space-y-2">
                     {[
                         { name: 'Home', href: '/' },
