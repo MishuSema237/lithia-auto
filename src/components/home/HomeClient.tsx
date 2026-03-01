@@ -55,6 +55,14 @@ export function HomeClient({
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
+  useEffect(() => {
+    if (activeFeatured.length <= 1) return;
+    const timer = setInterval(() => {
+      nextSlide();
+    }, 8000);
+    return () => clearInterval(timer);
+  }, [activeFeatured.length, isTransitioning]);
+
   const nextLatestPick = () => {
     setCurrentLatestPick((prev: number) => (prev + 1) % finalLatestPicks.length);
   };
@@ -135,19 +143,21 @@ export function HomeClient({
         {/* Content Container */}
         {currentCar && (
           <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col md:pt-32 pt-20 md:pb-20 pb-8">
-            <div className="flex flex-col md:flex-row h-full">
+            <div className="flex flex-row h-full">
               {/* Left Column: Glass Feature Cards */}
-              <div className={`hidden md:flex flex-col justify-center space-y-4 w-64 pr-10 border-r border-white/20 transition-all duration-500 ${isTransitioning ? 'opacity-0 -translate-x-4' : 'opacity-100 translate-x-0'}`}>
+              <div className={`flex flex-col justify-center space-y-4 md:w-64 md:pr-10 pr-4 md:border-r border-white/20 transition-all duration-500 ${isTransitioning ? 'opacity-0 -translate-x-4' : 'opacity-100 translate-x-0'}`}>
                 {[
-                  { icon: <svg className="w-8 h-8 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 9V7a4 4 0 118 0v2m-8 0h8M8 9h8m-8 0a2 2 0 00-2 2v6a2 2 0 002 2h8a2 2 0 002-2v-6a2 2 0 00-2-2m-8 0H6" /></svg>, label: 'Transmission', value: currentCar.specs.transmission },
-                  { icon: <svg className="w-8 h-8 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>, label: 'Engine', value: currentCar.specs.engine },
-                  { icon: <svg className="w-8 h-8 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>, label: 'Max Power', value: currentCar.specs.power },
-                  { icon: <svg className="w-8 h-8 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>, label: 'Max Torque', value: currentCar.specs.torque },
+                  { icon: <svg className="md:w-8 w-4 h-8 h-4 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M8 9V7a4 4 0 118 0v2m-8 0h8M8 9h8m-8 0a2 2 0 00-2 2v6a2 2 0 002 2h8a2 2 0 002-2v-6a2 2 0 00-2-2m-8 0H6" /></svg>, label: 'Transmission', value: currentCar.specs.transmission },
+                  { icon: <svg className="md:w-8 w-4 h-8 h-4 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>, label: 'Engine', value: currentCar.specs.engine },
+                  { icon: <svg className="md:w-8 w-4 h-8 h-4 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>, label: 'Max Power', value: currentCar.specs.power },
+                  { icon: <svg className="md:w-8 w-4 h-8 h-4 text-white mb-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" /></svg>, label: 'Max Torque', value: currentCar.specs.torque },
                 ].map((item: any, idx: number) => (
-                  <div key={idx} className="bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 transition-transform hover:-translate-y-1">
-                    {item.icon}
-                    <div className="text-white/60 text-[11px] font-bold uppercase tracking-wider mb-0.5">{item.label}</div>
-                    <div className="text-white font-bold">{item.value}</div>
+                  <div key={idx} className="bg-white/10 flex flex-row items-center gap-2 backdrop-blur-md border border-white/20 md:rounded-2xl rounded-lg md:p-4 p-2 transition-transform hover:-translate-y-1">
+                    <span className="flex items-center gap-2">{item.icon}</span>
+                    <span className="flex flex-col">
+                      <div className="text-white/60 md:text-[11px] text-[8px] font-bold uppercase tracking-wider mb-0.5">{item.label}</div>
+                      <div className="text-white md:text-[11px] text-[8px] font-bold">{item.value}</div>
+                    </span>
                   </div>
                 ))}
               </div>
@@ -160,7 +170,7 @@ export function HomeClient({
                 <p className="text-white/80 text-xs md:text-xl max-w-lg mb-10 leading-relaxed font-medium line-clamp-3">
                   {currentCar.description}
                 </p>
-                <div className="flex items-center gap-6">
+                <div className="flex md:items-center items-start flex-col md:flex-row gap-6">
                   <Link href={`/inventory/${currentCar.id}`} className="bg-white hover:bg-gray-100 text-gray-900 font-bold md:rounded-xl rounded-lg md:text-[15px] text-[12px] transition-colors text-sm mobile:text-base md:px-5 px-3 py-2">
                     View Detail
                   </Link>
