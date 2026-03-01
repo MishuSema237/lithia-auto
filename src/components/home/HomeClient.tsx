@@ -134,7 +134,7 @@ export function HomeClient({
 
         {/* Content Container */}
         {currentCar && (
-          <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col pt-32 pb-20">
+          <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex flex-col md:pt-32 pt-20 md:pb-20 pb-8">
             <div className="flex flex-col md:flex-row h-full">
               {/* Left Column: Glass Feature Cards */}
               <div className={`hidden md:flex flex-col justify-center space-y-4 w-64 pr-10 border-r border-white/20 transition-all duration-500 ${isTransitioning ? 'opacity-0 -translate-x-4' : 'opacity-100 translate-x-0'}`}>
@@ -153,15 +153,15 @@ export function HomeClient({
               </div>
 
               {/* Middle Column: Make/Model Text */}
-              <div className={`flex-1 flex flex-col justify-center px-0 md:px-12 mt-12 md:mt-0 transition-all duration-500 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
-                <h1 className="text-5xl md:text-[72px] font-bold text-white leading-[1.1] tracking-tight mb-6">
+              <div className={`flex-1 flex flex-col justify-center px-0 md:px-12 mt-0 transition-all duration-500 ${isTransitioning ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'}`}>
+                <h1 className="text-2xl md:text-[72px] font-bold text-white leading-[1.1] tracking-tight mb-6">
                   {currentCar.make}<br />{currentCar.model}
                 </h1>
-                <p className="text-white/80 text-lg md:text-xl max-w-lg mb-10 leading-relaxed font-medium">
+                <p className="text-white/80 text-xs md:text-xl max-w-lg mb-10 leading-relaxed font-medium line-clamp-3">
                   {currentCar.description}
                 </p>
                 <div className="flex items-center gap-6">
-                  <Link href={`/inventory/${currentCar.id}`} className="bg-white hover:bg-gray-100 text-gray-900 font-bold rounded-xl text-[15px] transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
+                  <Link href={`/inventory/${currentCar.id}`} className="bg-white hover:bg-gray-100 text-gray-900 font-bold md:rounded-xl rounded-lg md:text-[15px] text-[12px] transition-colors text-sm mobile:text-base md:px-5 px-3 py-2">
                     View Detail
                   </Link>
 
@@ -185,39 +185,39 @@ export function HomeClient({
             </div>
 
             {/* Bottom Search Bar Area */}
-            <div className="mt-auto relative z-20">
+            <div className="mt-auto relative z-20 hidden md:block">
               <button
                 onClick={() => setIsFilterVisible(!isFilterVisible)}
-                className="md:hidden w-full bg-white border border-light-300 rounded-xl p-4 my-4 flex items-center justify-between text-navy-900 font-bold group active:scale-95 transition-all"
+                className="md:hidden w-full bg-white border border-light-300 md:rounded-xl rounded-lg p-2 md:p-4 my-4 flex items-center justify-between text-navy-900 font-bold group active:scale-95 transition-all"
               >
                 <div className="flex items-center gap-2">
-                  <Search className="w-5 h-5 text-gold-500" />
-                  <span>{isFilterVisible ? 'Close Filter' : 'Find your car'}</span>
+                  <Search className="md:w-5 w-4 h-5 h-4 text-gold-500" />
+                  <span className="text-sm md:text-base">{isFilterVisible ? 'Close Filter' : 'Find your car'}</span>
                 </div>
                 <div className={`transition-transform duration-300 ${isFilterVisible ? 'rotate-180' : ''}`}>
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
+                  <svg className="md:w-5 w-4 h-5 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" /></svg>
                 </div>
               </button>
 
               <div className={cn(
-                "bg-white rounded-2xl p-4 mt-8 shadow-none border border-light-300 flex flex-col md:flex-row gap-4 items-center relative z-20 w-full max-w-5xl transition-all duration-300",
+                "bg-white md:rounded-2xl rounded-lg p-2 md:p-4 mt-8 shadow-none border border-light-300 flex flex-col md:flex-row gap-4 items-center relative z-20 w-full max-w-5xl transition-all duration-300",
                 !isFilterVisible ? "max-md:h-0 max-md:mt-0 max-md:p-0 max-md:opacity-0 max-md:border-none overflow-hidden" : "max-md:opacity-100 max-md:max-h-[500px] overflow-visible"
               )}>
                 <div className="flex-1 w-full relative">
                   <select
                     value={selectedMake}
                     onChange={(e) => setSelectedMake(e.target.value)}
-                    className="w-full appearance-none bg-white border border-light-300 text-navy-900 font-medium py-3.5 pl-5 pr-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold-500 cursor-pointer text-[15px]"
+                    className="w-full appearance-none bg-white border border-light-300 text-navy-900 font-medium md:py-3.5 py-2 pl-5 pr-10 md:rounded-xl rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 cursor-pointer md:text-[15px] text-[10px]"
                   >
                     <option value="">Any Make</option>
                     {stockMakes.map(make => (
                       <option key={make} value={make}>{make}</option>
                     ))}
                   </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-navy-400">▼</div>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-md md:text-lg text-navy-400">▼</div>
                 </div>
                 <div className="flex-1 w-full relative">
-                  <select className="w-full appearance-none bg-white border border-light-300 text-navy-900 font-medium py-3.5 pl-5 pr-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold-500 cursor-pointer text-[15px]">
+                  <select className="w-full appearance-none bg-white border border-light-300 text-navy-900 font-medium md:py-3.5 py-2 pl-5 pr-10 md:rounded-xl rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 cursor-pointer md:text-[15px] text-[10px]">
                     <option>Any Body</option>
                     <option>Sedan</option>
                     <option>SUV</option>
@@ -227,7 +227,7 @@ export function HomeClient({
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-navy-400">▼</div>
                 </div>
                 <div className="flex-1 w-full relative">
-                  <select className="w-full appearance-none bg-white border border-light-300 text-navy-900 font-medium py-3.5 pl-5 pr-10 rounded-xl focus:outline-none focus:ring-2 focus:ring-gold-500 cursor-pointer text-[15px]">
+                  <select className="w-full appearance-none bg-white border border-light-300 text-navy-900 font-medium md:py-3.5 py-2 pl-5 pr-10 md:rounded-xl rounded-lg focus:outline-none focus:ring-2 focus:ring-gold-500 cursor-pointer md:text-[15px] text-[10px]">
                     <option>Any Price</option>
                     <option>Under $50,000</option>
                     <option>$50,000 - $100,000</option>
@@ -238,7 +238,7 @@ export function HomeClient({
 
                 <Link
                   href={`/inventory${selectedMake ? `?make=${encodeURIComponent(selectedMake)}` : ''}`}
-                  className="bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold h-[52px] px-8 rounded-xl flex items-center justify-center transition-colors shrink-0 w-full md:w-auto text-sm mobile:text-base"
+                  className="bg-gold-500 hover:bg-gold-400 text-navy-900 font-bold md:h-[52px] h-[40px] md:px-8 px-4 md:rounded-xl rounded-lg flex items-center justify-center transition-colors shrink-0 w-full md:w-auto text-sm mobile:text-base"
                 >
                   Search <Search className="w-4 h-4 ml-2" />
                 </Link>
@@ -259,7 +259,7 @@ export function HomeClient({
               <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a2 2 0 00-1.6-.8H9.3a2 2 0 00-1.6.8L5 11l-4.16.86a1 1 0 00-.84.99V16h3" /><circle cx="6.5" cy="16.5" r="2.5" /><circle cx="16.5" cy="16.5" r="2.5" /><path d="M11 21l3-3m0 0l3 3m-3-3v6" /></svg>
             </div>
             <h3 className="text-xl font-bold text-navy-900 mb-3">Browse inventory</h3>
-            <p className="text-gray-500 text-[15px] mb-6 flex-grow leading-relaxed">Find the ideal car for you and browse our premium inventory.</p>
+            <p className="text-gray-500 md:text-[15px] text-[12px] mb-6 flex-grow leading-relaxed">Find the ideal car for you and browse our premium inventory.</p>
             <Link href="/inventory" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
               Search inventory <ArrowRight className="ml-2 h-4 w-4" />
             </Link>
@@ -406,10 +406,10 @@ export function HomeClient({
                     href={`/inventory?make=${encodeURIComponent(brand.name)}`}
                     className="border border-light-300 rounded-xl p-8 flex flex-col items-center justify-center hover:border-gold-500 hover:shadow-none transition-all duration-300 cursor-pointer bg-white h-48 hover:-translate-y-1 group shrink-0"
                   >
-                    <img 
-                      src={brand.img} 
-                      alt={brand.name} 
-                      className="h-14 w-auto min-w-[50px] object-contain mb-5 grayscale group-hover:grayscale-0 transition-all rendering-auto" 
+                    <img
+                      src={brand.img}
+                      alt={brand.name}
+                      className="h-14 w-auto min-w-[50px] object-contain mb-5 grayscale group-hover:grayscale-0 transition-all rendering-auto"
                       style={{ aspectRatio: 'auto' }}
                       loading="eager"
                     />

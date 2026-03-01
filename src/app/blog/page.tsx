@@ -11,6 +11,7 @@ export default function BlogListingPage() {
     const [selectedTags, setSelectedTags] = useState<string[]>([]);
     const [posts, setPosts] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [showAllTags, setShowAllTags] = useState(false);
 
     React.useEffect(() => {
         const fetchPosts = async () => {
@@ -109,9 +110,8 @@ export default function BlogListingPage() {
                                         </div>
                                     </div>
 
-                                    <Link href={`/blog/${post.id}`} className="block relative h-[450px] rounded-3xl overflow-hidden mb-8 shadow-2xl">
-                                        <img src={post.image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
-                                        <div className="absolute inset-0 bg-navy-900/10 group-hover:bg-transparent transition-colors"></div>
+                                    <Link href={`/blog/${post.id}`} className="block relative rounded-3xl overflow-hidden mb-8 shadow-2xl">
+                                        <img src={post.image} alt={post.title} className="w-full group-hover:scale-105 transition-transform duration-700" />
                                     </Link>
 
                                     <p className="text-gray-600 text-lg leading-relaxed mb-10 line-clamp-3">
@@ -119,9 +119,9 @@ export default function BlogListingPage() {
                                     </p>
 
                                     <div className="flex flex-wrap items-center justify-between gap-6 pt-10 border-t border-light-100">
-                                        <div className="flex items-center gap-3">
+                                        <div className="flex flex-wrap items-center gap-3">
                                             <span className="text-xs font-bold text-navy-900 uppercase tracking-widest">Tags:</span>
-                                            {post.tags.map((tag: string) => (
+                                            {post.tags.slice(0, 5).map((tag: string) => (
                                                 <span
                                                     key={tag}
                                                     onClick={() => toggleTag(tag)}
@@ -133,6 +133,9 @@ export default function BlogListingPage() {
                                                     {tag}
                                                 </span>
                                             ))}
+                                            {post.tags.length > 5 && (
+                                                <span className="text-[10px] font-bold text-navy-400">+{post.tags.length - 5} more</span>
+                                            )}
                                         </div>
                                     </div>
                                 </article>
@@ -198,7 +201,7 @@ export default function BlogListingPage() {
                         <div className="bg-white rounded-3xl border border-light-200 p-8 shadow-sm">
                             <h3 className="text-xl font-black text-navy-900 mb-6">Popular tags</h3>
                             <div className="flex flex-wrap gap-2">
-                                {tags.map((tag: string) => (
+                                {(showAllTags ? tags : tags.slice(0, 10)).map((tag: string) => (
                                     <span
                                         key={tag}
                                         onClick={() => toggleTag(tag)}
@@ -211,6 +214,14 @@ export default function BlogListingPage() {
                                     </span>
                                 ))}
                             </div>
+                            {tags.length > 10 && (
+                                <button
+                                    onClick={() => setShowAllTags(!showAllTags)}
+                                    className="mt-6 text-sm font-bold text-gold-600 hover:text-gold-700 transition-colors w-full text-center"
+                                >
+                                    {showAllTags ? 'Show Less' : `See More Tags (${tags.length - 10})`}
+                                </button>
+                            )}
                         </div>
                     </aside>
 

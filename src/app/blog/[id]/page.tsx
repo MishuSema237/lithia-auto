@@ -15,6 +15,7 @@ export default function BlogPostPage({ params }: { params: Promise<{ id: string 
     const [posts, setPosts] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [searchQuery, setSearchQuery] = useState('');
+    const [showAllTags, setShowAllTags] = useState(false);
 
     useEffect(() => {
         const fetchAll = async () => {
@@ -109,8 +110,8 @@ export default function BlogPostPage({ params }: { params: Promise<{ id: string 
                         </div>
 
                         {/* Featured Image */}
-                        <div className="relative rounded-[30px] overflow-hidden mb-12 shadow-xl border border-light-200">
-                            <img src={post.image} alt={post.title} className="w-full h-auto object-cover max-h-[600px]" />
+                        <div className="relative rounded-[30px] overflow-hidden mb-12 shadow-xl border border-light-200 bg-light-50 flex items-center justify-center">
+                            <img src={post.image} alt={post.title} className="w-full h-auto object-contain sm:object-cover max-h-[600px]" />
                         </div>
 
                         {/* Content */}
@@ -231,10 +232,18 @@ export default function BlogPostPage({ params }: { params: Promise<{ id: string 
                         <div className="bg-white rounded-3xl border border-light-200 p-8 shadow-sm">
                             <h3 className="text-xl font-black text-navy-900 mb-6">Popular tags</h3>
                             <div className="flex flex-wrap gap-2">
-                                {sidebarTags.map((tag: string) => (
+                                {(showAllTags ? sidebarTags : sidebarTags.slice(0, 10)).map((tag: string) => (
                                     <span key={tag} onClick={() => router.push(`/blog?tag=${encodeURIComponent(tag)}`)} className="px-5 py-2.5 bg-white border border-light-200 rounded-xl text-xs font-bold text-navy-600 hover:border-gold-500 hover:text-gold-600 transition-all cursor-pointer">{tag}</span>
                                 ))}
                             </div>
+                            {sidebarTags.length > 10 && (
+                                <button
+                                    onClick={() => setShowAllTags(!showAllTags)}
+                                    className="mt-6 text-sm font-bold text-gold-600 hover:text-gold-700 transition-colors w-full text-center"
+                                >
+                                    {showAllTags ? 'Show Less' : `See More Tags (${sidebarTags.length - 10})`}
+                                </button>
+                            )}
                         </div>
                     </aside>
                 </div>
