@@ -17,7 +17,8 @@
   --color-navy-600: #2563EB;
   --color-navy-700: #1D4ED8;
   --color-navy-800: #1E40AF;
-  --color-navy-900: #111827; /* Near black */
+  --color-navy-900: #111827;
+  /* Near black */
 
   --color-gold-50: #F1F5F9;
   --color-gold-100: #E2E8F0;
@@ -67,6 +68,16 @@
 
   /* Custom Breakpoints */
   --breakpoint-mobile: 480px;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
 }
 
 @layer base {

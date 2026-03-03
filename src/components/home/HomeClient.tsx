@@ -267,50 +267,79 @@ export function HomeClient({
         <h2 className="text-3xl font-bold text-navy-900 mb-2">Find your dream car easily and quickly</h2>
         <p className="text-navy-600 mb-10 text-[15px]">Browse our premium collection of new and used cars.</p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="border border-light-300 rounded-xl p-8 hover:-translate-y-1 hover:border-gold-500 transition-all flex flex-col h-full bg-white">
-            <div className="text-gold-500 mb-6">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M14 16H9m10 0h3v-3.15a1 1 0 00-.84-.99L16 11l-2.7-3.6a2 2 0 00-1.6-.8H9.3a2 2 0 00-1.6.8L5 11l-4.16.86a1 1 0 00-.84.99V16h3" /><circle cx="6.5" cy="16.5" r="2.5" /><circle cx="16.5" cy="16.5" r="2.5" /><path d="M11 21l3-3m0 0l3 3m-3-3v6" /></svg>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Link href="/inventory" className="group relative overflow-hidden rounded-2xl border border-light-300 bg-white hover:border-gold-500 transition-all h-[180px] md:h-[240px] flex">
+            {/* Mobile Background / Desktop Side Image */}
+            <div className="absolute inset-0 md:relative md:w-1/2 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80&w=800"
+                alt="Browse inventory"
+                className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent md:hidden" />
             </div>
-            <h3 className="text-xl font-bold text-navy-900 mb-3">Browse inventory</h3>
-            <p className="text-gray-500 md:text-[15px] text-[12px] mb-6 flex-grow leading-relaxed">Find the ideal car for you and browse our premium inventory.</p>
-            <Link href="/inventory" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
-              Search inventory <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
+            <div className="relative z-10 w-full md:w-1/2 p-6 md:p-10 flex flex-col justify-center">
+              <h3 className="text-xl md:text-2xl font-bold text-white md:text-navy-900 mb-2">Browse inventory</h3>
+              <p className="text-white/80 md:text-navy-600 text-xs md:text-sm mb-4 line-clamp-2">Find the ideal car for you and browse our premium inventory.</p>
+              <div className="text-gold-500 font-bold flex items-center gap-2 text-sm">
+                Search inventory <ArrowRight className="h-4 w-4" />
+              </div>
+            </div>
+          </Link>
 
-          <div className="border border-light-300 rounded-xl p-8 hover:-translate-y-1 hover:border-gold-500 transition-all flex flex-col h-full bg-white">
-            <div className="text-gold-500 mb-6">
-              <Banknote size={48} strokeWidth={1.5} />
+          <Link href="/contact" className="group relative overflow-hidden rounded-2xl border border-light-300 bg-white hover:border-gold-500 transition-all h-[180px] md:h-[240px] flex">
+            <div className="absolute inset-0 md:relative md:w-1/2 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800"
+                alt="Trade-in Value"
+                className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent md:hidden" />
             </div>
-            <h3 className="text-xl font-bold text-navy-900 mb-3">Trade-in Value</h3>
-            <p className="text-gray-500 text-[15px] mb-6 flex-grow leading-relaxed">What's your car worth? Get the best value for your vehicle towards your purchase.</p>
-            <Link href="/contact" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg px-5 py-2.5 mobile:px-6 mobile:py-3 text-sm mobile:text-base flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors">
-              Get an estimate <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
+            <div className="relative z-10 w-full md:w-1/2 p-6 md:p-10 flex flex-col justify-center">
+              <h3 className="text-xl md:text-2xl font-bold text-white md:text-navy-900 mb-2">Trade-in Value</h3>
+              <p className="text-white/80 md:text-navy-600 text-xs md:text-sm mb-4 line-clamp-2">What's your car worth? Get the best value for your vehicle towards your purchase.</p>
+              <div className="text-gold-500 font-bold flex items-center gap-2 text-sm">
+                Get an estimate <ArrowRight className="h-4 w-4" />
+              </div>
+            </div>
+          </Link>
 
-          <div className="border border-light-300 rounded-xl p-8 hover:-translate-y-1 hover:border-gold-500 transition-all flex flex-col h-full bg-white">
-            <div className="text-gold-500 mb-6">
-              <ShieldCheck size={48} strokeWidth={1.5} />
+          <Link href="/inventory" className="group relative overflow-hidden rounded-2xl border border-light-300 bg-white hover:border-gold-500 transition-all h-[180px] md:h-[240px] flex">
+            <div className="absolute inset-0 md:relative md:w-1/2 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&q=80&w=800"
+                alt="Apply For Financing"
+                className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent md:hidden" />
             </div>
-            <h3 className="text-xl font-bold text-navy-900 mb-3">Apply For Financing</h3>
-            <p className="text-gray-500 text-[15px] mb-6 flex-grow leading-relaxed">Fill out our credit approval form for your next vehicle loan directly with us.</p>
-            <Link href="/inventory" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
-              Browse cars <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
+            <div className="relative z-10 w-full md:w-1/2 p-6 md:p-10 flex flex-col justify-center">
+              <h3 className="text-xl md:text-2xl font-bold text-white md:text-navy-900 mb-2">Apply For Financing</h3>
+              <p className="text-white/80 md:text-navy-600 text-xs md:text-sm mb-4 line-clamp-2">Fill out our credit approval form for your next vehicle loan directly with us.</p>
+              <div className="text-gold-500 font-bold flex items-center gap-2 text-sm">
+                Browse cars <ArrowRight className="h-4 w-4" />
+              </div>
+            </div>
+          </Link>
 
-          <div className="border border-light-300 rounded-xl p-8 hover:-translate-y-1 hover:border-gold-500 transition-all flex flex-col h-full bg-white">
-            <div className="text-gold-500 mb-6">
-              <Cog size={48} strokeWidth={1.5} />
+          <Link href="/about" className="group relative overflow-hidden rounded-2xl border border-light-300 bg-white hover:border-gold-500 transition-all h-[180px] md:h-[240px] flex">
+            <div className="absolute inset-0 md:relative md:w-1/2 overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&q=80&w=800"
+                alt="Expert Service"
+                className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/20 to-transparent md:hidden" />
             </div>
-            <h3 className="text-xl font-bold text-navy-900 mb-3">Expert Service</h3>
-            <p className="text-gray-500 text-[15px] mb-6 flex-grow leading-relaxed">Our expert technicians inspect every car before we sell it to you.</p>
-            <Link href="/about" className="text-navy-900 font-bold border-2 border-gold-500 rounded-lg flex items-center justify-center hover:bg-gold-500 hover:text-white transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
-              Contact support <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </div>
+            <div className="relative z-10 w-full md:w-1/2 p-6 md:p-10 flex flex-col justify-center">
+              <h3 className="text-xl md:text-2xl font-bold text-white md:text-navy-900 mb-2">Expert Service</h3>
+              <p className="text-white/80 md:text-navy-600 text-xs md:text-sm mb-4 line-clamp-2">Our expert technicians inspect every car before we sell it to you.</p>
+              <div className="text-gold-500 font-bold flex items-center gap-2 text-sm">
+                Contact support <ArrowRight className="h-4 w-4" />
+              </div>
+            </div>
+          </Link>
         </div>
       </section>
 
@@ -370,26 +399,38 @@ export function HomeClient({
       {/* 3. CTA Banners */}
       <section className="py-12 container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-navy-900 rounded-2xl overflow-hidden flex items-center p-8 md:p-12 min-h-[280px]">
+          <div className="relative bg-navy-900 rounded-2xl overflow-hidden flex items-center p-8 md:p-12 min-h-[300px] md:min-h-[280px]">
+            {/* Background Image for Mobile */}
+            <div className="absolute inset-0 md:hidden opacity-40">
+              <Image src={rollsRoyce} fill className="object-cover" alt="Rolls Royce Background" />
+              <div className="absolute inset-0 bg-navy-900/60" />
+            </div>
+
             <div className="hidden md:block">
               <Image src={rollsRoyce} width={240} alt="Rolls Royce" className="object-cover" />
             </div>
             <div className="relative z-10 w-full lg:w-1/2 lg:ml-auto">
-              <h2 className="text-[28px] font-bold text-gold-400 mb-3 leading-tight tracking-tight">Are you looking for a car?</h2>
-              <p className="text-white/90 text-[15px] mb-8 leading-relaxed">Save time and effort. Browse our extensive inventory of premium vehicles today.</p>
+              <h2 className="text-[28px] md:text-[32px] font-bold text-gold-400 mb-3 leading-tight tracking-tight">Are you looking for a car?</h2>
+              <p className="text-white/90 text-sm md:text-[15px] mb-8 leading-relaxed">Save time and effort. Browse our extensive inventory of premium vehicles today.</p>
               <Link href="/inventory" className="bg-gold-500 text-white font-bold rounded-lg inline-flex items-center hover:bg-gold-400 transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
                 Find cars <Search className="ml-2.5 h-4 w-4" />
               </Link>
             </div>
           </div>
 
-          <div className="bg-gold-500 rounded-2xl overflow-hidden flex items-center p-8 md:p-12 min-h-[280px]">
+          <div className="relative bg-gold-500 rounded-2xl overflow-hidden flex items-center p-8 md:p-12 min-h-[300px] md:min-h-[280px]">
+            {/* Background Image for Mobile */}
+            <div className="absolute inset-0 md:hidden opacity-30">
+              <Image src={benz} fill className="object-cover" alt="Mercedes Benz Background" />
+              <div className="absolute inset-0 bg-gold-500/40" />
+            </div>
+
             <div className="hidden md:block">
               <Image src={benz} width={240} alt="Mercedes Benz" className="object-cover" />
             </div>
             <div className="relative z-10 w-full lg:w-1/2 lg:ml-auto text-navy-900">
-              <h2 className="text-[28px] font-bold text-navy-900 mb-3 leading-tight tracking-tight">Need Financing?</h2>
-              <p className="text-white text-[15px] mb-8 leading-relaxed font-medium">Get pre-approved quickly. We offer flexible terms for your next vehicle purchase.</p>
+              <h2 className="text-[28px] md:text-[32px] font-bold text-navy-900 mb-3 leading-tight tracking-tight">Need Financing?</h2>
+              <p className="text-navy-900/80 text-sm md:text-[15px] mb-8 leading-relaxed font-bold">Get pre-approved quickly. We offer flexible terms for your next vehicle purchase.</p>
               <Link href="/contact" className="bg-navy-900 text-white font-bold rounded-lg inline-flex items-center hover:bg-navy-800 transition-colors text-sm mobile:text-base px-5 py-2.5 mobile:px-6 mobile:py-3">
                 Apply Now <ArrowRight className="ml-2.5 h-4 w-4" />
               </Link>
