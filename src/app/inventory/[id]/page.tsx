@@ -71,13 +71,16 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                 // Fetch recommended cars (similar make or bodyType, excluding current car)
                 if (currentCarInfo) {
                     try {
-                        const recRes = await fetch(`/api/inventory?limit=5`);
+                        const recParams = new URLSearchParams({
+                            limit: '4',
+                            exclude: currentCarInfo._id || currentCarInfo.id
+                        });
+                        if (currentCarInfo.make) recParams.append('make', currentCarInfo.make);
+                        if (currentCarInfo.bodyType) recParams.append('bodyType', currentCarInfo.bodyType);
+
+                        const recRes = await fetch(`/api/inventory?${recParams.toString()}`);
                         if (recRes.ok) {
-                            const allCars = await recRes.json();
-                            const recs = allCars
-                                .filter((c: any) => c._id !== currentCarInfo._id && c.id !== currentCarInfo.id)
-                                .filter((c: any) => c.make === currentCarInfo.make || c.bodyType === currentCarInfo.bodyType)
-                                .slice(0, 4);
+                            const recs = await recRes.json();
                             setRecommendedCars(recs);
                         }
                     } catch (e) {
@@ -355,29 +358,55 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                                 {addedToCart ? 'Added to Cart ✓' : 'Add to Cart'}
                             </button>
                         </div>
-
-                        {/* Recommended Vehicles */}
-                        {recommendedCars && recommendedCars.length > 0 && (
-                            <div id="recommended" className="bg-white border border-light-300 rounded-xl p-6">
-                                <h3 className="font-bold text-navy-900 text-lg mb-4 tracking-tight">Recommended Vehicles</h3>
-                                <div className="space-y-4">
-                                    {recommendedCars.map((item, i) => (
-                                        <Link key={i} href={`/inventory/${item._id || item.id}`} className="flex gap-4 group cursor-pointer border-b border-light-200 pb-4 last:border-0 last:pb-0">
-                                            <div className="w-[100px] h-[70px] rounded-lg overflow-hidden flex-shrink-0">
-                                                <img src={item.images?.[0] || item.image || `https://images.unsplash.com/photo-${item.img || '1628155930515-8d0ab7a66cd5'}?w=200&q=80`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Rec car" />
-                                            </div>
-                                            <div className="flex flex-col justify-center">
-                                                <h4 className="font-bold text-navy-900 text-[13px] leading-tight mb-1 group-hover:text-gold-500 transition-colors">{item.year} {item.make} {item.carModel || item.title}</h4>
-                                                <span className="font-bold text-navy-900 text-[14px]">${(item.price || 0).toLocaleString()}</span>
-                                            </div>
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
                     </aside>
                 </div>
             </div>
+
+            {/* You May Also Like Section */}
+            {recommendedCars && recommendedCars.length > 0 && (
+                <div id="recommended" className="bg-white border-t border-light-200 py-16 mt-16">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex items-center justify-between mb-10">
+                            <div>
+                                <span className="text-gold-500 font-bold text-sm tracking-widest uppercase mb-2 block">Curated for you</span>
+                                <h2 className="text-3xl md:text-4xl font-bold text-navy-900 tracking-tight">You May Also Like</h2>
+                            </div>
+                            <Link href="/inventory" className="text-navy-900 font-bold hover:text-gold-600 transition-colors flex items-center gap-2 group">
+                                View Full Inventory
+                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                            </Link>
+                        </div>
+
+                        <div className="flex overflow-x-auto pb-4 gap-6 snap-x snap-mandatory no-scrollbar sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-8 -mx-4 px-4 sm:mx-0 sm:px-0">
+                            {recommendedCars.map((item, i) => (
+                                <Link key={i} href={`/inventory/${item._id || item.id}`} className="flex-none w-[280px] sm:w-full snap-center flex flex-col group bg-[#f9fafb] rounded-2xl overflow-hidden border border-light-200 hover:border-gold-300 transition-all hover:scale-[1.02]">
+                                    <div className="relative aspect-[16/10] overflow-hidden">
+                                        <img
+                                            src={item.images?.[0] || item.image || `https://images.unsplash.com/photo-${item.img || '1628155930515-8d0ab7a66cd5'}?w=600&q=80`}
+                                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                                            alt="Rec car"
+                                        />
+                                        <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold text-navy-900 uppercase">
+                                            {item.bodyType || 'Premium'}
+                                        </div>
+                                    </div>
+                                    <div className="p-6">
+                                        <h4 className="font-bold text-navy-900 text-lg leading-tight mb-2 group-hover:text-gold-600 transition-colors">
+                                            {item.year} {item.make} {item.carModel || item.title}
+                                        </h4>
+                                        <div className="flex items-center justify-between">
+                                            <span className="font-black text-navy-900 text-xl">${(item.price || 0).toLocaleString()}</span>
+                                            <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center border border-light-200 group-hover:bg-gold-500 group-hover:border-gold-500 group-hover:text-white transition-all">
+                                                <ArrowRight className="w-4 h-4" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Lightbox Modal */}
             {isLightboxOpen && (
@@ -390,39 +419,42 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
                         <X className="w-8 h-8" />
                     </button>
 
-                    {/* Main Image */}
-                    <div className="relative w-full max-w-7xl h-full flex items-center justify-center">
+                    {/* Main Image Container */}
+                    <div className="relative w-full max-w-7xl h-[60vh] md:h-[75vh] flex items-center justify-center mb-8">
                         <img
                             src={(car?.images && car.images.length > 0 ? car.images : [carData.image])[activeLightboxIndex]}
                             alt={`${carData.title} view ${activeLightboxIndex + 1}`}
                             className="max-w-full max-h-full object-contain rounded-lg shadow-2xl animate-in zoom-in-95 duration-300"
                         />
-
-                        {/* Navigation Controls */}
-                        {(car?.images?.length || 0) > 1 && (
-                            <>
-                                <button
-                                    onClick={() => setActiveLightboxIndex(prev => (prev - 1 + car.images.length) % car.images.length)}
-                                    className="absolute left-0 p-4 rounded-full bg-white hover:bg-gold-500 text-navy-950 transition-all transform hover:scale-110 shadow-xl"
-                                >
-                                    <ArrowLeft className="w-8 h-8" />
-                                </button>
-                                <button
-                                    onClick={() => setActiveLightboxIndex(prev => (prev + 1) % car.images.length)}
-                                    className="absolute right-0 p-4 rounded-full bg-white hover:bg-gold-500 text-navy-950 transition-all transform hover:scale-110 shadow-xl"
-                                >
-                                    <ArrowRight className="w-8 h-8" />
-                                </button>
-                            </>
-                        )}
                     </div>
 
-                    {/* Image Counter & Title */}
-                    <div className="mt-6 flex flex-col items-center gap-2">
-                        <div className="text-white/60 font-bold uppercase tracking-widest text-xs">
-                            {activeLightboxIndex + 1} / {(car?.images?.length || 1)}
-                        </div>
-                        <h3 className="text-white text-lg font-bold tracking-tight">{carData.title}</h3>
+                    {/* Navigation Controls Wrapper - Moved Below Image */}
+                    <div className="flex flex-col items-center gap-6 w-full max-w-7xl">
+                        {(car?.images?.length || 0) > 1 && (
+                            <div className="flex items-center gap-8 relative px-20">
+                                <button
+                                    onClick={() => setActiveLightboxIndex(prev => (prev - 1 + car.images.length) % car.images.length)}
+                                    className="p-5 rounded-full bg-white hover:bg-gold-500 text-navy-950 transition-all transform hover:scale-110 shadow-2xl hover:shadow-gold-500/20 active:scale-95 group"
+                                >
+                                    <ArrowLeft className="w-8 h-8 transition-transform group-active:-translate-x-1" />
+                                </button>
+
+                                {/* Image Counter & Title (Nested inside Controls for better grouping) */}
+                                <div className="flex flex-col items-center min-w-[200px]">
+                                    <div className="text-white/40 font-bold uppercase tracking-[0.3em] text-[10px] mb-1">
+                                        Frame {activeLightboxIndex + 1} / {(car?.images?.length || 1)}
+                                    </div>
+                                    <h3 className="text-white text-xl font-black tracking-tight">{carData.title}</h3>
+                                </div>
+
+                                <button
+                                    onClick={() => setActiveLightboxIndex(prev => (prev + 1) % car.images.length)}
+                                    className="p-5 rounded-full bg-white hover:bg-gold-500 text-navy-950 transition-all transform hover:scale-110 shadow-2xl hover:shadow-gold-500/20 active:scale-95 group"
+                                >
+                                    <ArrowRight className="w-8 h-8 transition-transform group-active:translate-x-1" />
+                                </button>
+                            </div>
+                        )}
                     </div>
 
                     {/* Thumbnail Strip */}
@@ -444,4 +476,3 @@ export default function CarDetailsPage({ params }: { params: Promise<{ id: strin
         </div>
     );
 }
-

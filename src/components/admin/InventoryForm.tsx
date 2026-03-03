@@ -3,8 +3,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { ArrowLeft, Save, UploadCloud, Search, Loader2, X, Plus, Link as LinkIcon, Trash2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Save, UploadCloud, Search, Loader2, X, Plus, Link as LinkIcon, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { decodeVin } from '@/lib/vpic';
 import { useToast } from '@/components/ui/Toast';
 
@@ -393,7 +394,12 @@ export default function InventoryForm({ initialData, isEdit, id }: InventoryForm
                         <input type="text" name="stockNumber" value={formData.stockNumber} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" />
                     </div>
                     <div className="space-y-2">
-                        <label className="text-sm font-semibold text-navy-800">Make *</label>
+                        <label className="text-sm font-semibold text-navy-800 flex items-center justify-between">
+                            Make *
+                            <Link href="/admin/brands" className="text-[10px] text-gold-600 hover:text-gold-700 font-bold uppercase tracking-wider flex items-center">
+                                Manage Brands <ArrowRight className="h-3 w-3 ml-1" />
+                            </Link>
+                        </label>
                         <input type="text" name="make" value={formData.make} onChange={handleChange} className="w-full bg-light-50 border border-light-300 p-2 text-sm" required />
                     </div>
                     <div className="space-y-2">
