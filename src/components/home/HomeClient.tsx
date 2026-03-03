@@ -84,7 +84,7 @@ export function HomeClient({
   // Dynamic Brands Logic
   const brandsWithStock = dbMakes.length > 0 ? dbMakes.map(m => ({
     name: m.name,
-    count: m.count,
+    count: combinedCars.filter((c: any) => c.make === m.name).length,
     img: m.logoUrl
   })) : Array.from(new Set(combinedCars.map((c: any) => c.make))).map((make: string) => {
     const count = combinedCars.filter((c: any) => c.make === make).length;
